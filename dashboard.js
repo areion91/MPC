@@ -1,3 +1,6 @@
+document.getElementById("avatar").src =
+    user.picture;
+
 const user = JSON.parse(localStorage.getItem("s4s_user"));
 
 // ======================

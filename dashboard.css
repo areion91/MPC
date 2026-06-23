@@ -1,10 +1,158 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#000;
+    color:#fff;
+
+    font-family:monospace;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    min-height:100vh;
+
+    padding:20px;
+
+    overflow:hidden;
+}
+
+.container{
+    width:100%;
+    display:flex;
+    justify-content:center;
+}
+
+.box{
+    position:relative;
+
+    width:100%;
+    max-width:450px;
+
+    border:2px solid #fff;
+
+    padding:35px 25px;
+
+    display:flex;
+    flex-direction:column;
+
+    gap:25px;
+}
+
+/* PROFILE */
+
+#profileBtn{
+    position:absolute;
+
+    top:20px;
+    right:20px;
+
+    width:42px;
+    height:42px;
+
+    cursor:pointer;
+}
+
+#avatar{
+    width:100%;
+    height:100%;
+
+    border-radius:50%;
+    border:2px solid #fff;
+
+    object-fit:cover;
+}
+
+/* HEADER */
+
+.title{
+    text-align:center;
+}
+
+.title h1{
+    font-size:30px;
+    letter-spacing:4px;
+}
+
+.title p{
+    font-size:12px;
+
+    letter-spacing:3px;
+
+    opacity:.7;
+
+    margin-top:10px;
+}
+
+/* MUSIC NOTES */
+
+.notes{
+    font-size:20px;
+
+    text-align:center;
+
+    animation:swing 2s ease-in-out infinite;
+}
+
+@keyframes swing{
+
+    0%{
+        transform:translateX(-8px);
+    }
+
+    50%{
+        transform:translateX(8px);
+    }
+
+    100%{
+        transform:translateX(-8px);
+    }
+
+}
+
+/* WELCOME */
+
+#welcome{
+    text-align:center;
+
+    font-size:14px;
+
+    letter-spacing:2px;
+}
+
+/* PLAYLIST */
+
+.playlist{
+    border-top:1px solid #fff;
+
+    padding:20px 0;
+}
+
+.playlist:last-of-type{
+    border-bottom:1px solid #fff;
+}
+
+.playlist h2{
+    font-size:18px;
+
+    margin-bottom:8px;
+
+    display:flex;
+    align-items:center;
+
+    gap:8px;
+}
+
 .playlist p{
     font-size:12px;
 
     margin-bottom:15px;
 
     display:flex;
-
     align-items:center;
 
     gap:8px;
@@ -24,22 +172,97 @@
 
     font-size:13px;
 
-    margin-left:6px;
-
-    opacity:1;
-
     color:#fff;
+
+    opacity:.6;
 
     transition:.2s;
 }
 
 .edit:hover{
-    transform:scale(1.15);
+    opacity:1;
+    transform:scale(1.1);
 }
 
-/* Khusus pensil deskripsi */
+/* BUTTON */
 
-#editIndieDesc,
-#editPrimeDesc{
-    display:none;
+button{
+    width:100%;
+
+    height:50px;
+
+    background:#000;
+
+    color:#fff;
+
+    border:2px solid #fff;
+
+    font-family:monospace;
+
+    font-size:14px;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+button:hover{
+    background:#fff;
+
+    color:#000;
+}
+
+/* EQUALIZER */
+
+.equalizer{
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-end;
+
+    width:100%;
+
+    height:50px;
+
+    margin-top:30px;
+}
+
+.equalizer span{
+    flex:1;
+
+    margin:0 2px;
+
+    height:10px;
+
+    background:#fff;
+
+    transition:height .12s linear;
+}
+
+/* MOBILE */
+
+@media(max-width:480px){
+
+    .box{
+        padding:30px 20px;
+    }
+
+    .title h1{
+        font-size:24px;
+    }
+
+    button{
+        font-size:12px;
+    }
+
+    #profileBtn{
+        width:38px;
+        height:38px;
+    }
+
+    .edit{
+        font-size:12px;
+    }
+
 }

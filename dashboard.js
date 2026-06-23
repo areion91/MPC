@@ -80,16 +80,26 @@ if (avatar && user.picture) {
 // ======================
 // Open Profile
 // ======================
-document
-    .getElementById(
+const profileBtn =
+    document.getElementById(
         "profileBtn"
-    )
-    .onclick = () => {
+    );
 
-        window.location.href =
-            "./profile.html";
+if (profileBtn) {
 
-    };
+    profileBtn.addEventListener(
+        "click",
+        () => {
+
+            alert("PROFILE CLICKED");
+
+            window.location.href =
+                "./profile.html";
+
+        }
+    );
+
+}
 
 // ======================
 // Admin

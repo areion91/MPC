@@ -78,12 +78,18 @@ if (
 }
 
 // ======================
+// PRIMARY LASTFM
+// ======================
+let currentPrimary = 1;
+
+// ======================
 // LOAD PROFILE
 // ======================
 get(
     ref(
         db,
-        "users/" + user.email.replace(/\./g,"_")
+        "users/" +
+        user.email.replace(/\./g,"_")
     )
 ).then(snapshot => {
 
@@ -106,8 +112,11 @@ get(
     // LAST FM
     if (data.lastfm) {
 
+        visibleRows =
+            data.lastfm.length;
+
         data.lastfm.forEach(
-            (name, index) => {
+            (name,index) => {
 
                 const num =
                     index + 1;
@@ -143,6 +152,9 @@ get(
     // PRIMARY
     if (data.primary) {
 
+        currentPrimary =
+            data.primary;
+
         document
             .querySelectorAll(
                 ".primaryBtn"
@@ -154,12 +166,9 @@ get(
 
             });
 
-        const index =
-            data.primary;
-
         const btn =
             document.querySelector(
-                `[data-slot="${index}"]`
+                `[data-slot="${currentPrimary}"]`
             );
 
         if (btn) {
@@ -214,7 +223,7 @@ document
     };
 
 // ======================
-// PRIMARY
+// PRIMARY BUTTON
 // ======================
 document
     .querySelectorAll(
@@ -238,9 +247,10 @@ document
             btn.textContent =
                 "●";
 
-            savePrimary(
-                btn.dataset.slot
-            );
+            currentPrimary =
+                btn.dataset.slot;
+
+            savePrimary();
 
         };
 
@@ -249,7 +259,7 @@ document
 // ======================
 // SAVE PRIMARY
 // ======================
-function savePrimary(slot) {
+function savePrimary() {
 
     set(
         ref(
@@ -261,7 +271,7 @@ function savePrimary(slot) {
             ) +
             "/primary"
         ),
-        slot
+        currentPrimary
     );
 
 }
@@ -283,28 +293,23 @@ document
             i++
         ) {
 
-            const value =
-                document
-                    .getElementById(
-                        "lastfm" + i
-                    )
-                    .value
-                    .trim();
+            const input =
+                document.getElementById(
+                    "lastfm" + i
+                );
 
-            if (value) {
+            if (
+                input &&
+                input.value.trim()
+            ) {
 
                 lastfm.push(
-                    value
+                    input.value.trim()
                 );
 
             }
 
         }
-
-        const active =
-            document.querySelector(
-                ".primaryBtn"
-            );
 
         set(
             ref(
@@ -335,11 +340,7 @@ document
                     lastfm,
 
                 primary:
-                    document
-                        .querySelector(
-                            "span[data-slot][style]"
-                        )?.dataset
-                        .slot || 1
+                    currentPrimary
 
             }
 

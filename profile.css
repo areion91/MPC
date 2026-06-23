@@ -1,281 +1,388 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+    getDatabase,
+    ref,
+    set,
+    get
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+// ======================
+// FIREBASE
+// ======================
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyD1qVByOVP_oLxyjVrE7zLNAHKwA5o3IyU",
+
+    authDomain:
+        "stream4stream-eda97.firebaseapp.com",
+
+    databaseURL:
+        "https://stream4stream-eda97-default-rtdb.asia-southeast1.firebasedatabase.app",
+
+    projectId:
+        "stream4stream-eda97",
+
+    storageBucket:
+        "stream4stream-eda97.firebasestorage.app",
+
+    messagingSenderId:
+        "315567847124",
+
+    appId:
+        "1:315567847124:web:8ce342a02b38b030f26d41"
+
+};
+
+const app =
+    initializeApp(firebaseConfig);
+
+const db =
+    getDatabase(app);
+
+// ======================
+// USER
+// ======================
+const user = JSON.parse(
+    localStorage.getItem(
+        "s4s_user"
+    )
+);
+
+if (!user) {
+
+    window.location.href =
+        "./index.html";
+
 }
 
-body{
-    background:#000;
-    color:#fff;
+// ======================
+// AVATAR
+// ======================
+const avatar =
+    document.getElementById(
+        "profileAvatar"
+    );
 
-    font-family:monospace;
+if (
+    avatar &&
+    user.picture
+) {
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    avatar.src =
+        user.picture;
 
-    min-height:100vh;
-
-    padding:20px;
 }
 
-.container{
-    width:100%;
+// ======================
+// USER PATH
+// ======================
+const userPath =
+    "users/" +
+    user.email.replace(
+        /\./g,
+        "_"
+    );
+
+let selectedPrimary = 1;
+
+// ======================
+// LOAD PROFILE
+// ======================
+get(
+    ref(
+        db,
+        userPath
+    )
+).then(snapshot => {
+
+    if (!snapshot.exists())
+        return;
+
+    const data =
+        snapshot.val();
+
+    document.getElementById(
+        "profileName"
+    ).value =
+        data.name || "";
+
+    document.getElementById(
+        "profilePhone"
+    ).value =
+        data.phone || "";
+
+    // LASTFM
+    if (data.lastfm) {
+
+        data.lastfm.forEach(
+            (name, index) => {
+
+                const slot =
+                    index + 1;
+
+                const input =
+                    document.getElementById(
+                        "lastfm" + slot
+                    );
+
+                if (input) {
+
+                    input.value =
+                        name;
+
+                }
+
+                if (slot > 1) {
+
+                    document
+                        .getElementById(
+                            "row" + slot
+                        )
+                        .style.display =
+                        "flex";
+
+                }
+
+            }
+        );
 
-    display:flex;
-
-    justify-content:center;
-}
-
-.box{
-    position:relative;
-
-    width:100%;
-
-    max-width:450px;
-
-    border:2px solid #fff;
-
-    padding:35px 25px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:20px;
-}
-
-/* BACK */
-
-#backBtn{
-    position:absolute;
-
-    top:20px;
-
-    left:20px;
-
-    font-size:13px;
-
-    cursor:pointer;
-
-    opacity:.7;
-
-    transition:.2s;
-}
-
-#backBtn:hover{
-    opacity:1;
-}
-
-/* TITLE */
-
-h1{
-    text-align:center;
-
-    letter-spacing:4px;
-
-    font-size:28px;
-}
-
-/* AVATAR */
-
-.avatarBox{
-    display:flex;
-
-    justify-content:center;
-}
-
-#profileAvatar{
-    width:120px;
-
-    height:120px;
-
-    border-radius:50%;
-
-    border:2px solid #fff;
-
-    object-fit:cover;
-}
-
-/* INPUT */
-
-.inputBox{
-    display:flex;
-
-    flex-direction:column;
-
-    gap:10px;
-}
-
-label{
-    font-size:12px;
-
-    letter-spacing:2px;
-
-    opacity:.7;
-}
-
-input{
-    width:100%;
-
-    height:50px;
-
-    background:#000;
-
-    color:#fff;
-
-    border:2px solid #fff;
-
-    padding:0 15px;
-
-    font-family:monospace;
-
-    font-size:14px;
-
-    outline:none;
-}
-
-input:focus{
-    background:#111;
-}
-
-/* LASTFM */
-
-.lastfmRow{
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
-
-    margin-bottom:10px;
-}
-
-.lastfmRow input{
-    flex:1;
-}
-
-.primaryBtn{
-    width:28px;
-
-    text-align:center;
-
-    cursor:pointer;
-
-    font-size:20px;
-
-    opacity:.5;
-
-    transition:.2s;
-}
-
-.primaryBtn:hover{
-    opacity:1;
-}
-
-.primaryActive{
-    opacity:1;
-}
-
-/* BUTTON */
-
-button{
-    width:100%;
-
-    height:50px;
-
-    background:#000;
-
-    color:#fff;
-
-    border:2px solid #fff;
-
-    font-family:monospace;
-
-    font-size:14px;
-
-    cursor:pointer;
-
-    transition:.2s;
-}
-
-button:hover{
-    background:#fff;
-
-    color:#000;
-}
-
-/* TOAST */
-
-#toast{
-    position:fixed;
-
-    top:20px;
-
-    right:20px;
-
-    background:#000;
-
-    color:#fff;
-
-    border:2px solid #fff;
-
-    padding:12px 20px;
-
-    font-size:12px;
-
-    letter-spacing:2px;
-
-    opacity:0;
-
-    transform:translateY(-20px);
-
-    transition:.25s;
-
-    pointer-events:none;
-
-    z-index:99999;
-}
-
-#toast.show{
-    opacity:1;
-
-    transform:translateY(0);
-}
-
-/* MOBILE */
-
-@media(max-width:480px){
-
-    .box{
-        padding:30px 20px;
     }
 
-    h1{
-        font-size:24px;
+    // PRIMARY
+    if (data.primary) {
+
+        selectedPrimary =
+            Number(
+                data.primary
+            );
+
     }
 
-    #profileAvatar{
-        width:100px;
+    updatePrimary();
 
-        height:100px;
-    }
+});
 
-    input,
-    button{
-        font-size:12px;
-    }
+// ======================
+// PRIMARY UI
+// ======================
+function updatePrimary() {
 
-    #backBtn{
-        font-size:12px;
-    }
+    document
+        .querySelectorAll(
+            ".primaryBtn"
+        )
+        .forEach(btn => {
 
-    #toast{
-        top:15px;
+            if (
+                Number(
+                    btn.dataset.slot
+                ) === selectedPrimary
+            ) {
 
-        right:15px;
+                btn.textContent =
+                    "●";
 
-        font-size:11px;
-    }
+            } else {
+
+                btn.textContent =
+                    "○";
+
+            }
+
+        });
 
 }
+
+// ======================
+// PRIMARY CLICK
+// ======================
+document
+    .querySelectorAll(
+        ".primaryBtn"
+    )
+    .forEach(btn => {
+
+        btn.onclick = () => {
+
+            selectedPrimary =
+                Number(
+                    btn.dataset.slot
+                );
+
+            updatePrimary();
+
+            set(
+                ref(
+                    db,
+                    userPath +
+                    "/primary"
+                ),
+                selectedPrimary
+            );
+
+        };
+
+    });
+
+// ======================
+// ADD LASTFM
+// ======================
+let visibleRows = 1;
+
+document
+    .getElementById(
+        "addLastfm"
+    )
+    .onclick = () => {
+
+        if (
+            visibleRows >= 5
+        )
+            return;
+
+        visibleRows++;
+
+        document
+            .getElementById(
+                "row" +
+                visibleRows
+            )
+            .style.display =
+            "flex";
+
+        if (
+            visibleRows === 5
+        ) {
+
+            document
+                .getElementById(
+                    "addLastfm"
+                )
+                .style.display =
+                "none";
+
+        }
+
+    };
+
+// ======================
+// SAVE PROFILE
+// ======================
+document
+    .getElementById(
+        "saveProfile"
+    )
+    .onclick = () => {
+
+        const lastfm = [];
+
+        for (
+            let i = 1;
+            i <= 5;
+            i++
+        ) {
+
+            const input =
+                document.getElementById(
+                    "lastfm" + i
+                );
+
+            if (
+                input &&
+                input.value.trim()
+            ) {
+
+                lastfm.push(
+                    input.value.trim()
+                );
+
+            }
+
+        }
+
+        set(
+            ref(
+                db,
+                userPath
+            ),
+            {
+
+                name:
+                    document
+                        .getElementById(
+                            "profileName"
+                        )
+                        .value,
+
+                phone:
+                    document
+                        .getElementById(
+                            "profilePhone"
+                        )
+                        .value,
+
+                lastfm:
+                    lastfm,
+
+                primary:
+                    selectedPrimary
+
+            }
+
+        );
+
+        // TOAST
+        const toast =
+            document.getElementById(
+                "toast"
+            );
+
+        toast.classList.add(
+            "show"
+        );
+
+        setTimeout(() => {
+
+            toast.classList.remove(
+                "show"
+            );
+
+        }, 2500);
+
+    };
+
+// ======================
+// BACK
+// ======================
+document
+    .getElementById(
+        "backBtn"
+    )
+    .onclick = () => {
+
+        window.location.href =
+            "./dashboard.html";
+
+    };
+
+// ======================
+// LOGOUT
+// ======================
+document
+    .getElementById(
+        "logout"
+    )
+    .onclick = () => {
+
+        localStorage.removeItem(
+            "s4s_user"
+        );
+
+        window.location.href =
+            "./index.html";
+
+    };

@@ -1,388 +1,281 @@
-import {
-    initializeApp
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-    getDatabase,
-    ref,
-    set,
-    get
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-// ======================
-// FIREBASE
-// ======================
-const firebaseConfig = {
-
-    apiKey:
-        "AIzaSyD1qVByOVP_oLxyjVrE7zLNAHKwA5o3IyU",
-
-    authDomain:
-        "stream4stream-eda97.firebaseapp.com",
-
-    databaseURL:
-        "https://stream4stream-eda97-default-rtdb.asia-southeast1.firebasedatabase.app",
-
-    projectId:
-        "stream4stream-eda97",
-
-    storageBucket:
-        "stream4stream-eda97.firebasestorage.app",
-
-    messagingSenderId:
-        "315567847124",
-
-    appId:
-        "1:315567847124:web:8ce342a02b38b030f26d41"
-
-};
-
-const app =
-    initializeApp(firebaseConfig);
-
-const db =
-    getDatabase(app);
-
-// ======================
-// USER
-// ======================
-const user = JSON.parse(
-    localStorage.getItem(
-        "s4s_user"
-    )
-);
-
-if (!user) {
-
-    window.location.href =
-        "./index.html";
-
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-// ======================
-// AVATAR
-// ======================
-const avatar =
-    document.getElementById(
-        "profileAvatar"
-    );
+body{
+    background:#000;
+    color:#fff;
 
-if (
-    avatar &&
-    user.picture
-) {
+    font-family:monospace;
 
-    avatar.src =
-        user.picture;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
+    min-height:100vh;
+
+    padding:20px;
 }
 
-// ======================
-// USER PATH
-// ======================
-const userPath =
-    "users/" +
-    user.email.replace(
-        /\./g,
-        "_"
-    );
+.container{
+    width:100%;
 
-let selectedPrimary = 1;
+    display:flex;
 
-// ======================
-// LOAD PROFILE
-// ======================
-get(
-    ref(
-        db,
-        userPath
-    )
-).then(snapshot => {
+    justify-content:center;
+}
 
-    if (!snapshot.exists())
-        return;
+.box{
+    position:relative;
 
-    const data =
-        snapshot.val();
+    width:100%;
 
-    document.getElementById(
-        "profileName"
-    ).value =
-        data.name || "";
+    max-width:450px;
 
-    document.getElementById(
-        "profilePhone"
-    ).value =
-        data.phone || "";
+    border:2px solid #fff;
 
-    // LASTFM
-    if (data.lastfm) {
+    padding:35px 25px;
 
-        data.lastfm.forEach(
-            (name, index) => {
+    display:flex;
 
-                const slot =
-                    index + 1;
+    flex-direction:column;
 
-                const input =
-                    document.getElementById(
-                        "lastfm" + slot
-                    );
+    gap:20px;
+}
 
-                if (input) {
+/* BACK */
 
-                    input.value =
-                        name;
+#backBtn{
+    position:absolute;
 
-                }
+    top:20px;
 
-                if (slot > 1) {
+    left:20px;
 
-                    document
-                        .getElementById(
-                            "row" + slot
-                        )
-                        .style.display =
-                        "flex";
+    font-size:13px;
 
-                }
+    cursor:pointer;
 
-            }
-        );
+    opacity:.7;
 
+    transition:.2s;
+}
+
+#backBtn:hover{
+    opacity:1;
+}
+
+/* TITLE */
+
+h1{
+    text-align:center;
+
+    letter-spacing:4px;
+
+    font-size:28px;
+}
+
+/* AVATAR */
+
+.avatarBox{
+    display:flex;
+
+    justify-content:center;
+}
+
+#profileAvatar{
+    width:120px;
+
+    height:120px;
+
+    border-radius:50%;
+
+    border:2px solid #fff;
+
+    object-fit:cover;
+}
+
+/* INPUT */
+
+.inputBox{
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+}
+
+label{
+    font-size:12px;
+
+    letter-spacing:2px;
+
+    opacity:.7;
+}
+
+input{
+    width:100%;
+
+    height:50px;
+
+    background:#000;
+
+    color:#fff;
+
+    border:2px solid #fff;
+
+    padding:0 15px;
+
+    font-family:monospace;
+
+    font-size:14px;
+
+    outline:none;
+}
+
+input:focus{
+    background:#111;
+}
+
+/* LASTFM */
+
+.lastfmRow{
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-bottom:10px;
+}
+
+.lastfmRow input{
+    flex:1;
+}
+
+.primaryBtn{
+    width:28px;
+
+    text-align:center;
+
+    cursor:pointer;
+
+    font-size:20px;
+
+    opacity:.5;
+
+    transition:.2s;
+}
+
+.primaryBtn:hover{
+    opacity:1;
+}
+
+.primaryActive{
+    opacity:1;
+}
+
+/* BUTTON */
+
+button{
+    width:100%;
+
+    height:50px;
+
+    background:#000;
+
+    color:#fff;
+
+    border:2px solid #fff;
+
+    font-family:monospace;
+
+    font-size:14px;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+button:hover{
+    background:#fff;
+
+    color:#000;
+}
+
+/* TOAST */
+
+#toast{
+    position:fixed;
+
+    top:20px;
+
+    right:20px;
+
+    background:#000;
+
+    color:#fff;
+
+    border:2px solid #fff;
+
+    padding:12px 20px;
+
+    font-size:12px;
+
+    letter-spacing:2px;
+
+    opacity:0;
+
+    transform:translateY(-20px);
+
+    transition:.25s;
+
+    pointer-events:none;
+
+    z-index:99999;
+}
+
+#toast.show{
+    opacity:1;
+
+    transform:translateY(0);
+}
+
+/* MOBILE */
+
+@media(max-width:480px){
+
+    .box{
+        padding:30px 20px;
     }
 
-    // PRIMARY
-    if (data.primary) {
-
-        selectedPrimary =
-            Number(
-                data.primary
-            );
-
+    h1{
+        font-size:24px;
     }
 
-    updatePrimary();
+    #profileAvatar{
+        width:100px;
 
-});
+        height:100px;
+    }
 
-// ======================
-// PRIMARY UI
-// ======================
-function updatePrimary() {
+    input,
+    button{
+        font-size:12px;
+    }
 
-    document
-        .querySelectorAll(
-            ".primaryBtn"
-        )
-        .forEach(btn => {
+    #backBtn{
+        font-size:12px;
+    }
 
-            if (
-                Number(
-                    btn.dataset.slot
-                ) === selectedPrimary
-            ) {
+    #toast{
+        top:15px;
 
-                btn.textContent =
-                    "●";
+        right:15px;
 
-            } else {
-
-                btn.textContent =
-                    "○";
-
-            }
-
-        });
+        font-size:11px;
+    }
 
 }
-
-// ======================
-// PRIMARY CLICK
-// ======================
-document
-    .querySelectorAll(
-        ".primaryBtn"
-    )
-    .forEach(btn => {
-
-        btn.onclick = () => {
-
-            selectedPrimary =
-                Number(
-                    btn.dataset.slot
-                );
-
-            updatePrimary();
-
-            set(
-                ref(
-                    db,
-                    userPath +
-                    "/primary"
-                ),
-                selectedPrimary
-            );
-
-        };
-
-    });
-
-// ======================
-// ADD LASTFM
-// ======================
-let visibleRows = 1;
-
-document
-    .getElementById(
-        "addLastfm"
-    )
-    .onclick = () => {
-
-        if (
-            visibleRows >= 5
-        )
-            return;
-
-        visibleRows++;
-
-        document
-            .getElementById(
-                "row" +
-                visibleRows
-            )
-            .style.display =
-            "flex";
-
-        if (
-            visibleRows === 5
-        ) {
-
-            document
-                .getElementById(
-                    "addLastfm"
-                )
-                .style.display =
-                "none";
-
-        }
-
-    };
-
-// ======================
-// SAVE PROFILE
-// ======================
-document
-    .getElementById(
-        "saveProfile"
-    )
-    .onclick = () => {
-
-        const lastfm = [];
-
-        for (
-            let i = 1;
-            i <= 5;
-            i++
-        ) {
-
-            const input =
-                document.getElementById(
-                    "lastfm" + i
-                );
-
-            if (
-                input &&
-                input.value.trim()
-            ) {
-
-                lastfm.push(
-                    input.value.trim()
-                );
-
-            }
-
-        }
-
-        set(
-            ref(
-                db,
-                userPath
-            ),
-            {
-
-                name:
-                    document
-                        .getElementById(
-                            "profileName"
-                        )
-                        .value,
-
-                phone:
-                    document
-                        .getElementById(
-                            "profilePhone"
-                        )
-                        .value,
-
-                lastfm:
-                    lastfm,
-
-                primary:
-                    selectedPrimary
-
-            }
-
-        );
-
-        // TOAST
-        const toast =
-            document.getElementById(
-                "toast"
-            );
-
-        toast.classList.add(
-            "show"
-        );
-
-        setTimeout(() => {
-
-            toast.classList.remove(
-                "show"
-            );
-
-        }, 2500);
-
-    };
-
-// ======================
-// BACK
-// ======================
-document
-    .getElementById(
-        "backBtn"
-    )
-    .onclick = () => {
-
-        window.location.href =
-            "./dashboard.html";
-
-    };
-
-// ======================
-// LOGOUT
-// ======================
-document
-    .getElementById(
-        "logout"
-    )
-    .onclick = () => {
-
-        localStorage.removeItem(
-            "s4s_user"
-        );
-
-        window.location.href =
-            "./index.html";
-
-    };

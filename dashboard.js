@@ -119,34 +119,68 @@ const isAdmin =
 // ======================
 // Welcome
 // ======================
-if (isAdmin) {
+const welcome =
+    document.getElementById(
+        "welcome"
+    );
 
-    document
-        .getElementById(
-            "welcome"
-        )
-        .textContent =
-        "WELCOME, ADMIN";
+if (welcome) {
 
-} else {
+    if (isAdmin) {
 
-    document
-        .getElementById(
-            "welcome"
-        )
-        .textContent =
-        `WELCOME, ${
-            (
-                user.name ||
-                "USER"
-            )
-            .toUpperCase()
-        }`;
+        welcome.textContent =
+            "WELCOME, ADMIN";
+
+    } else {
+
+        welcome.textContent =
+            `WELCOME, ${
+                (
+                    user.name ||
+                    "USER"
+                )
+                .toUpperCase()
+            }`;
+
+    }
 
 }
 
 // ======================
-// Load Firebase Playlist
+// Show Create Playlist
+// ======================
+const createBtn =
+    document.getElementById(
+        "createPlaylist"
+    );
+
+if (
+    isAdmin &&
+    createBtn
+) {
+
+    createBtn.style.display =
+        "block";
+
+}
+
+// ======================
+// Create Playlist
+// ======================
+if (createBtn) {
+
+    createBtn.onclick =
+        () => {
+
+            window.location.href =
+                "./create.html";
+
+        };
+
+}
+
+// ======================
+// Load Playlist
 // ======================
 onValue(
     ref(db, "playlist"),
@@ -157,39 +191,47 @@ onValue(
 
         if (!data) return;
 
-        document
-            .getElementById(
+        const indieTitle =
+            document.getElementById(
                 "indieTitle"
-            )
-            .textContent =
-            data.indieTitle;
+            );
 
-        document
-            .getElementById(
+        const indieDesc =
+            document.getElementById(
                 "indieDesc"
-            )
-            .textContent =
-            data.indieDesc;
+            );
 
-        document
-            .getElementById(
+        const primeTitle =
+            document.getElementById(
                 "primeTitle"
-            )
-            .textContent =
-            data.primeTitle;
+            );
 
-        document
-            .getElementById(
+        const primeDesc =
+            document.getElementById(
                 "primeDesc"
-            )
-            .textContent =
-            data.primeDesc;
+            );
+
+        if (indieTitle)
+            indieTitle.textContent =
+                data.indieTitle;
+
+        if (indieDesc)
+            indieDesc.textContent =
+                data.indieDesc;
+
+        if (primeTitle)
+            primeTitle.textContent =
+                data.primeTitle;
+
+        if (primeDesc)
+            primeDesc.textContent =
+                data.primeDesc;
 
     }
 );
 
 // ======================
-// Tampilkan Pensil
+// Show Edit Icon
 // ======================
 if (isAdmin) {
 
@@ -207,159 +249,7 @@ if (isAdmin) {
 }
 
 // ======================
-// Edit Indie Title
-// ======================
-document
-    .getElementById(
-        "editIndieTitle"
-    )
-    .onclick = () => {
-
-        if (!isAdmin) return;
-
-        const value = prompt(
-            "INDIE TITLE",
-            document
-                .getElementById(
-                    "indieTitle"
-                )
-                .textContent
-        );
-
-        if (
-            value !== null &&
-            value.trim() !== ""
-        ) {
-
-            document
-                .getElementById(
-                    "indieTitle"
-                )
-                .textContent =
-                value;
-
-            savePlaylist();
-
-        }
-
-    };
-
-// ======================
-// Edit Indie Desc
-// ======================
-document
-    .getElementById(
-        "editIndieDesc"
-    )
-    .onclick = () => {
-
-        if (!isAdmin) return;
-
-        const value = prompt(
-            "INDIE DESCRIPTION",
-            document
-                .getElementById(
-                    "indieDesc"
-                )
-                .textContent
-        );
-
-        if (
-            value !== null &&
-            value.trim() !== ""
-        ) {
-
-            document
-                .getElementById(
-                    "indieDesc"
-                )
-                .textContent =
-                value;
-
-            savePlaylist();
-
-        }
-
-    };
-
-// ======================
-// Edit Prime Title
-// ======================
-document
-    .getElementById(
-        "editPrimeTitle"
-    )
-    .onclick = () => {
-
-        if (!isAdmin) return;
-
-        const value = prompt(
-            "PRIME TITLE",
-            document
-                .getElementById(
-                    "primeTitle"
-                )
-                .textContent
-        );
-
-        if (
-            value !== null &&
-            value.trim() !== ""
-        ) {
-
-            document
-                .getElementById(
-                    "primeTitle"
-                )
-                .textContent =
-                value;
-
-            savePlaylist();
-
-        }
-
-    };
-
-// ======================
-// Edit Prime Desc
-// ======================
-document
-    .getElementById(
-        "editPrimeDesc"
-    )
-    .onclick = () => {
-
-        if (!isAdmin) return;
-
-        const value = prompt(
-            "PRIME DESCRIPTION",
-            document
-                .getElementById(
-                    "primeDesc"
-                )
-                .textContent
-        );
-
-        if (
-            value !== null &&
-            value.trim() !== ""
-        ) {
-
-            document
-                .getElementById(
-                    "primeDesc"
-                )
-                .textContent =
-                value;
-
-            savePlaylist();
-
-        }
-
-    };
-
-// ======================
-// Save Firebase
+// Save Playlist
 // ======================
 function savePlaylist() {
 
@@ -404,47 +294,197 @@ function savePlaylist() {
 }
 
 // ======================
-// Playlist
+// Edit Indie Title
+// ======================
+document
+    .getElementById(
+        "editIndieTitle"
+    )?.addEventListener(
+        "click",
+        () => {
+
+            if (!isAdmin) return;
+
+            const value =
+                prompt(
+                    "INDIE TITLE",
+                    document
+                        .getElementById(
+                            "indieTitle"
+                        )
+                        .textContent
+                );
+
+            if (
+                value &&
+                value.trim() !== ""
+            ) {
+
+                document
+                    .getElementById(
+                        "indieTitle"
+                    )
+                    .textContent =
+                    value;
+
+                savePlaylist();
+
+            }
+
+        }
+    );
+
+// ======================
+// Edit Indie Desc
+// ======================
+document
+    .getElementById(
+        "editIndieDesc"
+    )?.addEventListener(
+        "click",
+        () => {
+
+            if (!isAdmin) return;
+
+            const value =
+                prompt(
+                    "INDIE DESCRIPTION",
+                    document
+                        .getElementById(
+                            "indieDesc"
+                        )
+                        .textContent
+                );
+
+            if (
+                value &&
+                value.trim() !== ""
+            ) {
+
+                document
+                    .getElementById(
+                        "indieDesc"
+                    )
+                    .textContent =
+                    value;
+
+                savePlaylist();
+
+            }
+
+        }
+    );
+
+// ======================
+// Edit Prime Title
+// ======================
+document
+    .getElementById(
+        "editPrimeTitle"
+    )?.addEventListener(
+        "click",
+        () => {
+
+            if (!isAdmin) return;
+
+            const value =
+                prompt(
+                    "PRIME TITLE",
+                    document
+                        .getElementById(
+                            "primeTitle"
+                        )
+                        .textContent
+                );
+
+            if (
+                value &&
+                value.trim() !== ""
+            ) {
+
+                document
+                    .getElementById(
+                        "primeTitle"
+                    )
+                    .textContent =
+                    value;
+
+                savePlaylist();
+
+            }
+
+        }
+    );
+
+// ======================
+// Edit Prime Desc
+// ======================
+document
+    .getElementById(
+        "editPrimeDesc"
+    )?.addEventListener(
+        "click",
+        () => {
+
+            if (!isAdmin) return;
+
+            const value =
+                prompt(
+                    "PRIME DESCRIPTION",
+                    document
+                        .getElementById(
+                            "primeDesc"
+                        )
+                        .textContent
+                );
+
+            if (
+                value &&
+                value.trim() !== ""
+            ) {
+
+                document
+                    .getElementById(
+                        "primeDesc"
+                    )
+                    .textContent =
+                    value;
+
+                savePlaylist();
+
+            }
+
+        }
+    );
+
+// ======================
+// Playlist Button
 // ======================
 document
     .getElementById(
         "indie"
-    )
-    .onclick = () => {
+    )?.addEventListener(
+        "click",
+        () => {
 
-        window.location.href =
-            "./indie.html";
+            window.location.href =
+                "./indie.html";
 
-    };
+        }
+    );
 
 document
     .getElementById(
         "prime"
-    )
-    .onclick = () => {
+    )?.addEventListener(
+        "click",
+        () => {
 
-        window.location.href =
-            "./primezone.html";
+            window.location.href =
+                "./primezone.html";
 
-    };
-
-// ======================
-// Logout
-// ======================
-document
-    .getElementById(
-        "logout"
-    )
-    .onclick = () => {
-
-        localStorage.removeItem(
-            "s4s_user"
-        );
-
-        window.location.href =
-            "../index.html";
-
-    };
+        }
+    );
 
 // ======================
 // Equalizer

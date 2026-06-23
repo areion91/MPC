@@ -78,9 +78,16 @@ if (
 }
 
 // ======================
-// PRIMARY LASTFM
+// USER PATH
 // ======================
-let currentPrimary = 1;
+const userPath =
+    "users/" +
+    user.email.replace(
+        /\./g,
+        "_"
+    );
+
+let selectedPrimary = 1;
 
 // ======================
 // LOAD PROFILE
@@ -88,8 +95,7 @@ let currentPrimary = 1;
 get(
     ref(
         db,
-        "users/" +
-        user.email.replace(/\./g,"_")
+        userPath
     )
 ).then(snapshot => {
 
@@ -109,21 +115,18 @@ get(
     ).value =
         data.phone || "";
 
-    // LAST FM
+    // LASTFM
     if (data.lastfm) {
 
-        visibleRows =
-            data.lastfm.length;
-
         data.lastfm.forEach(
-            (name,index) => {
+            (name, index) => {
 
-                const num =
+                const slot =
                     index + 1;
 
                 const input =
                     document.getElementById(
-                        "lastfm" + num
+                        "lastfm" + slot
                     );
 
                 if (input) {
@@ -133,11 +136,11 @@ get(
 
                 }
 
-                if (num > 1) {
+                if (slot > 1) {
 
                     document
                         .getElementById(
-                            "row" + num
+                            "row" + slot
                         )
                         .style.display =
                         "flex";
@@ -152,35 +155,78 @@ get(
     // PRIMARY
     if (data.primary) {
 
-        currentPrimary =
-            data.primary;
+        selectedPrimary =
+            Number(
+                data.primary
+            );
 
-        document
-            .querySelectorAll(
-                ".primaryBtn"
-            )
-            .forEach(btn => {
+    }
+
+    updatePrimary();
+
+});
+
+// ======================
+// PRIMARY UI
+// ======================
+function updatePrimary() {
+
+    document
+        .querySelectorAll(
+            ".primaryBtn"
+        )
+        .forEach(btn => {
+
+            if (
+                Number(
+                    btn.dataset.slot
+                ) === selectedPrimary
+            ) {
+
+                btn.textContent =
+                    "●";
+
+            } else {
 
                 btn.textContent =
                     "○";
 
-            });
+            }
 
-        const btn =
-            document.querySelector(
-                `[data-slot="${currentPrimary}"]`
+        });
+
+}
+
+// ======================
+// PRIMARY CLICK
+// ======================
+document
+    .querySelectorAll(
+        ".primaryBtn"
+    )
+    .forEach(btn => {
+
+        btn.onclick = () => {
+
+            selectedPrimary =
+                Number(
+                    btn.dataset.slot
+                );
+
+            updatePrimary();
+
+            set(
+                ref(
+                    db,
+                    userPath +
+                    "/primary"
+                ),
+                selectedPrimary
             );
 
-        if (btn) {
+        };
 
-            btn.textContent =
-                "●";
-
-        }
-
-    }
-
-});
+    });
 
 // ======================
 // ADD LASTFM
@@ -195,7 +241,8 @@ document
 
         if (
             visibleRows >= 5
-        ) return;
+        )
+            return;
 
         visibleRows++;
 
@@ -221,60 +268,6 @@ document
         }
 
     };
-
-// ======================
-// PRIMARY BUTTON
-// ======================
-document
-    .querySelectorAll(
-        ".primaryBtn"
-    )
-    .forEach(btn => {
-
-        btn.onclick = () => {
-
-            document
-                .querySelectorAll(
-                    ".primaryBtn"
-                )
-                .forEach(b => {
-
-                    b.textContent =
-                        "○";
-
-                });
-
-            btn.textContent =
-                "●";
-
-            currentPrimary =
-                btn.dataset.slot;
-
-            savePrimary();
-
-        };
-
-    });
-
-// ======================
-// SAVE PRIMARY
-// ======================
-function savePrimary() {
-
-    set(
-        ref(
-            db,
-            "users/" +
-            user.email.replace(
-                /\./g,
-                "_"
-            ) +
-            "/primary"
-        ),
-        currentPrimary
-    );
-
-}
 
 // ======================
 // SAVE PROFILE
@@ -314,11 +307,7 @@ document
         set(
             ref(
                 db,
-                "users/" +
-                user.email.replace(
-                    /\./g,
-                    "_"
-                )
+                userPath
             ),
             {
 
@@ -340,11 +329,29 @@ document
                     lastfm,
 
                 primary:
-                    currentPrimary
+                    selectedPrimary
 
             }
 
         );
+
+        // TOAST
+        const toast =
+            document.getElementById(
+                "toast"
+            );
+
+        toast.classList.add(
+            "show"
+        );
+
+        setTimeout(() => {
+
+            toast.classList.remove(
+                "show"
+            );
+
+        }, 2500);
 
     };
 

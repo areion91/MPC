@@ -17,8 +17,6 @@ body{
     min-height:100vh;
 
     padding:20px;
-
-    overflow-x:hidden;
 }
 
 .container{
@@ -53,12 +51,11 @@ body{
     position:absolute;
 
     top:20px;
-
     left:20px;
 
-    cursor:pointer;
-
     font-size:13px;
+
+    cursor:pointer;
 
     opacity:.7;
 
@@ -84,11 +81,7 @@ h1{
 .avatarBox{
     display:flex;
 
-    flex-direction:column;
-
-    align-items:center;
-
-    gap:15px;
+    justify-content:center;
 }
 
 #profileAvatar{
@@ -110,7 +103,7 @@ h1{
 
     flex-direction:column;
 
-    gap:8px;
+    gap:10px;
 }
 
 label{
@@ -145,6 +138,46 @@ input:focus{
     background:#111;
 }
 
+/* LASTFM */
+
+.lastfmRow{
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-bottom:10px;
+}
+
+.lastfmRow input{
+    flex:1;
+}
+
+.primaryBtn{
+    width:24px;
+
+    text-align:center;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    opacity:.5;
+
+    transition:.2s;
+}
+
+.primaryBtn:hover{
+    opacity:1;
+
+    transform:scale(1.1);
+}
+
+.primaryActive{
+    opacity:1;
+}
+
 /* BUTTON */
 
 button{
@@ -171,12 +204,6 @@ button:hover{
     background:#fff;
 
     color:#000;
-}
-
-/* LOGOUT */
-
-#logout{
-    margin-top:10px;
 }
 
 /* MOBILE */

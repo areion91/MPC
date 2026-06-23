@@ -21,20 +21,24 @@
 
         <div class="box">
 
+            <!-- BACK -->
+            <div id="backBtn">
+                ← BACK
+            </div>
+
+            <!-- TITLE -->
             <h1>
                 PROFILE
             </h1>
 
+            <!-- AVATAR -->
             <div class="avatarBox">
 
                 <img id="profileAvatar">
 
-                <input type="file"
-                       id="uploadPhoto"
-                       accept="image/*">
-
             </div>
 
+            <!-- NAME -->
             <div class="inputBox">
 
                 <label>
@@ -46,6 +50,7 @@
 
             </div>
 
+            <!-- PHONE -->
             <div class="inputBox">
 
                 <label>
@@ -57,23 +62,106 @@
 
             </div>
 
+            <!-- LAST FM -->
             <div class="inputBox">
 
                 <label>
-                    LAST.FM USERNAME
+                    LAST.FM ACCOUNTS
                 </label>
 
-                <input type="text"
-                       id="profileLastfm">
+                <!-- SLOT 1 -->
+                <div class="lastfmRow">
+
+                    <input type="text"
+                           id="lastfm1"
+                           placeholder="USERNAME">
+
+                    <span class="primaryBtn"
+                          data-slot="1">
+                        ●
+                    </span>
+
+                </div>
+
+                <!-- SLOT 2 -->
+                <div class="lastfmRow"
+                     id="row2"
+                     style="display:none;">
+
+                    <input type="text"
+                           id="lastfm2"
+                           placeholder="USERNAME">
+
+                    <span class="primaryBtn"
+                          data-slot="2">
+                        ○
+                    </span>
+
+                </div>
+
+                <!-- SLOT 3 -->
+                <div class="lastfmRow"
+                     id="row3"
+                     style="display:none;">
+
+                    <input type="text"
+                           id="lastfm3"
+                           placeholder="USERNAME">
+
+                    <span class="primaryBtn"
+                          data-slot="3">
+                        ○
+                    </span>
+
+                </div>
+
+                <!-- SLOT 4 -->
+                <div class="lastfmRow"
+                     id="row4"
+                     style="display:none;">
+
+                    <input type="text"
+                           id="lastfm4"
+                           placeholder="USERNAME">
+
+                    <span class="primaryBtn"
+                          data-slot="4">
+                        ○
+                    </span>
+
+                </div>
+
+                <!-- SLOT 5 -->
+                <div class="lastfmRow"
+                     id="row5"
+                     style="display:none;">
+
+                    <input type="text"
+                           id="lastfm5"
+                           placeholder="USERNAME">
+
+                    <span class="primaryBtn"
+                          data-slot="5">
+                        ○
+                    </span>
+
+                </div>
 
             </div>
 
+            <!-- ADD LASTFM -->
+            <button id="addLastfm">
+                + ADD LAST.FM
+            </button>
+
+            <!-- SAVE -->
             <button id="saveProfile">
                 SAVE PROFILE
             </button>
 
-            <button id="backDashboard">
-                BACK
+            <!-- LOGOUT -->
+            <button id="logout">
+                LOGOUT
             </button>
 
         </div>

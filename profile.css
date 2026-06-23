@@ -17,6 +17,8 @@ body{
     min-height:100vh;
 
     padding:20px;
+
+    overflow-x:hidden;
 }
 
 .container{
@@ -28,6 +30,8 @@ body{
 }
 
 .box{
+    position:relative;
+
     width:100%;
 
     max-width:450px;
@@ -43,6 +47,30 @@ body{
     gap:20px;
 }
 
+/* BACK */
+
+#backBtn{
+    position:absolute;
+
+    top:20px;
+
+    left:20px;
+
+    cursor:pointer;
+
+    font-size:13px;
+
+    opacity:.7;
+
+    transition:.2s;
+}
+
+#backBtn:hover{
+    opacity:1;
+}
+
+/* TITLE */
+
 h1{
     text-align:center;
 
@@ -50,6 +78,8 @@ h1{
 
     font-size:28px;
 }
+
+/* AVATAR */
 
 .avatarBox{
     display:flex;
@@ -73,13 +103,7 @@ h1{
     object-fit:cover;
 }
 
-#uploadPhoto{
-    width:100%;
-
-    color:#fff;
-
-    font-family:monospace;
-}
+/* INPUT */
 
 .inputBox{
     display:flex;
@@ -121,6 +145,8 @@ input:focus{
     background:#111;
 }
 
+/* BUTTON */
+
 button{
     width:100%;
 
@@ -147,6 +173,14 @@ button:hover{
     color:#000;
 }
 
+/* LOGOUT */
+
+#logout{
+    margin-top:10px;
+}
+
+/* MOBILE */
+
 @media(max-width:480px){
 
     .box{
@@ -165,6 +199,10 @@ button:hover{
 
     input,
     button{
+        font-size:12px;
+    }
+
+    #backBtn{
         font-size:12px;
     }
 

@@ -1,0 +1,145 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#000;
+    color:#fff;
+
+    font-family:monospace;
+
+    display:flex;
+    justify-content:center;
+
+    padding:20px;
+}
+
+.container{
+    width:100%;
+    display:flex;
+    justify-content:center;
+}
+
+.box{
+    width:100%;
+    max-width:500px;
+
+    border:2px solid #fff;
+
+    padding:30px 25px;
+
+    display:flex;
+    flex-direction:column;
+
+    gap:20px;
+}
+
+#backBtn{
+    cursor:pointer;
+
+    font-size:13px;
+
+    opacity:.7;
+}
+
+h1{
+    text-align:center;
+
+    letter-spacing:4px;
+
+    font-size:28px;
+}
+
+.line{
+    width:100%;
+
+    height:1px;
+
+    background:#fff;
+}
+
+.joined{
+    text-align:center;
+
+    opacity:.7;
+
+    letter-spacing:2px;
+}
+
+.progressBox{
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+}
+
+.progressBar{
+    width:100%;
+
+    height:20px;
+
+    border:2px solid #fff;
+}
+
+#progressFill{
+    width:0%;
+
+    height:100%;
+
+    background:#fff;
+}
+
+#progressText{
+    text-align:center;
+
+    font-size:14px;
+}
+
+button{
+    width:100%;
+
+    height:50px;
+
+    background:#000;
+
+    color:#fff;
+
+    border:2px solid #fff;
+
+    font-family:monospace;
+
+    cursor:pointer;
+}
+
+button:disabled{
+    opacity:.4;
+}
+
+.track{
+    display:flex;
+
+    gap:15px;
+
+    padding:10px 0;
+
+    border-bottom:1px solid #222;
+}
+
+.track span{
+    width:30px;
+}
+
+@media(max-width:480px){
+
+    h1{
+        font-size:22px;
+    }
+
+    .box{
+        padding:25px 20px;
+    }
+
+}

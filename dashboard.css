@@ -1,7 +1,3 @@
-.box{
-    position:relative;
-}
-
 #profileBtn{
     position:absolute;
     top:20px;
@@ -48,6 +44,32 @@ overflow:hidden;
 width:100%;
 display:flex;
 justify-content:center;
+
+}
+
+.container{
+
+    width:100%;
+    display:flex;
+    justify-content:center;
+
+}
+
+.box{
+
+    position:relative;
+
+    width:100%;
+    max-width:450px;
+
+    border:2px solid #fff;
+
+    padding:35px 25px;
+
+    display:flex;
+    flex-direction:column;
+
+    gap:25px;
 
 }
 

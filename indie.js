@@ -1,3 +1,4 @@
+// BACK
 document
     .getElementById(
         "backBtn"
@@ -9,30 +10,28 @@ document
 
     };
 
-// contoh progress
-
-const percent = 100;
-
+// CHECK-IN
 document
     .getElementById(
-        "progressFill"
+        "checkin"
     )
-    .style.width =
-    percent + "%";
+    .onclick = () => {
 
-document
-    .getElementById(
-        "progressText"
-    )
-    .textContent =
-    percent + "%";
+        const toast =
+            document.getElementById(
+                "toast"
+            );
 
-if (percent >= 100) {
+        toast.classList.add(
+            "show"
+        );
 
-    document
-        .getElementById(
-            "checkin"
-        )
-        .disabled = false;
+        setTimeout(() => {
 
-}
+            toast.classList.remove(
+                "show"
+            );
+
+        }, 2500);
+
+    };

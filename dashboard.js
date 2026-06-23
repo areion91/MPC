@@ -91,8 +91,6 @@ if (profileBtn) {
         "click",
         () => {
 
-            alert("PROFILE CLICKED");
-
             window.location.href =
                 "./profile.html";
 

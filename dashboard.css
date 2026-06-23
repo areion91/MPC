@@ -99,6 +99,7 @@ body{
 }
 
 @keyframes swing{
+
     0%{
         transform:translateX(-8px);
     }
@@ -110,6 +111,7 @@ body{
     100%{
         transform:translateX(-8px);
     }
+
 }
 
 /* WELCOME */
@@ -138,6 +140,11 @@ body{
     font-size:18px;
 
     margin-bottom:8px;
+
+    display:flex;
+    align-items:center;
+
+    gap:8px;
 }
 
 .playlist p{
@@ -146,6 +153,29 @@ body{
     opacity:.6;
 
     margin-bottom:15px;
+
+    display:flex;
+    align-items:center;
+
+    gap:8px;
+}
+
+/* EDIT ICON */
+
+.edit{
+    display:none;
+
+    cursor:pointer;
+
+    font-size:13px;
+
+    opacity:.5;
+
+    transition:.2s;
+}
+
+.edit:hover{
+    opacity:1;
 }
 
 /* BUTTON */
@@ -223,6 +253,10 @@ button:hover{
     #profileBtn{
         width:38px;
         height:38px;
+    }
+
+    .edit{
+        font-size:12px;
     }
 
 }

@@ -346,10 +346,6 @@ document
 
         );
 
-        alert(
-            "PROFILE SAVED"
-        );
-
     };
 
 // ======================

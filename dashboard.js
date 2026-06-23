@@ -16,7 +16,7 @@ if (!user) {
 const ADMINS = [
     "areionproject@gmail.com",
     "ayigh77@gmail.com",
-    "suparmituman@gmail.com"
+    "weeraster0@gmail.com"
 ];
 
 // ======================

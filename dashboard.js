@@ -78,6 +78,20 @@ if (avatar && user.picture) {
 }
 
 // ======================
+// Open Profile
+// ======================
+document
+    .getElementById(
+        "profileBtn"
+    )
+    .onclick = () => {
+
+        window.location.href =
+            "./profile.html";
+
+    };
+
+// ======================
 // Admin
 // ======================
 const ADMINS = [

@@ -55,6 +55,12 @@ body{
     height:42px;
 
     cursor:pointer;
+
+    z-index:9999;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 
 #avatar{
@@ -62,9 +68,12 @@ body{
     height:100%;
 
     border-radius:50%;
+
     border:2px solid #fff;
 
     object-fit:cover;
+
+    pointer-events:none;
 }
 
 /* HEADER */

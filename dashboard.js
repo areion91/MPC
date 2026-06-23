@@ -13,7 +13,9 @@ if (!user) {
 // Avatar
 // ======================
 const avatar =
-    document.getElementById("avatar");
+    document.getElementById(
+        "avatar"
+    );
 
 if (avatar && user.picture) {
     avatar.src = user.picture;
@@ -44,32 +46,19 @@ if (isAdmin) {
 
     document.getElementById(
         "welcome"
-    ).innerHTML =
+    ).textContent =
         "WELCOME, ADMIN";
 
 } else {
 
     document.getElementById(
         "welcome"
-    ).innerHTML =
+    ).textContent =
         `WELCOME, ${
             (user.name || "USER")
             .toUpperCase()
         }`;
 
-}
-
-// ======================
-// Tombol Manage
-// ======================
-const manage =
-    document.getElementById(
-        "manage"
-    );
-
-if (isAdmin && manage) {
-    manage.style.display =
-        "block";
 }
 
 // ======================
@@ -86,138 +75,269 @@ if (playlistData) {
 
     document.getElementById(
         "indieTitle"
-    ).innerHTML =
+    ).textContent =
         playlistData.indieTitle;
 
     document.getElementById(
         "indieDesc"
-    ).innerHTML =
+    ).textContent =
         playlistData.indieDesc;
 
     document.getElementById(
         "primeTitle"
-    ).innerHTML =
+    ).textContent =
         playlistData.primeTitle;
 
     document.getElementById(
         "primeDesc"
-    ).innerHTML =
+    ).textContent =
         playlistData.primeDesc;
 
 }
 
 // ======================
-// Manage Playlist
+// Tampilkan Pensil Admin
 // ======================
-if (isAdmin && manage) {
+if (isAdmin) {
 
-    manage.onclick = () => {
+    document
+        .querySelectorAll(".edit")
+        .forEach(edit => {
 
-        const indieTitle =
-            prompt(
-                "INDIE TITLE:",
+            edit.style.display =
+                "inline";
+
+        });
+
+}
+
+// ======================
+// Edit Indie Title
+// ======================
+document
+    .getElementById(
+        "editIndieTitle"
+    )
+    .onclick = () => {
+
+        if (!isAdmin) return;
+
+        const value = prompt(
+            "INDIE TITLE",
+            document
+                .getElementById(
+                    "indieTitle"
+                )
+                .textContent
+        );
+
+        if (value !== null &&
+            value.trim() !== "") {
+
+            document
+                .getElementById(
+                    "indieTitle"
+                )
+                .textContent =
+                value;
+
+            savePlaylist();
+        }
+
+    };
+
+// ======================
+// Edit Indie Desc
+// ======================
+document
+    .getElementById(
+        "editIndieDesc"
+    )
+    .onclick = () => {
+
+        if (!isAdmin) return;
+
+        const value = prompt(
+            "INDIE DESCRIPTION",
+            document
+                .getElementById(
+                    "indieDesc"
+                )
+                .textContent
+        );
+
+        if (value !== null &&
+            value.trim() !== "") {
+
+            document
+                .getElementById(
+                    "indieDesc"
+                )
+                .textContent =
+                value;
+
+            savePlaylist();
+        }
+
+    };
+
+// ======================
+// Edit Prime Title
+// ======================
+document
+    .getElementById(
+        "editPrimeTitle"
+    )
+    .onclick = () => {
+
+        if (!isAdmin) return;
+
+        const value = prompt(
+            "PRIME TITLE",
+            document
+                .getElementById(
+                    "primeTitle"
+                )
+                .textContent
+        );
+
+        if (value !== null &&
+            value.trim() !== "") {
+
+            document
+                .getElementById(
+                    "primeTitle"
+                )
+                .textContent =
+                value;
+
+            savePlaylist();
+        }
+
+    };
+
+// ======================
+// Edit Prime Desc
+// ======================
+document
+    .getElementById(
+        "editPrimeDesc"
+    )
+    .onclick = () => {
+
+        if (!isAdmin) return;
+
+        const value = prompt(
+            "PRIME DESCRIPTION",
+            document
+                .getElementById(
+                    "primeDesc"
+                )
+                .textContent
+        );
+
+        if (value !== null &&
+            value.trim() !== "") {
+
+            document
+                .getElementById(
+                    "primeDesc"
+                )
+                .textContent =
+                value;
+
+            savePlaylist();
+        }
+
+    };
+
+// ======================
+// Simpan Playlist
+// ======================
+function savePlaylist() {
+
+    localStorage.setItem(
+        "playlist_data",
+        JSON.stringify({
+
+            indieTitle:
                 document
                 .getElementById(
                     "indieTitle"
-                ).innerHTML
-            );
+                )
+                .textContent,
 
-        if (indieTitle === null)
-            return;
-
-        const indieDesc =
-            prompt(
-                "INDIE DESCRIPTION:",
+            indieDesc:
                 document
                 .getElementById(
                     "indieDesc"
-                ).innerHTML
-            );
+                )
+                .textContent,
 
-        if (indieDesc === null)
-            return;
-
-        const primeTitle =
-            prompt(
-                "PRIME TITLE:",
+            primeTitle:
                 document
                 .getElementById(
                     "primeTitle"
-                ).innerHTML
-            );
+                )
+                .textContent,
 
-        if (primeTitle === null)
-            return;
-
-        const primeDesc =
-            prompt(
-                "PRIME DESCRIPTION:",
+            primeDesc:
                 document
                 .getElementById(
                     "primeDesc"
-                ).innerHTML
-            );
+                )
+                .textContent
 
-        if (primeDesc === null)
-            return;
-
-        localStorage.setItem(
-            "playlist_data",
-            JSON.stringify({
-
-                indieTitle,
-                indieDesc,
-                primeTitle,
-                primeDesc
-
-            })
-        );
-
-        location.reload();
-
-    };
+        })
+    );
 
 }
 
 // ======================
 // Playlist Indie
 // ======================
-document.getElementById(
-    "indie"
-).onclick = () => {
+document
+    .getElementById(
+        "indie"
+    )
+    .onclick = () => {
 
-    window.location.href =
-        "./indie.html";
+        window.location.href =
+            "./indie.html";
 
-};
+    };
 
 // ======================
 // Playlist Primezone
 // ======================
-document.getElementById(
-    "prime"
-).onclick = () => {
+document
+    .getElementById(
+        "prime"
+    )
+    .onclick = () => {
 
-    window.location.href =
-        "./primezone.html";
+        window.location.href =
+            "./primezone.html";
 
-};
+    };
 
 // ======================
 // Logout
 // ======================
-document.getElementById(
-    "logout"
-).onclick = () => {
+document
+    .getElementById(
+        "logout"
+    )
+    .onclick = () => {
 
-    localStorage.removeItem(
-        "s4s_user"
-    );
+        localStorage.removeItem(
+            "s4s_user"
+        );
 
-    window.location.href =
-        "../index.html";
+        window.location.href =
+            "../index.html";
 
-};
+    };
 
 // ======================
 // Equalizer Animation

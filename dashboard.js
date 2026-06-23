@@ -1,12 +1,65 @@
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+    getDatabase,
+    ref,
+    set,
+    onValue
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+// ======================
+// Firebase
+// ======================
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyD1qVByOVP_oLxyjVrE7zLNAHKwA5o3IyU",
+
+    authDomain:
+        "stream4stream-eda97.firebaseapp.com",
+
+    databaseURL:
+        "https://stream4stream-eda97-default-rtdb.asia-southeast1.firebasedatabase.app",
+
+    projectId:
+        "stream4stream-eda97",
+
+    storageBucket:
+        "stream4stream-eda97.firebasestorage.app",
+
+    messagingSenderId:
+        "315567847124",
+
+    appId:
+        "1:315567847124:web:8ce342a02b38b030f26d41"
+
+};
+
+const app =
+    initializeApp(firebaseConfig);
+
+const db =
+    getDatabase(app);
+
+// ======================
+// User
+// ======================
 const user = JSON.parse(
-    localStorage.getItem("s4s_user")
+    localStorage.getItem(
+        "s4s_user"
+    )
 );
 
 // ======================
 // Belum Login
 // ======================
 if (!user) {
-    window.location.href = "./index.html";
+
+    window.location.href =
+        "./index.html";
+
 }
 
 // ======================
@@ -18,21 +71,23 @@ const avatar =
     );
 
 if (avatar && user.picture) {
-    avatar.src = user.picture;
+
+    avatar.src =
+        user.picture;
+
 }
 
 // ======================
-// Daftar Admin
+// Admin
 // ======================
 const ADMINS = [
+
     "areionproject@gmail.com",
     "ayigh77@gmail.com",
     "weeraster0@gmail.com"
+
 ];
 
-// ======================
-// Cek Role
-// ======================
 const isAdmin =
     user.email &&
     ADMINS.includes(
@@ -44,64 +99,82 @@ const isAdmin =
 // ======================
 if (isAdmin) {
 
-    document.getElementById(
-        "welcome"
-    ).textContent =
+    document
+        .getElementById(
+            "welcome"
+        )
+        .textContent =
         "WELCOME, ADMIN";
 
 } else {
 
-    document.getElementById(
-        "welcome"
-    ).textContent =
+    document
+        .getElementById(
+            "welcome"
+        )
+        .textContent =
         `WELCOME, ${
-            (user.name || "USER")
+            (
+                user.name ||
+                "USER"
+            )
             .toUpperCase()
         }`;
 
 }
 
 // ======================
-// Load Playlist Data
+// Load Firebase Playlist
 // ======================
-const playlistData =
-    JSON.parse(
-        localStorage.getItem(
-            "playlist_data"
-        )
-    );
+onValue(
+    ref(db, "playlist"),
+    snapshot => {
 
-if (playlistData) {
+        const data =
+            snapshot.val();
 
-    document.getElementById(
-        "indieTitle"
-    ).textContent =
-        playlistData.indieTitle;
+        if (!data) return;
 
-    document.getElementById(
-        "indieDesc"
-    ).textContent =
-        playlistData.indieDesc;
+        document
+            .getElementById(
+                "indieTitle"
+            )
+            .textContent =
+            data.indieTitle;
 
-    document.getElementById(
-        "primeTitle"
-    ).textContent =
-        playlistData.primeTitle;
+        document
+            .getElementById(
+                "indieDesc"
+            )
+            .textContent =
+            data.indieDesc;
 
-    document.getElementById(
-        "primeDesc"
-    ).textContent =
-        playlistData.primeDesc;
+        document
+            .getElementById(
+                "primeTitle"
+            )
+            .textContent =
+            data.primeTitle;
 
-}
+        document
+            .getElementById(
+                "primeDesc"
+            )
+            .textContent =
+            data.primeDesc;
+
+    }
+);
 
 // ======================
-// Tampilkan Pensil Admin
+// Tampilkan Pensil
 // ======================
 if (isAdmin) {
 
     document
-        .querySelectorAll(".edit")
+        .querySelectorAll(
+            ".edit"
+        )
         .forEach(edit => {
 
             edit.style.display =
@@ -131,8 +204,10 @@ document
                 .textContent
         );
 
-        if (value !== null &&
-            value.trim() !== "") {
+        if (
+            value !== null &&
+            value.trim() !== ""
+        ) {
 
             document
                 .getElementById(
@@ -142,6 +217,7 @@ document
                 value;
 
             savePlaylist();
+
         }
 
     };
@@ -166,8 +242,10 @@ document
                 .textContent
         );
 
-        if (value !== null &&
-            value.trim() !== "") {
+        if (
+            value !== null &&
+            value.trim() !== ""
+        ) {
 
             document
                 .getElementById(
@@ -177,6 +255,7 @@ document
                 value;
 
             savePlaylist();
+
         }
 
     };
@@ -201,8 +280,10 @@ document
                 .textContent
         );
 
-        if (value !== null &&
-            value.trim() !== "") {
+        if (
+            value !== null &&
+            value.trim() !== ""
+        ) {
 
             document
                 .getElementById(
@@ -212,6 +293,7 @@ document
                 value;
 
             savePlaylist();
+
         }
 
     };
@@ -236,8 +318,10 @@ document
                 .textContent
         );
 
-        if (value !== null &&
-            value.trim() !== "") {
+        if (
+            value !== null &&
+            value.trim() !== ""
+        ) {
 
             document
                 .getElementById(
@@ -247,18 +331,22 @@ document
                 value;
 
             savePlaylist();
+
         }
 
     };
 
 // ======================
-// Simpan Playlist
+// Save Firebase
 // ======================
 function savePlaylist() {
 
-    localStorage.setItem(
-        "playlist_data",
-        JSON.stringify({
+    set(
+        ref(
+            db,
+            "playlist"
+        ),
+        {
 
             indieTitle:
                 document
@@ -288,13 +376,13 @@ function savePlaylist() {
                 )
                 .textContent
 
-        })
+        }
     );
 
 }
 
 // ======================
-// Playlist Indie
+// Playlist
 // ======================
 document
     .getElementById(
@@ -307,9 +395,6 @@ document
 
     };
 
-// ======================
-// Playlist Primezone
-// ======================
 document
     .getElementById(
         "prime"
@@ -340,7 +425,7 @@ document
     };
 
 // ======================
-// Equalizer Animation
+// Equalizer
 // ======================
 const bars =
     document.querySelectorAll(

@@ -1,5 +1,3 @@
-Script js
-
 const CLIENT_ID =
 "475553127157-nn2o47e7273qrk4rp46aljldoks35bbm.apps.googleusercontent.com";
 

@@ -6,11 +6,11 @@ import {
     getDatabase,
     ref,
     set,
-    onValue
+    get
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 // ======================
-// Firebase
+// FIREBASE
 // ======================
 const firebaseConfig = {
 
@@ -44,7 +44,7 @@ const db =
     getDatabase(app);
 
 // ======================
-// User
+// USER
 // ======================
 const user = JSON.parse(
     localStorage.getItem(
@@ -60,7 +60,7 @@ if (!user) {
 }
 
 // ======================
-// Avatar
+// AVATAR
 // ======================
 const avatar =
     document.getElementById(
@@ -78,51 +78,196 @@ if (
 }
 
 // ======================
-// Load Profile
+// LOAD PROFILE
 // ======================
-onValue(
+get(
     ref(
         db,
-        "profiles/" +
-        user.email.replace(
-            /\./g,
-            "_"
-        )
-    ),
-    snapshot => {
+        "users/" + user.email.replace(/\./g,"_")
+    )
+).then(snapshot => {
 
-        const data =
-            snapshot.val();
+    if (!snapshot.exists())
+        return;
 
-        if (!data)
-            return;
+    const data =
+        snapshot.val();
 
-        document
-            .getElementById(
-                "profileName"
-            )
-            .value =
-            data.name || "";
+    document.getElementById(
+        "profileName"
+    ).value =
+        data.name || "";
 
-        document
-            .getElementById(
-                "profilePhone"
-            )
-            .value =
-            data.phone || "";
+    document.getElementById(
+        "profilePhone"
+    ).value =
+        data.phone || "";
 
-        document
-            .getElementById(
-                "profileLastfm"
-            )
-            .value =
-            data.lastfm || "";
+    // LAST FM
+    if (data.lastfm) {
+
+        data.lastfm.forEach(
+            (name, index) => {
+
+                const num =
+                    index + 1;
+
+                const input =
+                    document.getElementById(
+                        "lastfm" + num
+                    );
+
+                if (input) {
+
+                    input.value =
+                        name;
+
+                }
+
+                if (num > 1) {
+
+                    document
+                        .getElementById(
+                            "row" + num
+                        )
+                        .style.display =
+                        "flex";
+
+                }
+
+            }
+        );
 
     }
-);
+
+    // PRIMARY
+    if (data.primary) {
+
+        document
+            .querySelectorAll(
+                ".primaryBtn"
+            )
+            .forEach(btn => {
+
+                btn.textContent =
+                    "○";
+
+            });
+
+        const index =
+            data.primary;
+
+        const btn =
+            document.querySelector(
+                `[data-slot="${index}"]`
+            );
+
+        if (btn) {
+
+            btn.textContent =
+                "●";
+
+        }
+
+    }
+
+});
 
 // ======================
-// Save
+// ADD LASTFM
+// ======================
+let visibleRows = 1;
+
+document
+    .getElementById(
+        "addLastfm"
+    )
+    .onclick = () => {
+
+        if (
+            visibleRows >= 5
+        ) return;
+
+        visibleRows++;
+
+        document
+            .getElementById(
+                "row" +
+                visibleRows
+            )
+            .style.display =
+            "flex";
+
+        if (
+            visibleRows === 5
+        ) {
+
+            document
+                .getElementById(
+                    "addLastfm"
+                )
+                .style.display =
+                "none";
+
+        }
+
+    };
+
+// ======================
+// PRIMARY
+// ======================
+document
+    .querySelectorAll(
+        ".primaryBtn"
+    )
+    .forEach(btn => {
+
+        btn.onclick = () => {
+
+            document
+                .querySelectorAll(
+                    ".primaryBtn"
+                )
+                .forEach(b => {
+
+                    b.textContent =
+                        "○";
+
+                });
+
+            btn.textContent =
+                "●";
+
+            savePrimary(
+                btn.dataset.slot
+            );
+
+        };
+
+    });
+
+// ======================
+// SAVE PRIMARY
+// ======================
+function savePrimary(slot) {
+
+    set(
+        ref(
+            db,
+            "users/" +
+            user.email.replace(
+                /\./g,
+                "_"
+            ) +
+            "/primary"
+        ),
+        slot
+    );
+
+}
+
+// ======================
+// SAVE PROFILE
 // ======================
 document
     .getElementById(
@@ -130,10 +275,41 @@ document
     )
     .onclick = () => {
 
+        const lastfm = [];
+
+        for (
+            let i = 1;
+            i <= 5;
+            i++
+        ) {
+
+            const value =
+                document
+                    .getElementById(
+                        "lastfm" + i
+                    )
+                    .value
+                    .trim();
+
+            if (value) {
+
+                lastfm.push(
+                    value
+                );
+
+            }
+
+        }
+
+        const active =
+            document.querySelector(
+                ".primaryBtn"
+            );
+
         set(
             ref(
                 db,
-                "profiles/" +
+                "users/" +
                 user.email.replace(
                     /\./g,
                     "_"
@@ -143,29 +319,30 @@ document
 
                 name:
                     document
-                    .getElementById(
-                        "profileName"
-                    )
-                    .value,
+                        .getElementById(
+                            "profileName"
+                        )
+                        .value,
 
                 phone:
                     document
-                    .getElementById(
-                        "profilePhone"
-                    )
-                    .value,
+                        .getElementById(
+                            "profilePhone"
+                        )
+                        .value,
 
                 lastfm:
-                    document
-                    .getElementById(
-                        "profileLastfm"
-                    )
-                    .value,
+                    lastfm,
 
-                picture:
-                    user.picture
+                primary:
+                    document
+                        .querySelector(
+                            "span[data-slot][style]"
+                        )?.dataset
+                        .slot || 1
 
             }
+
         );
 
         alert(
@@ -175,15 +352,33 @@ document
     };
 
 // ======================
-// Back
+// BACK
 // ======================
 document
     .getElementById(
-        "backDashboard"
+        "backBtn"
     )
     .onclick = () => {
 
         window.location.href =
             "./dashboard.html";
+
+    };
+
+// ======================
+// LOGOUT
+// ======================
+document
+    .getElementById(
+        "logout"
+    )
+    .onclick = () => {
+
+        localStorage.removeItem(
+            "s4s_user"
+        );
+
+        window.location.href =
+            "./index.html";
 
     };

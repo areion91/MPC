@@ -9,7 +9,7 @@
           content="width=device-width, initial-scale=1.0">
 
     <title>
-        Indie Trending
+        Stream4Stream | Indie Trending
     </title>
 
     <link rel="stylesheet"
@@ -23,21 +23,29 @@
 
         <div class="box">
 
+            <!-- BACK -->
             <div id="backBtn">
                 ← BACK
             </div>
 
-            <h1>
-                INDIE TRENDING TEST
+            <!-- TITLE -->
+            <h1 id="playlistTitle">
+                INDIE TRENDING
             </h1>
 
             <div class="line"></div>
 
-            <p class="joined">
+            <!-- MEMBER -->
+            <div id="joinedCount">
                 27 JOINED TRACK
-            </p>
+            </div>
 
+            <!-- PROGRESS -->
             <div class="progressBox">
+
+                <div class="progressText">
+                    PROGRESS 100%
+                </div>
 
                 <div class="progressBar">
 
@@ -45,51 +53,86 @@
 
                 </div>
 
-                <div id="progressText">
-                    0%
-                </div>
-
             </div>
 
-            <button id="checkin"
-                    disabled>
-
+            <!-- CHECKIN -->
+            <button id="checkin">
                 CHECK-IN
-
             </button>
 
             <div class="line"></div>
 
+            <!-- TRACKS -->
             <div id="trackList">
 
                 <div class="track">
-                    <span>01.</span>
-                    <div>
-                        Artist Name<br>
-                        Song Title
+
+                    <div class="trackNumber">
+                        01.
                     </div>
+
+                    <div class="trackInfo">
+
+                        <div class="trackSong">
+                            Numb
+                        </div>
+
+                        <div class="trackArtist">
+                            Linkin Park
+                        </div>
+
+                    </div>
+
                 </div>
 
                 <div class="track">
-                    <span>02.</span>
-                    <div>
-                        Artist Name<br>
-                        Song Title
+
+                    <div class="trackNumber">
+                        02.
                     </div>
+
+                    <div class="trackInfo">
+
+                        <div class="trackSong">
+                            Yellow
+                        </div>
+
+                        <div class="trackArtist">
+                            Coldplay
+                        </div>
+
+                    </div>
+
                 </div>
 
                 <div class="track">
-                    <span>03.</span>
-                    <div>
-                        Artist Name<br>
-                        Song Title
+
+                    <div class="trackNumber">
+                        03.
                     </div>
+
+                    <div class="trackInfo">
+
+                        <div class="trackSong">
+                            Somebody Else
+                        </div>
+
+                        <div class="trackArtist">
+                            The 1975
+                        </div>
+
+                    </div>
+
                 </div>
 
             </div>
 
         </div>
 
+    </div>
+
+    <div id="toast">
+        ✓ CHECK-IN SUCCESS
     </div>
 
     <script type="module"

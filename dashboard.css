@@ -18,7 +18,7 @@ body{
 
     padding:20px;
 
-    overflow:hidden;
+    overflow-x:hidden;
 }
 
 .container{
@@ -51,12 +51,12 @@ body{
     top:20px;
     right:20px;
 
-    width:42px;
-    height:42px;
+    width:48px;
+    height:48px;
 
     cursor:pointer;
 
-    z-index:9999;
+    z-index:999;
 
     display:flex;
     justify-content:center;
@@ -83,26 +83,29 @@ body{
 }
 
 .title h1{
-    font-size:30px;
+    font-size:32px;
+
     letter-spacing:4px;
+
+    margin-bottom:10px;
 }
 
 .title p{
     font-size:12px;
 
-    letter-spacing:3px;
+    letter-spacing:4px;
 
     opacity:.7;
-
-    margin-top:10px;
 }
 
-/* MUSIC NOTES */
+/* NOTES */
 
 .notes{
+    text-align:center;
+
     font-size:20px;
 
-    text-align:center;
+    opacity:.9;
 
     animation:swing 2s ease-in-out infinite;
 }
@@ -128,9 +131,9 @@ body{
 #welcome{
     text-align:center;
 
-    font-size:14px;
+    font-size:15px;
 
-    letter-spacing:2px;
+    letter-spacing:3px;
 }
 
 /* PLAYLIST */
@@ -138,19 +141,25 @@ body{
 .playlist{
     border-top:1px solid #fff;
 
-    padding:20px 0;
+    padding-top:25px;
+
+    display:flex;
+    flex-direction:column;
+
+    gap:15px;
 }
 
 .playlist:last-of-type{
     border-bottom:1px solid #fff;
+
+    padding-bottom:25px;
 }
 
 .playlist h2{
     font-size:18px;
 
-    margin-bottom:8px;
-
     display:flex;
+
     align-items:center;
 
     gap:8px;
@@ -159,12 +168,13 @@ body{
 .playlist p{
     font-size:12px;
 
-    margin-bottom:15px;
-
     display:flex;
+
     align-items:center;
 
     gap:8px;
+
+    letter-spacing:1px;
 }
 
 #indieDesc,
@@ -172,7 +182,7 @@ body{
     opacity:.6;
 }
 
-/* EDIT ICON */
+/* EDIT */
 
 .edit{
     display:none;
@@ -181,8 +191,6 @@ body{
 
     font-size:13px;
 
-    color:#fff;
-
     opacity:.6;
 
     transition:.2s;
@@ -190,7 +198,8 @@ body{
 
 .edit:hover{
     opacity:1;
-    transform:scale(1.1);
+
+    transform:scale(1.15);
 }
 
 /* BUTTON */
@@ -198,7 +207,7 @@ body{
 button{
     width:100%;
 
-    height:50px;
+    height:52px;
 
     background:#000;
 
@@ -209,6 +218,8 @@ button{
     font-family:monospace;
 
     font-size:14px;
+
+    letter-spacing:1px;
 
     cursor:pointer;
 
@@ -221,28 +232,36 @@ button:hover{
     color:#000;
 }
 
+/* CREATE PLAYLIST */
+
+#createPlaylist{
+    display:none;
+
+    margin-top:10px;
+}
+
 /* EQUALIZER */
 
 .equalizer{
-    display:flex;
+    width:100%;
 
-    justify-content:space-between;
+    height:60px;
+
+    display:flex;
 
     align-items:flex-end;
 
-    width:100%;
+    justify-content:center;
 
-    height:50px;
+    gap:4px;
 
-    margin-top:30px;
+    margin-top:10px;
 }
 
 .equalizer span{
-    flex:1;
+    width:14px;
 
-    margin:0 2px;
-
-    height:10px;
+    height:12px;
 
     background:#fff;
 
@@ -253,25 +272,49 @@ button:hover{
 
 @media(max-width:480px){
 
+    body{
+        padding:15px;
+    }
+
     .box{
-        padding:30px 20px;
+        padding:30px 18px;
     }
 
     .title h1{
         font-size:24px;
+
+        letter-spacing:3px;
+    }
+
+    .title p{
+        font-size:11px;
+    }
+
+    #welcome{
+        font-size:13px;
+    }
+
+    .playlist h2{
+        font-size:16px;
+    }
+
+    .playlist p{
+        font-size:11px;
     }
 
     button{
+        height:50px;
+
         font-size:12px;
     }
 
     #profileBtn{
-        width:38px;
-        height:38px;
+        width:42px;
+        height:42px;
     }
 
-    .edit{
-        font-size:12px;
+    .equalizer span{
+        width:10px;
     }
 
 }

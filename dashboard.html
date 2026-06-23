@@ -4,11 +4,13 @@
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Stream4Stream | Dashboard</title>
 
-    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet"
+          href="dashboard.css">
 
 </head>
 
@@ -40,9 +42,13 @@
 
             <div class="playlist">
 
-                <h2>> INDIE TRENDING</h2>
+                <h2 id="indieTitle">
+                    > INDIE TRENDING
+                </h2>
 
-                <p>DISCOVER THE LATEST INDIE TRACKS</p>
+                <p id="indieDesc">
+                    DISCOVER THE LATEST INDIE TRACKS
+                </p>
 
                 <button id="indie">
                     OPEN PLAYLIST
@@ -52,9 +58,13 @@
 
             <div class="playlist">
 
-                <h2>> PRIMEZONE</h2>
+                <h2 id="primeTitle">
+                    > PRIMEZONE
+                </h2>
 
-                <p>PREMIUM CURATED PLAYLIST</p>
+                <p id="primeDesc">
+                    PREMIUM CURATED PLAYLIST
+                </p>
 
                 <button id="prime">
                     OPEN PLAYLIST
@@ -62,11 +72,17 @@
 
             </div>
 
+            <button id="manage"
+                    style="display:none;">
+                MANAGE
+            </button>
+
             <button id="logout">
                 LOGOUT
             </button>
 
-            <div class="equalizer" id="equalizer">
+            <div class="equalizer"
+                 id="equalizer">
 
                 <span></span>
                 <span></span>

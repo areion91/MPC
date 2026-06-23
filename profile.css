@@ -74,6 +74,8 @@ h1{
     letter-spacing:4px;
 
     font-size:28px;
+
+    margin-top:10px;
 }
 
 /* AVATAR */
@@ -155,7 +157,9 @@ input:focus{
 }
 
 .primaryBtn{
-    width:24px;
+    width:28px;
+
+    min-width:28px;
 
     text-align:center;
 
@@ -164,6 +168,8 @@ input:focus{
     font-size:18px;
 
     opacity:.5;
+
+    user-select:none;
 
     transition:.2s;
 }
@@ -204,6 +210,24 @@ button:hover{
     background:#fff;
 
     color:#000;
+}
+
+/* ADD LASTFM */
+
+#addLastfm{
+    margin-top:-5px;
+}
+
+/* SAVE */
+
+#saveProfile{
+    margin-top:5px;
+}
+
+/* LOGOUT */
+
+#logout{
+    margin-top:5px;
 }
 
 /* MOBILE */

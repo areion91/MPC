@@ -1,6 +1,3 @@
-document.getElementById("avatar").src =
-    user.picture;
-
 const user = JSON.parse(localStorage.getItem("s4s_user"));
 
 // ======================
@@ -8,6 +5,15 @@ const user = JSON.parse(localStorage.getItem("s4s_user"));
 // ======================
 if (!user) {
     window.location.href = "./index.html";
+}
+
+// ======================
+// Avatar
+// ======================
+const avatar = document.getElementById("avatar");
+
+if (avatar && user.picture) {
+    avatar.src = user.picture;
 }
 
 // ======================
@@ -22,7 +28,9 @@ const ADMINS = [
 // ======================
 // Cek Role
 // ======================
-const isAdmin = ADMINS.includes(user.email.toLowerCase());
+const isAdmin =
+    user.email &&
+    ADMINS.includes(user.email.toLowerCase());
 
 // ======================
 // Welcome
@@ -32,7 +40,6 @@ if (isAdmin) {
     document.getElementById("welcome").innerHTML =
     "WELCOME, ADMIN";
 
-    // Kalau nanti ada tombol admin
     const manage = document.getElementById("manage");
 
     if (manage) {
@@ -42,7 +49,7 @@ if (isAdmin) {
 } else {
 
     document.getElementById("welcome").innerHTML =
-    `WELCOME, ${user.name.toUpperCase()}`;
+    `WELCOME, ${(user.name || "USER").toUpperCase()}`;
 
 }
 
@@ -87,7 +94,7 @@ if (bars.length > 0) {
         bars.forEach(bar => {
 
             bar.style.height =
-            (Math.floor(Math.random() * 42) + 8) + "px";
+                (Math.floor(Math.random() * 42) + 8) + "px";
 
         });
 

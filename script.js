@@ -17,7 +17,9 @@ document
 .getElementById("googleLogin")
 .addEventListener("click", () => {
 
-  google.accounts.id.prompt();
+  google.accounts.id.prompt((notification) => {
+    console.log(notification);
+  });
 
 });
 

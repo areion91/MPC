@@ -4,7 +4,7 @@ const user = JSON.parse(localStorage.getItem("s4s_user"));
 // Belum Login
 // ======================
 if (!user) {
-    window.location.href = "../index.html";
+    window.location.href = "./index.html";
 }
 
 // ======================

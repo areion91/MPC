@@ -9,9 +9,7 @@ import {
     onValue
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-// ======================
-// FIREBASE
-// ======================
+/* FIREBASE */
 
 const firebaseConfig = {
 
@@ -44,15 +42,14 @@ const app =
 const db =
     getDatabase(app);
 
-// ======================
-// USER
-// ======================
+/* USER */
 
-const user = JSON.parse(
-    localStorage.getItem(
-        "s4s_user"
-    )
-);
+const user =
+    JSON.parse(
+        localStorage.getItem(
+            "s4s_user"
+        )
+    );
 
 if (!user) {
 
@@ -61,9 +58,7 @@ if (!user) {
 
 }
 
-// ======================
-// AVATAR
-// ======================
+/* AVATAR */
 
 const avatar =
     document.getElementById(
@@ -80,9 +75,7 @@ if (
 
 }
 
-// ======================
-// PROFILE
-// ======================
+/* PROFILE */
 
 document
     .getElementById(
@@ -98,9 +91,7 @@ document
         }
     );
 
-// ======================
-// ADMIN
-// ======================
+/* ADMIN */
 
 const ADMINS = [
 
@@ -113,103 +104,35 @@ const ADMINS = [
 ];
 
 const isAdmin =
-
     user.email &&
     ADMINS.includes(
         user.email.toLowerCase()
     );
 
-// ======================
-// WELCOME
-// ======================
+/* WELCOME */
 
 const welcome =
     document.getElementById(
         "welcome"
     );
 
-if (welcome) {
+if (isAdmin) {
 
-    if (isAdmin) {
+    welcome.textContent =
+        "WELCOME, ADMIN";
 
-        welcome.textContent =
-            "WELCOME, ADMIN";
+} else {
 
-    } else {
-
-        welcome.textContent =
-            `WELCOME, ${
-                (
-                    user.name ||
-                    "USER"
-                )
-                .toUpperCase()
-            }`;
-
-    }
+    welcome.textContent =
+        "WELCOME, " +
+        (
+            user.name ||
+            "USER"
+        ).toUpperCase();
 
 }
 
-// ======================
-// LOAD PLAYLIST DATA
-// ======================
-
-onValue(
-    ref(db, "playlist"),
-    snapshot => {
-
-        const data =
-            snapshot.val();
-
-        if (!data)
-            return;
-
-        const indieTitle =
-            document.getElementById(
-                "indieTitle"
-            );
-
-        const indieDesc =
-            document.getElementById(
-                "indieDesc"
-            );
-
-        const primeTitle =
-            document.getElementById(
-                "primeTitle"
-            );
-
-        const primeDesc =
-            document.getElementById(
-                "primeDesc"
-            );
-
-        if (indieTitle)
-            indieTitle.textContent =
-                data.indieTitle ||
-                "INDIE TRENDING";
-
-        if (indieDesc)
-            indieDesc.textContent =
-                data.indieDesc ||
-                "FREE COMMUNITY PLAYLIST";
-
-        if (primeTitle)
-            primeTitle.textContent =
-                data.primeTitle ||
-                "PRIME ZONE";
-
-        if (primeDesc)
-            primeDesc.textContent =
-                data.primeDesc ||
-                "PREMIUM MEMBER PLAYLIST";
-
-    }
-);
-
-// ======================
-// SHOW EDIT ICON
-// ======================
+/* SHOW EDIT */
 
 if (isAdmin) {
 
@@ -226,44 +149,81 @@ if (isAdmin) {
 
 }
 
-// ======================
-// SAVE DATA
-// ======================
+/* LOAD */
 
-function savePlaylist() {
+onValue(
+    ref(db, "dashboard"),
+    snapshot => {
+
+        const data =
+            snapshot.val();
+
+        if (!data)
+            return;
+
+        document.getElementById(
+            "freeTitle"
+        ).textContent =
+            data.freeTitle ||
+            "FREE";
+
+        document.getElementById(
+            "premiumTitle"
+        ).textContent =
+            data.premiumTitle ||
+            "PREMIUM";
+
+        document.getElementById(
+            "freeDesc"
+        ).textContent =
+            data.freeDesc ||
+            "";
+
+        document.getElementById(
+            "premiumDesc"
+        ).textContent =
+            data.premiumDesc ||
+            "";
+
+    }
+);
+
+/* SAVE */
+
+function saveDashboard() {
 
     set(
         ref(
             db,
-            "playlist"
+            "dashboard"
         ),
         {
 
-            indieTitle:
+            freeTitle:
                 document
                 .getElementById(
-                    "indieTitle"
+                    "freeTitle"
                 )
                 .textContent,
 
-            indieDesc:
+            freeDesc:
                 document
                 .getElementById(
-                    "indieDesc"
+                    "freeDesc"
                 )
                 .textContent,
 
-            primeTitle:
+            premiumTitle:
                 document
                 .getElementById(
-                    "primeTitle"
+                    "premiumTitle"
                 )
                 .textContent,
 
-            primeDesc:
+            premiumDesc:
                 document
                 .getElementById(
-                    "primeDesc"
+                    "premiumDesc"
                 )
                 .textContent
 
@@ -272,96 +232,173 @@ function savePlaylist() {
 
 }
 
-// ======================
-// EDIT FUNCTION
-// ======================
-
-function enableEdit(
-    buttonId,
-    targetId,
-    title
-) {
-
-    document
-        .getElementById(
-            buttonId
-        )
-        ?.addEventListener(
-            "click",
-            () => {
-
-                if (!isAdmin)
-                    return;
-
-                const value =
-                    prompt(
-
-                        title,
-
-                        document
-                        .getElementById(
-                            targetId
-                        )
-                        .textContent
-
-                    );
-
-                if (
-                    value &&
-                    value.trim() !== ""
-                ) {
-
-                    document
-                        .getElementById(
-                            targetId
-                        )
-                        .textContent =
-                        value;
-
-                    savePlaylist();
-
-                }
-
-            }
-        );
-
-}
-
-// ======================
-// ENABLE EDIT
-// ======================
-
-enableEdit(
-    "editIndieTitle",
-    "indieTitle",
-    "INDIE TITLE"
-);
-
-enableEdit(
-    "editIndieDesc",
-    "indieDesc",
-    "INDIE DESCRIPTION"
-);
-
-enableEdit(
-    "editPrimeTitle",
-    "primeTitle",
-    "PRIME TITLE"
-);
-
-enableEdit(
-    "editPrimeDesc",
-    "primeDesc",
-    "PRIME DESCRIPTION"
-);
-
-// ======================
-// FREE PAGE
-// ======================
+/* FREE TITLE */
 
 document
     .getElementById(
-        "indie"
+        "editFreeTitle"
+    )
+    ?.addEventListener(
+        "click",
+        () => {
+
+            if (!isAdmin)
+                return;
+
+            const value =
+                prompt(
+                    "FREE TITLE",
+                    document
+                        .getElementById(
+                            "freeTitle"
+                        )
+                        .textContent
+                );
+
+            if (
+                value &&
+                value.trim()
+            ) {
+
+                document
+                    .getElementById(
+                        "freeTitle"
+                    )
+                    .textContent =
+                    value;
+
+                saveDashboard();
+
+            }
+
+        }
+    );
+
+/* FREE DESC */
+
+document
+    .getElementById(
+        "editFreeDesc"
+    )
+    ?.addEventListener(
+        "click",
+        () => {
+
+            if (!isAdmin)
+                return;
+
+            const value =
+                prompt(
+                    "FREE DESCRIPTION",
+                    document
+                        .getElementById(
+                            "freeDesc"
+                        )
+                        .textContent
+                );
+
+            if (value !== null) {
+
+                document
+                    .getElementById(
+                        "freeDesc"
+                    )
+                    .textContent =
+                    value;
+
+                saveDashboard();
+
+            }
+
+        }
+    );
+
+/* PREMIUM TITLE */
+
+document
+    .getElementById(
+        "editPremiumTitle"
+    )
+    ?.addEventListener(
+        "click",
+        () => {
+
+            if (!isAdmin)
+                return;
+
+            const value =
+                prompt(
+                    "PREMIUM TITLE",
+                    document
+                        .getElementById(
+                            "premiumTitle"
+                        )
+                        .textContent
+                );
+
+            if (
+                value &&
+                value.trim()
+            ) {
+
+                document
+                    .getElementById(
+                        "premiumTitle"
+                    )
+                    .textContent =
+                    value;
+
+                saveDashboard();
+
+            }
+
+        }
+    );
+
+/* PREMIUM DESC */
+
+document
+    .getElementById(
+        "editPremiumDesc"
+    )
+    ?.addEventListener(
+        "click",
+        () => {
+
+            if (!isAdmin)
+                return;
+
+            const value =
+                prompt(
+                    "PREMIUM DESCRIPTION",
+                    document
+                        .getElementById(
+                            "premiumDesc"
+                        )
+                        .textContent
+                );
+
+            if (value !== null) {
+
+                document
+                    .getElementById(
+                        "premiumDesc"
+                    )
+                    .textContent =
+                    value;
+
+                saveDashboard();
+
+            }
+
+        }
+    );
+
+/* OPEN PAGE */
+
+document
+    .getElementById(
+        "free"
     )
     ?.addEventListener(
         "click",
@@ -373,13 +410,9 @@ document
         }
     );
 
-// ======================
-// PREMIUM PAGE
-// ======================
-
 document
     .getElementById(
-        "prime"
+        "premium"
     )
     ?.addEventListener(
         "click",
@@ -391,32 +424,23 @@ document
         }
     );
 
-// ======================
-// EQUALIZER
-// ======================
+/* EQUALIZER */
 
 const bars =
     document.querySelectorAll(
         ".equalizer span"
     );
 
-if (bars.length > 0) {
+setInterval(() => {
 
-    setInterval(() => {
+    bars.forEach(bar => {
 
-        bars.forEach(bar => {
+        bar.style.height =
+            (
+                Math.random() * 45 +
+                8
+            ) + "px";
 
-            bar.style.height =
+    });
 
-                (
-                    Math.floor(
-                        Math.random() * 42
-                    ) + 8
-
-                ) + "px";
-
-        });
-
-    }, 120);
-
-}
+}, 120);

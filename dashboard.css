@@ -1,412 +1,449 @@
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
 body{
-background:#000;
-color:#fff;
-font-family:monospace;
 
-display:flex;
-justify-content:center;
-align-items:center;
+    background:#000;
 
-min-height:100vh;
+    color:#fff;
 
-padding:20px;
+    font-family:monospace;
 
-overflow-x:hidden;
+    min-height:100vh;
 
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:20px;
+
+    overflow-x:hidden;
 }
 
 .container{
-width:100%;
-display:flex;
-justify-content:center;
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:center;
 }
 
 .box{
-position:relative;
 
-width:100%;
-max-width:450px;
+    position:relative;
 
-border:2px solid #fff;
+    width:100%;
 
-padding:35px 25px;
+    max-width:500px;
 
-display:flex;
-flex-direction:column;
+    border:2px solid #fff;
 
-gap:25px;
+    padding:35px 25px;
 
+    overflow:hidden;
 }
 
 /* PROFILE */
 
 #profileBtn{
-position:absolute;
-top:20px;
-right:20px;
 
-width:48px;
-height:48px;
+    position:absolute;
 
-display:flex;
-justify-content:center;
-align-items:center;
+    top:20px;
+    right:20px;
 
-cursor:pointer;
+    width:48px;
+    height:48px;
 
-z-index:999;
+    cursor:pointer;
 
+    z-index:999;
 }
 
 #avatar{
-width:100%;
-height:100%;
 
-border-radius:50%;
+    width:100%;
+    height:100%;
 
-border:2px solid #fff;
+    object-fit:cover;
 
-object-fit:cover;
+    border-radius:50%;
 
+    border:2px solid #fff;
 }
 
 /* NOTES */
 
 .notes{
-text-align:center;
 
-font-size:20px;
+    text-align:center;
 
-opacity:.9;
+    font-size:20px;
 
-animation:swing 2s ease-in-out infinite;
+    margin-bottom:20px;
 
+    animation:swing 2s ease-in-out infinite;
 }
 
 @keyframes swing{
 
-0%{
-    transform:translateX(-8px);
-}
+    0%{
+        transform:translateX(-8px);
+    }
 
-50%{
-    transform:translateX(8px);
-}
+    50%{
+        transform:translateX(8px);
+    }
 
-100%{
-    transform:translateX(-8px);
-}
+    100%{
+        transform:translateX(-8px);
+    }
 
 }
 
 /* TITLE */
 
 .title{
-text-align:center;
+
+    text-align:center;
+
+    margin-bottom:20px;
 }
 
 .title h1{
-font-size:32px;
 
-letter-spacing:4px;
+    font-size:32px;
 
-margin-bottom:10px;
+    letter-spacing:4px;
 
+    margin-bottom:10px;
 }
 
 .title p{
-font-size:12px;
 
-letter-spacing:4px;
+    font-size:12px;
 
-opacity:.7;
+    letter-spacing:4px;
 
+    opacity:.7;
 }
 
 /* WELCOME */
 
 #welcome{
-text-align:center;
 
-font-size:15px;
+    text-align:center;
 
-letter-spacing:3px;
+    margin-bottom:40px;
 
+    letter-spacing:3px;
+
+    font-size:14px;
 }
 
-/* PLAYLIST */
+/* DISC AREA */
 
-.playlist{
-display:flex;
-flex-direction:column;
-align-items:center;
+.discContainer{
 
-gap:15px;
+    display:flex;
 
-padding:20px 0;
+    justify-content:space-between;
 
+    gap:20px;
+
+    margin-bottom:40px;
 }
 
-.playlist h2{
-display:flex;
-align-items:center;
-gap:8px;
+.discBox{
 
-font-size:20px;
+    flex:1;
 
-letter-spacing:2px;
-
-}
-
-.playlist p{
-display:flex;
-align-items:center;
-gap:8px;
-
-font-size:12px;
-
-letter-spacing:2px;
-
-}
-
-#indieDesc,
-#primeDesc{
-opacity:.65;
+    text-align:center;
 }
 
 /* DISC */
 
 .disc{
-width:120px;
-height:120px;
 
-border-radius:50%;
+    width:140px;
 
-position:relative;
+    height:140px;
 
+    border-radius:50%;
+
+    margin:auto;
+
+    position:relative;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    animation:spin 10s linear infinite;
 }
 
-.discCenter{
-width:18px;
-height:18px;
+.disc:hover{
 
-background:#000;
-
-border-radius:50%;
-
-position:absolute;
-
-top:50%;
-left:50%;
-
-transform:translate(-50%,-50%);
-
-}
-
-.freeDisc{
-border:4px solid #fff;
-
-box-shadow:
-0 0 0 6px #000,
-0 0 0 8px #fff;
-
-animation:spin 18s linear infinite;
-
-}
-
-.primeDisc{
-border:4px solid #d4af37;
-
-box-shadow:
-0 0 10px #d4af37,
-0 0 20px #d4af37,
-0 0 35px rgba(212,175,55,.4);
-
-animation:spin 10s linear infinite;
-
-}
-
-.primeCard h2{
-color:#d4af37;
-}
-
-.primeCard button{
-border:2px solid #d4af37;
-color:#d4af37;
-}
-
-.primeCard button:hover{
-background:#d4af37;
-color:#000;
+    transform:scale(1.08);
 }
 
 @keyframes spin{
 
-from{
-    transform:rotate(0deg);
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(360deg);
+    }
+
 }
 
-to{
-    transform:rotate(360deg);
+/* FREE DISC */
+
+.freeDisc{
+
+    background:
+    radial-gradient(
+        circle,
+        #555 0%,
+        #222 45%,
+        #000 100%
+    );
+
+    border:3px solid #fff;
+
+    box-shadow:
+        0 0 25px rgba(255,255,255,.25);
 }
 
+/* GOLD DISC */
+
+.primeDisc{
+
+    background:
+    radial-gradient(
+        circle,
+        #ffe58c 0%,
+        #d4af37 40%,
+        #8b6900 100%
+    );
+
+    border:3px solid gold;
+
+    box-shadow:
+        0 0 25px rgba(255,215,0,.6);
+}
+
+/* CENTER */
+
+.discCenter{
+
+    width:38px;
+
+    height:38px;
+
+    border-radius:50%;
+
+    position:absolute;
+
+    top:50%;
+    left:50%;
+
+    transform:
+        translate(-50%,-50%);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:9px;
+
+    font-weight:bold;
+
+    background:#000;
+
+    color:#fff;
+
+    border:2px solid #fff;
+}
+
+.primeDisc .discCenter{
+
+    color:gold;
+
+    border:2px solid gold;
+
+    background:#222;
+}
+
+/* TITLE */
+
+.discBox h2{
+
+    margin-top:18px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:6px;
+
+    font-size:17px;
+
+    letter-spacing:2px;
+}
+
+.discBox p{
+
+    margin-top:10px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:6px;
+
+    font-size:11px;
+
+    opacity:.7;
+
+    letter-spacing:1px;
 }
 
 /* EDIT */
 
 .edit{
-display:none;
 
-cursor:pointer;
+    display:none;
 
-font-size:13px;
+    cursor:pointer;
 
-opacity:.6;
+    opacity:.5;
 
-transition:.2s;
-
+    transition:.2s;
 }
 
 .edit:hover{
-opacity:1;
 
-transform:scale(1.15);
+    opacity:1;
 
-}
-
-/* BUTTON */
-
-button{
-width:100%;
-
-height:52px;
-
-background:#000;
-
-color:#fff;
-
-border:2px solid #fff;
-
-font-family:monospace;
-
-font-size:14px;
-
-letter-spacing:2px;
-
-cursor:pointer;
-
-transition:.25s;
-
-}
-
-button:hover{
-background:#fff;
-color:#000;
-}
-
-/* CREATE */
-
-#createPlaylist{
-display:none;
-
-margin-top:10px;
-
-}
-
-/* HR */
-
-hr{
-border:none;
-border-top:1px solid rgba(255,255,255,.2);
+    transform:scale(1.2);
 }
 
 /* EQUALIZER */
 
 .equalizer{
-width:100%;
 
-height:60px;
+    width:100%;
 
-display:flex;
+    height:60px;
 
-align-items:flex-end;
+    display:flex;
 
-justify-content:center;
+    align-items:flex-end;
 
-gap:4px;
+    justify-content:center;
 
-margin-top:10px;
+    gap:4px;
 
+    margin-top:10px;
 }
 
 .equalizer span{
-width:14px;
 
-height:12px;
+    width:12px;
 
-background:#fff;
+    height:12px;
 
-transition:height .12s linear;
+    background:#fff;
 
+    transition:height .12s linear;
 }
 
 /* MOBILE */
 
 @media(max-width:480px){
 
-body{
-    padding:15px;
-}
+    body{
 
-.box{
-    padding:30px 18px;
-}
+        padding:15px;
+    }
 
-.title h1{
-    font-size:24px;
-    letter-spacing:3px;
-}
+    .box{
 
-.title p{
-    font-size:11px;
-}
+        padding:30px 18px;
+    }
 
-#welcome{
-    font-size:13px;
-}
+    .title h1{
 
-.playlist h2{
-    font-size:16px;
-}
+        font-size:24px;
 
-.playlist p{
-    font-size:11px;
-    text-align:center;
-}
+        letter-spacing:3px;
+    }
 
-button{
-    height:50px;
-    font-size:12px;
-}
+    .title p{
 
-#profileBtn{
-    width:42px;
-    height:42px;
-}
+        font-size:11px;
+    }
 
-.equalizer span{
-    width:10px;
-}
+    #welcome{
 
-.disc{
-    width:95px;
-    height:95px;
-}
+        font-size:12px;
+    }
+
+    .discContainer{
+
+        gap:10px;
+    }
+
+    .disc{
+
+        width:115px;
+
+        height:115px;
+    }
+
+    .discBox h2{
+
+        font-size:14px;
+    }
+
+    .discBox p{
+
+        font-size:10px;
+    }
+
+    .discCenter{
+
+        width:32px;
+
+        height:32px;
+
+        font-size:8px;
+    }
+
+    #profileBtn{
+
+        width:42px;
+        height:42px;
+    }
+
+    .equalizer span{
+
+        width:9px;
+    }
 
 }

@@ -48,12 +48,11 @@ const db =
 // USER
 // ======================
 
-const user =
-    JSON.parse(
-        localStorage.getItem(
-            "s4s_user"
-        )
-    );
+const user = JSON.parse(
+    localStorage.getItem(
+        "s4s_user"
+    )
+);
 
 if (!user) {
 
@@ -81,6 +80,10 @@ if (
 
 }
 
+// ======================
+// PROFILE
+// ======================
+
 document
     .getElementById(
         "profileBtn"
@@ -91,6 +94,24 @@ document
 
             window.location.href =
                 "./profile.html";
+
+        }
+    );
+
+// ======================
+// BACK
+// ======================
+
+document
+    .getElementById(
+        "backBtn"
+    )
+    ?.addEventListener(
+        "click",
+        () => {
+
+            window.location.href =
+                "./dashboard.html";
 
         }
     );
@@ -117,7 +138,7 @@ const isAdmin =
     );
 
 // ======================
-// SHOW EDIT
+// SHOW PENCIL
 // ======================
 
 if (isAdmin) {
@@ -151,7 +172,8 @@ onValue(
         const data =
             snapshot.val();
 
-        if (!data) return;
+        if (!data)
+            return;
 
         if (data.prime)
             document.getElementById(
@@ -200,7 +222,7 @@ onValue(
 );
 
 // ======================
-// SAVE
+// SAVE DESCRIPTION
 // ======================
 
 function saveDesc(
@@ -222,7 +244,7 @@ function saveDesc(
 }
 
 // ======================
-// EDIT
+// EDIT FUNCTION
 // ======================
 
 function setupEdit(
@@ -235,7 +257,9 @@ function setupEdit(
         .getElementById(button)
         ?.addEventListener(
             "click",
-            () => {
+            e => {
+
+                e.stopPropagation();
 
                 if (!isAdmin)
                     return;
@@ -309,7 +333,7 @@ setupEdit(
 );
 
 // ======================
-// PAGE
+// OPEN PLAYLIST PAGE
 // ======================
 
 document
@@ -411,36 +435,35 @@ document
     );
 
 // ======================
-// COVER
+// TEMP COVER
 // ======================
 
 document.getElementById("primeCover").src =
-"https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84";
+"./img/premium.png";
 
 document.getElementById("upmooCover").src =
-"https://picsum.photos/300?1";
+"./img/premium.png";
 
 document.getElementById("lgmelCover").src =
-"https://picsum.photos/300?2";
+"./img/premium.png";
 
 document.getElementById("cahinCover").src =
-"https://picsum.photos/300?3";
+"./img/premium.png";
 
 document.getElementById("gimixCover").src =
-"https://picsum.photos/300?4";
+"./img/premium.png";
 
 document.getElementById("bbrisCover").src =
-"https://picsum.photos/300?5";
+"./img/premium.png";
 
 document.getElementById("inmixCover").src =
-"https://picsum.photos/300?6";
+"./img/premium.png";
 
 // ======================
 // EQUALIZER
 // ======================
 
 const bars =
-
     document.querySelectorAll(
         ".equalizer span"
     );
@@ -455,9 +478,8 @@ if (bars.length > 0) {
 
                 (
                     Math.floor(
-                        Math.random() * 35
+                        Math.random() * 45
                     ) + 8
-
                 ) + "px";
 
         });

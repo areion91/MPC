@@ -11,10 +11,10 @@ body{
     background:
     linear-gradient(
         135deg,
-        #070707 0%,
-        #1b1030 35%,
-        #6b4b00 70%,
-        #0d1b35 100%
+        #050505 0%,
+        #23103b 35%,
+        #7a5a00 70%,
+        #09142d 100%
     );
 
     color:#fff;
@@ -26,19 +26,54 @@ body{
     overflow-x:hidden;
 }
 
+/* BACK */
+
+#backBtn{
+
+    position:fixed;
+
+    top:20px;
+    left:20px;
+
+    padding:8px 15px;
+
+    border:1px solid #ffd54a;
+
+    color:#ffd54a;
+
+    font-size:12px;
+
+    letter-spacing:2px;
+
+    cursor:pointer;
+
+    z-index:999;
+
+    transition:.2s;
+}
+
+#backBtn:hover{
+
+    background:#ffd54a;
+
+    color:#000;
+}
+
 /* PROFILE */
 
 #profileBtn{
 
     position:fixed;
 
-    top:20px;
+    top:18px;
     right:20px;
 
-    width:50px;
-    height:50px;
+    width:48px;
+    height:48px;
 
     z-index:999;
+
+    cursor:pointer;
 }
 
 #avatar{
@@ -48,7 +83,7 @@ body{
 
     border-radius:50%;
 
-    border:2px solid gold;
+    border:2px solid #ffd54a;
 
     object-fit:cover;
 }
@@ -59,23 +94,24 @@ body{
 
     text-align:center;
 
-    margin-top:40px;
+    margin-top:70px;
+
     margin-bottom:40px;
 }
 
 .header h1{
 
-    font-size:36px;
+    font-size:28px;
 
     color:#ffd54a;
 
     letter-spacing:4px;
 
     text-shadow:
-    0 0 15px rgba(255,215,0,.5);
+    0 0 20px rgba(255,215,0,.4);
 }
 
-/* PLAYLIST */
+/* PLAYLIST LIST */
 
 .playlistList{
 
@@ -87,8 +123,10 @@ body{
 
     flex-direction:column;
 
-    gap:30px;
+    gap:10px;
 }
+
+/* ITEM */
 
 .playlistItem{
 
@@ -96,12 +134,12 @@ body{
 
     align-items:center;
 
-    gap:25px;
+    gap:20px;
 
-    padding:20px;
+    padding:18px;
 
     border-bottom:
-    1px solid rgba(255,255,255,.15);
+    1px solid rgba(255,255,255,.1);
 
     cursor:pointer;
 
@@ -111,7 +149,7 @@ body{
 .playlistItem:hover{
 
     background:
-    rgba(255,255,255,.05);
+    rgba(255,255,255,.04);
 
     transform:
     translateX(10px);
@@ -121,14 +159,14 @@ body{
 
 .disc{
 
-    width:95px;
-    height:95px;
+    position:relative;
+
+    width:75px;
+    height:75px;
 
     border-radius:50%;
 
     overflow:hidden;
-
-    position:relative;
 
     flex-shrink:0;
 
@@ -136,7 +174,7 @@ body{
     spin 15s linear infinite;
 
     box-shadow:
-    0 0 25px rgba(255,215,0,.3);
+    0 0 18px rgba(255,215,0,.4);
 }
 
 .disc img{
@@ -153,8 +191,8 @@ body{
 
     position:absolute;
 
-    width:24px;
-    height:24px;
+    width:18px;
+    height:18px;
 
     border-radius:50%;
 
@@ -178,6 +216,7 @@ body{
     to{
         transform:rotate(360deg);
     }
+
 }
 
 /* INFO */
@@ -201,9 +240,9 @@ body{
 
     gap:10px;
 
-    color:#ffd54a;
+    font-size:17px;
 
-    font-size:24px;
+    color:#ffd54a;
 
     letter-spacing:2px;
 
@@ -219,13 +258,13 @@ body{
 
     gap:8px;
 
+    min-height:18px;
+
     color:#ddd;
 
     opacity:.75;
 
-    min-height:20px;
-
-    font-size:13px;
+    font-size:11px;
 
     letter-spacing:1px;
 }
@@ -254,9 +293,11 @@ body{
 
 .equalizer{
 
-    margin-top:50px;
+    width:100%;
 
-    height:50px;
+    height:55px;
+
+    margin-top:40px;
 
     display:flex;
 
@@ -271,14 +312,15 @@ body{
 
     width:10px;
 
-    height:12px;
+    height:10px;
 
     background:#ffd54a;
 
-    transition:.12s linear;
-
     box-shadow:
     0 0 10px rgba(255,215,0,.5);
+
+    transition:
+    height .12s linear;
 }
 
 /* SCANLINE */
@@ -291,14 +333,18 @@ body::before{
 
     inset:0;
 
+    pointer-events:none;
+
     background:
     repeating-linear-gradient(
-        transparent 0px,
-        rgba(255,255,255,.015) 2px,
-        transparent 4px
-    );
 
-    pointer-events:none;
+        transparent 0px,
+
+        rgba(255,255,255,.015) 2px,
+
+        transparent 4px
+
+    );
 }
 
 /* MOBILE */
@@ -306,32 +352,55 @@ body::before{
 @media(max-width:700px){
 
     body{
-        padding:20px;
+
+        padding:18px;
+    }
+
+    .header h1{
+
+        font-size:22px;
+
+        letter-spacing:3px;
     }
 
     .playlistItem{
 
         gap:15px;
+
+        padding:15px;
     }
 
     .disc{
 
-        width:75px;
-        height:75px;
+        width:65px;
+        height:65px;
     }
 
     .playlistInfo h2{
 
-        font-size:18px;
+        font-size:14px;
     }
 
     .playlistInfo p{
 
-        font-size:11px;
+        font-size:10px;
     }
 
-    .header h1{
+    #backBtn{
 
-        font-size:26px;
+        font-size:10px;
+
+        padding:6px 12px;
+    }
+
+    #profileBtn{
+
+        width:42px;
+        height:42px;
+    }
+
+    .equalizer span{
+
+        width:8px;
     }
 }

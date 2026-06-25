@@ -62,8 +62,8 @@
 
         <!-- JOIN -->
 
-        <div class="menuCard"
-             onclick="location.href='joinre.html'">
+        <div id="joinBtn"
+             class="menuCard">
 
             <div class="menuTitle">
 
@@ -82,8 +82,8 @@
 
         <!-- SONG -->
 
-        <div class="menuCard gold"
-             onclick="location.href='songre.html'">
+        <div id="songBtn"
+             class="menuCard gold">
 
             <div class="menuTitle">
 
@@ -128,40 +128,84 @@
 
     </div>
 
-    <!-- POPUP -->
+</div>
 
-    <div id="announcePopup"
-         class="popup">
+</div><!-- JOIN POPUP --><div id="joinPopup"
+     class="popup"><div class="popupBox">
 
-        <div class="popupBox">
+    <h2>
 
-            <h2>
+        JOIN REQUEST
 
-                ANNOUNCEMENT
+    </h2>
 
-            </h2>
+    <div id="joinList">
 
-            <textarea id="announceText"
-                      placeholder="Write announcement...">
-            </textarea>
+    </div>
 
-            <div class="popupButtons">
+    <div class="popupButtons">
 
-                <button id="saveAnnouncement">
+        <button id="closeJoin">
 
-                    SAVE
+            CLOSE
 
-                </button>
+        </button>
 
-                <button id="closeAnnouncement">
+    </div>
 
-                    CLOSE
+</div>
 
-                </button>
+</div><!-- SONG POPUP --><div id="songPopup"
+     class="popup"><div class="popupBox">
 
-            </div>
+    <h2>
 
-        </div>
+        SONG REQUEST
+
+    </h2>
+
+    <div id="songList">
+
+    </div>
+
+    <div class="popupButtons">
+
+        <button id="closeSong">
+
+            CLOSE
+
+        </button>
+
+    </div>
+
+</div>
+
+</div><!-- ANNOUNCEMENT --><div id="announcePopup"
+     class="popup"><div class="popupBox">
+
+    <h2>
+
+        ANNOUNCEMENT
+
+    </h2>
+
+    <textarea id="announceText"
+              placeholder="Write announcement...">
+    </textarea>
+
+    <div class="popupButtons">
+
+        <button id="saveAnnouncement">
+
+            SAVE
+
+        </button>
+
+        <button id="closeAnnouncement">
+
+            CLOSE
+
+        </button>
 
     </div>
 
@@ -169,6 +213,4 @@
 
 </div><script type="module"
         src="admin.js">
-</script>
-</body>
-</html>
+</script></body></html>

@@ -6,13 +6,12 @@ from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
     getAuth,
     GoogleAuthProvider,
-    signInWithPopup
+    signInWithRedirect,
+    getRedirectResult
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-// ======================
 // FIREBASE
-// ======================
 const firebaseConfig = {
 
     apiKey:
@@ -38,88 +37,75 @@ const firebaseConfig = {
 
 };
 
-// ======================
-// INIT
-// ======================
 const app =
     initializeApp(
         firebaseConfig
     );
 
 const auth =
-    getAuth(
-        app
-    );
+    getAuth(app);
 
 const provider =
     new GoogleAuthProvider();
 
-// ======================
-// LOGIN
-// ======================
-document
-    .getElementById(
-        "googleLogin"
-    )
-    .addEventListener(
-        "click",
+// HASIL LOGIN
+getRedirectResult(auth)
 
-        async () => {
+.then((result) => {
 
-            try {
+    if (!result)
+        return;
 
-                const result =
-                    await signInWithPopup(
-                        auth,
-                        provider
-                    );
+    const user =
+        result.user;
 
-                const user =
-                    result.user;
+    localStorage.setItem(
+        "s4s_user",
+        JSON.stringify({
 
-                const userData = {
+            uid:
+                user.uid,
 
-                    uid:
-                        user.uid,
+            name:
+                user.displayName,
 
-                    name:
-                        user.displayName,
+            email:
+                user.email,
 
-                    email:
-                        user.email,
+            picture:
+                user.photoURL
 
-                    picture:
-                        user.photoURL
-
-                };
-
-                localStorage.setItem(
-
-                    "s4s_user",
-
-                    JSON.stringify(
-                        userData
-                    )
-
-                );
-
-                window.location.href =
-                    "./dashboard.html";
-
-            }
-
-            catch (error) {
-
-                console.log(error);
-
-                alert(
-                    error.code +
-                    "\n\n" +
-                    error.message
-                );
-
-            }
-
-        }
-
+        })
     );
+
+    window.location.href =
+        "./dashboard.html";
+
+})
+
+.catch((error) => {
+
+    alert(
+        error.code
+    );
+
+});
+
+// TOMBOL LOGIN
+document
+.getElementById(
+    "googleLogin"
+)
+.addEventListener(
+    "click",
+
+    () => {
+
+        signInWithRedirect(
+            auth,
+            provider
+        );
+
+    }
+
+);

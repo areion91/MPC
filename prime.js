@@ -218,127 +218,172 @@ onValue(
     }
 
 );
+// ======================
+// REQUEST STATUS
+// ======================
+
+onValue(
+
+    ref(
+        db,
+        "primeRequest/" + user.uid
+    ),
+
+    snapshot => {
+
+        const data =
+            snapshot.val();
+
+        if (
+            data &&
+            !data.approved
+        ) {
+
+            requestBtn.innerText =
+                "WAITING";
+
+            requestBtn.disabled =
+                true;
+
+        }
+
+    }
+
+);
 
 // ======================
-// POPUP
+// CHECK MEMBER
 // ======================
 
-const popup =
-    document.getElementById(
-        "requestPopup"
-    );
+onValue(
+
+    ref(
+        db,
+        "primeMember/" + user.uid
+    ),
+
+    snapshot => {
+
+        const data =
+            snapshot.val();
+
+        if (
+            data &&
+            data.approved
+        ) {
+
+            requestBtn.style.display =
+                "none";
+
+            memberPanel.style.display =
+                "block";
+
+            document
+                .getElementById(
+                    "progressValue"
+                )
+                .textContent =
+                (
+                    data.progress || 0
+                ) + "%";
+
+            document
+                .getElementById(
+                    "progressFill"
+                )
+                .style.width =
+                (
+                    data.progress || 0
+                ) + "%";
+
+        }
+
+    }
+
+);
+
+// ======================
+// REQUEST JOIN
+// ======================
 
 requestBtn.onclick =
     () => {
 
-        popup.style.display =
-            "flex";
+        if (
+            requestBtn.innerText ===
+            "WAITING"
+        ) return;
+
+        set(
+
+            ref(
+                db,
+                "primeRequest/" +
+                user.uid
+            ),
+
+            {
+
+                uid:
+                    user.uid,
+
+                name:
+                    user.name ||
+                    "USER",
+
+                email:
+                    user.email ||
+                    "",
+
+                picture:
+                    user.picture ||
+                    "",
+
+                approved:
+                    false,
+
+                progress:
+                    0,
+
+                time:
+                    Date.now()
+
+            }
+
+        ).then(() => {
+
+            requestBtn.innerText =
+                "WAITING";
+
+            requestBtn.disabled =
+                true;
+
+        });
 
     };
 
-document
-    .getElementById(
-        "closePopup"
-    )
-    .onclick =
-    () => {
-
-        popup.style.display =
-            "none";
-
-    };
-
 // ======================
-// ADD SONG
-// ======================
-
-let totalInput = 1;
-
-document
-    .getElementById(
-        "addSong"
-    )
-    .onclick
-   
-    = () => {
-
-    totalInput++;
-
-    const container =
-        document.getElementById(
-            "songInputs"
-        );
-
-    const input =
-        document.createElement(
-            "input"
-        );
-
-    input.type = "text";
-
-    input.className =
-        "songInput";
-
-    input.placeholder =
-        "Spotify Link " +
-        totalInput;
-
-    container.appendChild(
-        input
-    );
-
-};
-
-// ======================
-// SUBMIT REQUEST
+// CHECK IN
 // ======================
 
 document
     .getElementById(
-        "submitRequest"
+        "checkinBtn"
     )
     ?.addEventListener(
         "click",
         () => {
 
-            const inputs =
-                document.querySelectorAll(
-                    ".songInput"
-                );
+            const today =
+                new Date()
+                .toDateString();
 
-            const songs = [];
-
-            inputs.forEach(input => {
-
-                if (
-                    input.value.trim()
-                ) {
-
-                    songs.push(
-                        input.value.trim()
-                    );
-
-                }
-
-            });
-
-            if (
-                songs.length === 0
-            ) {
-
-                alert(
-                    "Add song first."
-                );
-
-                return;
-
-            }
-
-            push(
+            set(
 
                 ref(
                     db,
-                    "primeRequest"
+                    "primeCheckin/" +
+                    user.uid
                 ),
 
                 {
@@ -347,38 +392,17 @@ document
                         user.uid,
 
                     name:
-                        user.name ||
-                        "USER",
+                        user.name,
 
-                    email:
-                        user.email ||
-                        "",
-
-                    picture:
-                        user.picture ||
-                        "",
-
-                    songs:
-                        songs,
-
-                    approved:
-                        false,
+                    date:
+                        today,
 
                     time:
                         Date.now()
 
                 }
 
-            ).then(() => {
-
-                alert(
-                    "Request sent."
-                );
-
-                popup.style.display =
-                    "none";
-
-            });
+            );
 
         }
     );

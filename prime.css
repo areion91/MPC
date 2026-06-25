@@ -196,7 +196,7 @@ display:flex;
 
 flex-direction:column;
 
-gap:15px;
+gap:20px;
 
 }
 
@@ -208,7 +208,7 @@ display:flex;
 
 flex-direction:column;
 
-gap:18px;
+gap:20px;
 
 }
 
@@ -222,32 +222,37 @@ align-items:center;
 
 gap:15px;
 
-width:100%;
-
 }
 
 .progressBar{
 
 flex:1;
 
-height:10px;
+height:4px;
 
 position:relative;
 
 overflow:visible;
 
-border-radius:20px;
+--progress:0%;
+
+}
+
+.progressBar::before{
+
+content:"";
+
+position:absolute;
+
+left:0;
+right:0;
+
+top:0;
+
+height:4px;
 
 background:
 rgba(255,255,255,.08);
-
-border:
-1px solid rgba(255,215,0,.4);
-
-box-shadow:
-0 0 10px rgba(255,215,0,.15);
-
---progress:0%;
 
 }
 
@@ -259,14 +264,14 @@ position:absolute;
 
 left:calc(var(--progress) - 8px);
 
-top:-7px;
+top:-8px;
 
 font-size:18px;
 
 color:gold;
 
 text-shadow:
-0 0 10px gold;
+0 0 12px gold;
 
 transition:.4s;
 
@@ -276,9 +281,7 @@ transition:.4s;
 
 width:0%;
 
-height:100%;
-
-border-radius:20px;
+height:4px;
 
 background:
 linear-gradient(
@@ -289,7 +292,7 @@ linear-gradient(
 );
 
 box-shadow:
-0 0 15px gold;
+0 0 12px gold;
 
 transition:.4s;
 
@@ -324,11 +327,7 @@ margin:auto;
 border:1px solid gold;
 
 background:
-linear-gradient(
-    135deg,
-    #111,
-    #222
-);
+rgba(255,215,0,.05);
 
 color:gold;
 
@@ -336,14 +335,14 @@ font-family:monospace;
 
 font-weight:bold;
 
-letter-spacing:3px;
+letter-spacing:4px;
 
 cursor:pointer;
 
-transition:.2s;
+transition:.3s;
 
 box-shadow:
-0 0 15px rgba(255,215,0,.2);
+0 0 20px rgba(255,215,0,.1);
 
 }
 
@@ -397,13 +396,13 @@ border:none;
 
 background:#111;
 
-color:#888;
+color:#777;
 
 font-family:monospace;
 
 cursor:pointer;
 
-letter-spacing:1px;
+letter-spacing:2px;
 
 transition:.2s;
 
@@ -456,6 +455,8 @@ font-size:13px;
 
 letter-spacing:1px;
 
+transition:.2s;
+
 }
 
 .songItem:hover{
@@ -475,6 +476,8 @@ border-bottom:
 1px solid rgba(255,255,255,.08);
 
 font-size:12px;
+
+letter-spacing:1px;
 
 }
 

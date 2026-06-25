@@ -1,58 +1,125 @@
-const CLIENT_ID =
-"475553127157-nn2o47e7273qrk4rp46aljldoks35bbm.apps.googleusercontent.com";
+import {
+    initializeApp
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-window.onload = () => {
+import {
+    getAuth,
+    GoogleAuthProvider,
+    signInWithPopup
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-  google.accounts.id.initialize({
+// ======================
+// FIREBASE
+// ======================
+const firebaseConfig = {
 
-    client_id: CLIENT_ID,
+    apiKey:
+        "AIzaSyD1qVByOVP_oLxyjVrE7zLNAHKwA5o3IyU",
 
-    callback: handleCredentialResponse
+    authDomain:
+        "stream4stream-eda97.firebaseapp.com",
 
-  });
+    databaseURL:
+        "https://stream4stream-eda97-default-rtdb.asia-southeast1.firebasedatabase.app",
+
+    projectId:
+        "stream4stream-eda97",
+
+    storageBucket:
+        "stream4stream-eda97.firebasestorage.app",
+
+    messagingSenderId:
+        "315567847124",
+
+    appId:
+        "1:315567847124:web:8ce342a02b38b030f26d41"
 
 };
 
+// ======================
+// INIT
+// ======================
+const app =
+    initializeApp(
+        firebaseConfig
+    );
+
+const auth =
+    getAuth(
+        app
+    );
+
+const provider =
+    new GoogleAuthProvider();
+
+// ======================
+// LOGIN
+// ======================
 document
-.getElementById("googleLogin")
-.addEventListener("click", () => {
+    .getElementById(
+        "googleLogin"
+    )
+    .addEventListener(
+        "click",
 
-  google.accounts.id.prompt((notification) => {
-    console.log(notification);
-  });
+        async () => {
 
-});
+            try {
 
-function handleCredentialResponse(response) {
+                const result =
+                    await signInWithPopup(
+                        auth,
+                        provider
+                    );
 
-  const payload = JSON.parse(
+                const user =
+                    result.user;
 
-    atob(response.credential.split(".")[1])
+                const userData = {
 
-  );
+                    uid:
+                        user.uid,
 
-  const user = {
+                    name:
+                        user.displayName,
 
-    id: payload.sub,
+                    email:
+                        user.email,
 
-    name: payload.name,
+                    picture:
+                        user.photoURL
 
-    email: payload.email,
+                };
 
-    picture: payload.picture
+                localStorage.setItem(
 
-  };
+                    "s4s_user",
 
-  localStorage.setItem(
+                    JSON.stringify(
+                        userData
+                    )
 
-    "s4s_user",
+                );
 
-    JSON.stringify(user)
+                window.location.href =
+                    "./dashboard.html";
 
-  );
+            }
 
-  window.location.href =
+            catch (error) {
 
-    "./dashboard.html";
+                console.error(
+                    error
+                );
 
-}
+                alert(
+                    error.code
+                );
+
+            }
+
+        }
+
+    );

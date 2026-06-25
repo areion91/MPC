@@ -333,6 +333,56 @@ body{
     transform:scale(1.15);
 }
 
+/* ADMIN PANEL */
+
+.adminArea{
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    margin-top:-5px;
+
+    margin-bottom:-10px;
+}
+
+.adminArea.show{
+
+    display:flex;
+}
+
+#adminBtn{
+
+    background:#111;
+
+    border:1px solid #555;
+
+    color:#fff;
+
+    padding:10px 25px;
+
+    border-radius:8px;
+
+    font-family:monospace;
+
+    letter-spacing:2px;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+#adminBtn:hover{
+
+    background:#222;
+
+    border-color:#fff;
+
+    transform:scale(1.05);
+}
+
 /* EQUALIZER */
 
 .equalizer{

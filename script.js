@@ -110,12 +110,12 @@ document
 
             catch (error) {
 
-                console.error(
-                    error
-                );
+                console.log(error);
 
                 alert(
-                    error.code
+                    error.code +
+                    "\n\n" +
+                    error.message
                 );
 
             }

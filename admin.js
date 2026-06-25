@@ -85,6 +85,25 @@ if(!isAdmin){
 
 }
 
+/* BACK */
+
+document
+    .getElementById(
+        "backBtn"
+    )
+    ?.addEventListener(
+
+        "click",
+
+        ()=>{
+
+            location.href =
+                "./dashboard.html";
+
+        }
+
+    );
+
 /* STATUS */
 
 const status =
@@ -92,7 +111,7 @@ const status =
         "status"
     );
 
-/* JOIN NOTIFICATION */
+/* JOIN REQUEST */
 
 onValue(
 
@@ -117,7 +136,7 @@ onValue(
 
 );
 
-/* SONG NOTIFICATION */
+/* SONG REQUEST */
 
 onValue(
 
@@ -252,7 +271,7 @@ get(
 
 });
 
-/* SAVE ANNOUNCEMENT */
+/* SAVE */
 
 document
     .getElementById(

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        S4S ADMIN
+    </title>
+
+    <link rel="stylesheet"
+          href="admin.css">
+
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <div class="header">
+
+        <div id="backBtn">
+            ← BACK
+        </div>
+
+        <div class="title">
+            ADMIN PANEL
+        </div>
+
+        <div class="adminIcon">
+            ●
+        </div>
+
+    </div>
+
+    <!-- JOIN REQUEST -->
+    <div class="section">
+
+        <div class="sectionTitle">
+
+            JOIN REQUEST
+
+            <span>
+                0
+            </span>
+
+        </div>
+
+        <div id="joinList">
+
+            <!-- SAMPLE -->
+
+            <div class="requestCard">
+
+                <div class="requestInfo">
+
+                    <div class="memberName">
+                        Ariyou
+                    </div>
+
+                    <div class="playlistName">
+                        PRIME
+                    </div>
+
+                </div>
+
+                <div class="requestButtons">
+
+                    <button class="viewBtn">
+                        VIEW
+                    </button>
+
+                    <button class="approveBtn">
+                        ✓
+                    </button>
+
+                    <button class="rejectBtn">
+                        ✕
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- SONG REQUEST -->
+    <div class="section">
+
+        <div class="sectionTitle">
+
+            SONG REQUEST
+
+            <span>
+                0
+            </span>
+
+        </div>
+
+        <div id="songRequestList">
+
+            <div class="songCard">
+
+                <div class="songInfo">
+
+                    <div class="memberName">
+                        Ariyou
+                    </div>
+
+                    <div class="songTitle">
+                        Replace Song
+                    </div>
+
+                </div>
+
+                <div class="requestButtons">
+
+                    <button class="viewBtn">
+                        VIEW
+                    </button>
+
+                    <button class="approveBtn">
+                        ✓
+                    </button>
+
+                    <button class="rejectBtn">
+                        ✕
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ACTIVITY -->
+    <div class="section">
+
+        <div class="sectionTitle">
+
+            ACTIVITY
+
+            <span>
+                TODAY
+            </span>
+
+        </div>
+
+        <div id="activityList">
+
+            <div class="activityCard">
+
+                <div class="activityUser">
+                    Ariyou
+                </div>
+
+                <button class="viewSongBtn">
+                    VIEW
+                </button>
+
+                <div class="checkinStatus">
+                    CHECKIN
+                </div>
+
+            </div>
+
+            <div class="activityCard">
+
+                <div class="activityUser">
+                    Asa
+                </div>
+
+                <button class="viewSongBtn">
+                    VIEW
+                </button>
+
+                <div class="notYet">
+                    NOT YET
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- POPUP MEMBER -->
+    <div id="memberPopup">
+
+        <div class="popupBox">
+
+            <div class="popupTitle">
+                MEMBER DETAIL
+            </div>
+
+            <div id="popupContent">
+
+                Username
+
+                <br><br>
+
+                Last.fm
+
+                <br><br>
+
+                Song Request
+
+            </div>
+
+            <button id="closePopup">
+                CLOSE
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- POPUP SONG -->
+    <div id="songPopup">
+
+        <div class="popupBox">
+
+            <div class="popupTitle">
+                PLAYED SONGS
+            </div>
+
+            <div id="songHistory">
+
+                Lunaria
+
+                <br>
+
+                Sampai Titik Terakhirmu
+
+                <br><br>
+
+                Reality Club
+
+                <br>
+
+                Anything You Want
+
+            </div>
+
+            <button id="closeSongPopup">
+                CLOSE
+            </button>
+
+        </div>
+
+    </div>
+
+    <script type="module"
+            src="admin.js">
+    </script>
+
+</body>
+
+</html>

@@ -1,214 +1,312 @@
-// ======================
-// BACK
-// ======================
-document
-.getElementById(
-    "backBtn"
-)
-.onclick = () => {
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-    window.location.href =
+import {
+    getDatabase,
+    ref,
+    set,
+    get,
+    onValue
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+/* FIREBASE */
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyD1qVByOVP_oLxyjVrE7zLNAHKwA5o3IyU",
+
+    authDomain:
+        "stream4stream-eda97.firebaseapp.com",
+
+    databaseURL:
+        "https://stream4stream-eda97-default-rtdb.asia-southeast1.firebasedatabase.app",
+
+    projectId:
+        "stream4stream-eda97",
+
+    storageBucket:
+        "stream4stream-eda97.firebasestorage.app",
+
+    messagingSenderId:
+        "315567847124",
+
+    appId:
+        "1:315567847124:web:8ce342a02b38b030f26d41"
+
+};
+
+const app =
+    initializeApp(firebaseConfig);
+
+const db =
+    getDatabase(app);
+
+/* USER */
+
+const user =
+    JSON.parse(
+        localStorage.getItem(
+            "s4s_user"
+        )
+    );
+
+if(!user){
+
+    location.href =
+        "./index.html";
+
+}
+
+/* ADMIN */
+
+const ADMINS = [
+
+    "areionproject@gmail.com",
+
+    "ayigh77@gmail.com",
+
+    "weeraster0@gmail.com"
+
+];
+
+const isAdmin =
+
+    user.email &&
+    ADMINS.includes(
+        user.email.toLowerCase()
+    );
+
+if(!isAdmin){
+
+    location.href =
         "./dashboard.html";
 
-};
+}
 
-// ======================
-// POPUP MEMBER
-// ======================
-const memberPopup =
+/* STATUS */
+
+const status =
     document.getElementById(
-        "memberPopup"
+        "status"
     );
 
-const songPopup =
-    document.getElementById(
-        "songPopup"
-    );
+/* JOIN NOTIFICATION */
 
-const popupContent =
-    document.getElementById(
-        "popupContent"
-    );
+onValue(
 
-const songHistory =
-    document.getElementById(
-        "songHistory"
-    );
+    ref(db,"joinRequests"),
 
-// ======================
-// VIEW REQUEST
-// ======================
-document
-.querySelectorAll(
-    ".viewBtn"
-)
-.forEach(btn => {
+    snapshot=>{
 
-    btn.onclick = () => {
+        const data =
+            snapshot.val();
 
-        popupContent.innerHTML = `
+        const count =
+            data
+            ? Object.keys(data).length
+            : 0;
 
-            <b>Username</b>
-            <br>
-            Ariyou
-
-            <br><br>
-
-            <b>Last.fm</b>
-            <br>
-            Ariyou
-
-            <br><br>
-
-            <b>Playlist</b>
-            <br>
-            PRIME
-
-            <br><br>
-
-            <b>Song Request</b>
-
-            <br>
-
-            https://spotify....
-
-        `;
-
-        memberPopup.style.display =
-            "flex";
-
-    };
-
-});
-
-// ======================
-// CLOSE POPUP
-// ======================
-document
-.getElementById(
-    "closePopup"
-)
-.onclick = () => {
-
-    memberPopup.style.display =
-        "none";
-
-};
-
-document
-.getElementById(
-    "closeSongPopup"
-)
-.onclick = () => {
-
-    songPopup.style.display =
-        "none";
-
-};
-
-// ======================
-// VIEW SONG HISTORY
-// ======================
-document
-.querySelectorAll(
-    ".viewSongBtn"
-)
-.forEach(btn => {
-
-    btn.onclick = () => {
-
-        songHistory.innerHTML = `
-
-            <b>Lunaria</b>
-
-            <br>
-
-            Sampai Titik Terakhirmu
-
-            <br><br>
-
-            <b>Arizky Armay</b>
-
-            <br>
-
-            CEO
-
-            <br><br>
-
-            <b>Reality Club</b>
-
-            <br>
-
-            Anything You Want
-
-        `;
-
-        songPopup.style.display =
-            "flex";
-
-    };
-
-});
-
-// ======================
-// APPROVE
-// ======================
-document
-.querySelectorAll(
-    ".approveBtn"
-)
-.forEach(btn => {
-
-    btn.onclick = () => {
-
-        alert(
-            "APPROVED"
-        );
-
-    };
-
-});
-
-// ======================
-// REJECT
-// ======================
-document
-.querySelectorAll(
-    ".rejectBtn"
-)
-.forEach(btn => {
-
-    btn.onclick = () => {
-
-        alert(
-            "REJECTED"
-        );
-
-    };
-
-});
-
-// ======================
-// CLICK OUTSIDE
-// ======================
-window.onclick = (e) => {
-
-    if (
-        e.target === memberPopup
-    ) {
-
-        memberPopup.style.display =
-            "none";
+        document.getElementById(
+            "joinCount"
+        ).textContent =
+            count;
 
     }
 
-    if (
-        e.target === songPopup
-    ) {
+);
 
-        songPopup.style.display =
-            "none";
+/* SONG NOTIFICATION */
+
+onValue(
+
+    ref(db,"songRequests"),
+
+    snapshot=>{
+
+        const data =
+            snapshot.val();
+
+        const count =
+            data
+            ? Object.keys(data).length
+            : 0;
+
+        document.getElementById(
+            "songCount"
+        ).textContent =
+            count;
 
     }
 
-};
+);
+
+/* SYNC */
+
+document
+    .getElementById(
+        "syncBtn"
+    )
+    .addEventListener(
+
+        "click",
+
+        ()=>{
+
+            set(
+
+                ref(
+                    db,
+                    "sync"
+                ),
+
+                {
+
+                    timestamp:
+                        Date.now()
+
+                }
+
+            );
+
+            status.textContent =
+                "SYNC SUCCESS";
+
+            setTimeout(()=>{
+
+                status.textContent =
+                    "READY";
+
+            },3000);
+
+        }
+
+    );
+
+/* POPUP */
+
+const popup =
+    document.getElementById(
+        "announcePopup"
+    );
+
+document
+    .getElementById(
+        "announceBtn"
+    )
+    .addEventListener(
+
+        "click",
+
+        ()=>{
+
+            popup.classList.add(
+                "show"
+            );
+
+        }
+
+    );
+
+document
+    .getElementById(
+        "closeAnnouncement"
+    )
+    .addEventListener(
+
+        "click",
+
+        ()=>{
+
+            popup.classList.remove(
+                "show"
+            );
+
+        }
+
+    );
+
+/* LOAD ANNOUNCEMENT */
+
+get(
+
+    ref(
+        db,
+        "announcement"
+    )
+
+).then(snapshot=>{
+
+    const data =
+        snapshot.val();
+
+    if(data){
+
+        document.getElementById(
+            "announceText"
+        ).value =
+            data.text || "";
+
+    }
+
+});
+
+/* SAVE ANNOUNCEMENT */
+
+document
+    .getElementById(
+        "saveAnnouncement"
+    )
+    .addEventListener(
+
+        "click",
+
+        ()=>{
+
+            const text =
+
+                document
+                .getElementById(
+                    "announceText"
+                )
+                .value
+                .trim();
+
+            set(
+
+                ref(
+                    db,
+                    "announcement"
+                ),
+
+                {
+
+                    text:text,
+
+                    active:true,
+
+                    timestamp:
+                        Date.now()
+
+                }
+
+            );
+
+            popup.classList.remove(
+                "show"
+            );
+
+            status.textContent =
+                "ANNOUNCEMENT SENT";
+
+            setTimeout(()=>{
+
+                status.textContent =
+                    "READY";
+
+            },3000);
+
+        }
+
+    );

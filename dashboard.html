@@ -5,100 +5,130 @@
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 <title>Stream4Stream Dashboard</title>
-<link rel="stylesheet" href="style.css">
-</head>
 
+<link rel="stylesheet" href="style.css">
+
+</head>
 <body>
 
 <div class="container">
-<div class="box">
 
-    <!-- AVATAR -->
-    <img id="profileBtn"
-    src="avatar.png">
+    <div class="box">
 
-    <!-- ICON -->
-    <div class="notes">
-        ♪ ♬ ♪ ♬ ♪
-    </div>
+        <!-- AVATAR -->
+        <img id="profileBtn"
+        src="avatar.png">
 
-    <!-- TITLE -->
-    <h1>STREAM4STREAM</h1>
-    <p class="subtitle">
-        COMMUNITY HUB
-    </p>
+        <!-- NOTES -->
+        <div class="notes">
+            ♪ ♬ ♪ ♬ ♪
+        </div>
 
-    <!-- USER -->
-    <div class="welcome">
-        WELCOME,
-        <span id="username">
-            MEMBER
-        </span>
-    </div>
+        <!-- TITLE -->
+        <h1>STREAM4STREAM</h1>
 
-    <!-- PLAYLIST -->
-    <div class="playlistBox">
+        <p class="subtitle">
+            COMMUNITY HUB
+        </p>
 
-        <div class="playlist"
-        onclick="location.href='free.html'">
+        <!-- USER -->
+        <div class="welcome">
+            WELCOME,
+            <span id="username">
+                MEMBER
+            </span>
+        </div>
 
-            <img src="free.png">
+        <!-- PLAYLIST -->
+        <div class="playlistBox">
 
-            <h2>FREE</h2>
+            <!-- FREE -->
 
-            <p id="freeDesc">
-                FREE PLAYLIST
-            </p>
+            <div class="playlist"
+            onclick="location.href='free.html'">
+
+                <div class="cd freeCD">
+
+                    <div class="hole"></div>
+
+                    <div class="label">
+                        FREE
+                    </div>
+
+                </div>
+
+                <h2>FREE</h2>
+
+                <p id="freeDesc">
+                    FREE PLAYLIST
+                </p>
+
+            </div>
+
+            <!-- PREMIUM -->
+
+            <div class="playlist"
+            onclick="location.href='premium.html'">
+
+                <div class="cd premiumCD">
+
+                    <div class="hole"></div>
+
+                    <div class="label">
+                        PREMIUM
+                    </div>
+
+                </div>
+
+                <h2>PREMIUM</h2>
+
+                <p id="premiumDesc">
+                    PREMIUM PLAYLIST
+                </p>
+
+            </div>
 
         </div>
 
-        <div class="playlist"
-        onclick="location.href='premium.html'">
+        <!-- ADMIN -->
 
-            <img src="premium.png">
+        <div id="adminArea"
+        style="display:none;">
 
-            <h2>PREMIUM</h2>
+            <button id="adminBtn"
+            onclick="location.href='admin.html'">
 
-            <p id="premiumDesc">
-                PREMIUM PLAYLIST
-            </p>
+                ⚙ ADMIN PANEL
+
+            </button>
+
+        </div>
+
+        <!-- EQUALIZER -->
+
+        <div class="equalizer">
+
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
 
         </div>
 
     </div>
 
-    <!-- ADMIN -->
-    <div id="adminArea"
-    style="display:none;">
-
-        <button id="adminBtn"
-        onclick="location.href='admin.html'">
-            ADMIN PANEL
-        </button>
-
-    </div>
-
-    <!-- EQ -->
-    <div class="equalizer">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-
-</div>
 </div>
 
 <script src="dashboard.js"></script>

@@ -1,20 +1,14 @@
 import {
     initializeApp
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
     getAuth,
     GoogleAuthProvider,
-    signInWithRedirect,
-    getRedirectResult,
-    onAuthStateChanged
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    signInWithPopup
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-// ======================
 // FIREBASE
-// ======================
 const firebaseConfig = {
 
     apiKey:
@@ -40,63 +34,30 @@ const firebaseConfig = {
 
 };
 
-// ======================
-// INIT
-// ======================
-const app =
-    initializeApp(
-        firebaseConfig
-    );
+const app = initializeApp(firebaseConfig);
 
-const auth =
-    getAuth(
-        app
-    );
+const auth = getAuth(app);
 
-const provider =
-    new GoogleAuthProvider();
+const provider = new GoogleAuthProvider();
 
-// ======================
-// LOGIN BUTTON
-// ======================
 document
-    .getElementById(
-        "googleLogin"
-    )
-    ?.addEventListener(
-        "click",
+.getElementById("googleLogin")
+.onclick = async () => {
 
-        () => {
+    try {
 
-            signInWithRedirect(
+        const result =
+            await signInWithPopup(
                 auth,
                 provider
             );
 
-        }
+        const user =
+            result.user;
 
-    );
+        const data = {
 
-// ======================
-// REDIRECT RESULT
-// ======================
-getRedirectResult(auth)
-
-.then(result => {
-
-    if (!result)
-        return;
-
-    const user =
-        result.user;
-
-    localStorage.setItem(
-
-        "s4s_user",
-
-        JSON.stringify({
-
-            uid:
+            id:
                 user.uid,
 
             name:
@@ -108,75 +69,28 @@ getRedirectResult(auth)
             picture:
                 user.photoURL
 
-        })
-
-    );
-
-    window.location.href =
-        "./dashboard.html";
-
-})
-
-.catch(error => {
-
-    console.error(error);
-
-    alert(
-
-        error.code +
-        "\n\n" +
-        error.message
-
-    );
-
-});
-
-// ======================
-// AUTO LOGIN
-// ======================
-onAuthStateChanged(
-
-    auth,
-
-    user => {
-
-        if (!user)
-            return;
+        };
 
         localStorage.setItem(
-
             "s4s_user",
-
-            JSON.stringify({
-
-                uid:
-                    user.uid,
-
-                name:
-                    user.displayName,
-
-                email:
-                    user.email,
-
-                picture:
-                    user.photoURL
-
-            })
-
+            JSON.stringify(data)
         );
 
-        if (
-            !window.location.pathname
-            .includes(
-                "dashboard"
-            )
-        ) {
-
-            window.location.href =
-                "./dashboard.html";
-
-        }
+        window.location.href =
+            "./dashboard.html";
 
     }
 
-);
+    catch (error) {
+
+        alert(
+            error.code +
+            "\n" +
+            error.message
+        );
+
+        console.log(error);
+
+    }
+
+};

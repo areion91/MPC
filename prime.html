@@ -1,68 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
 
-<head>
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-    <meta charset="UTF-8">
+<title>
+    PRIME ZONE
+</title>
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet"
+      href="prime.css">
 
-    <title>
-        PRIME ZONE
-    </title>
+</head><body><!-- BACK -->
 
-    <link rel="stylesheet"
-          href="prime.css">
+<div id="backBtn">
+    ← BACK
+</div>
 
-</head>
+<!-- PROFILE -->
 
-<body>
+<div id="profileBtn">
+    <img id="avatar">
+</div>
 
-    <!-- BACK -->
+<!-- PLAYER -->
 
-    <div id="backBtn">
-        ← BACK
-    </div>
+<div class="playerBox">
 
-    <!-- PROFILE -->
+    <!-- DISC -->
 
-    <div id="profileBtn">
-        <img id="avatar">
-    </div>
+    <div class="cdContainer">
 
-    <!-- PLAYER -->
+        <div class="disc"
+             id="disc">
 
-    <div class="playerBox">
-
-        <!-- CD -->
-
-        <div class="cdContainer">
-
-            <div class="disc"
-                 id="disc">
-
-                <img id="cover">
-
-            </div>
+            <img id="cover">
 
         </div>
 
-        <!-- RIGHT -->
+    </div>
 
-        <div class="playerInfo">
+    <!-- RIGHT -->
 
-            <div id="memberPanel">
+    <div class="playerInfo">
 
-                <div class="progressText">
+        <div id="memberPanel">
 
-                    <span id="progressValue">
-
-                        0%
-
-                    </span>
-
-                </div>
+            <div class="progressText">
 
                 <div class="progressBar">
 
@@ -72,11 +55,67 @@
 
                 </div>
 
-                <button id="checkinBtn">
+                <span id="progressValue">
 
-                    CHECK IN
+                    0%
 
-                </button>
+                </span>
+
+            </div>
+
+            <button id="checkinBtn">
+
+                CHECK IN
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- TABS -->
+
+<div class="tabs">
+
+    <button class="tab active"
+            data-tab="songs">
+
+        SONG
+
+    </button>
+
+    <button class="tab"
+            data-tab="yoursong">
+
+        YOUR SONG
+
+    </button>
+
+    <button class="tab"
+            data-tab="activity">
+
+        ACTIVITY
+
+    </button>
+
+</div>
+
+<!-- CONTENT -->
+
+<div class="content">
+
+    <!-- SONG -->
+
+    <div class="tabContent active"
+         id="songs">
+
+        <div id="songList">
+
+            <div class="songItem">
+
+                Loading...
 
             </div>
 
@@ -84,79 +123,29 @@
 
     </div>
 
-    <!-- TABS -->
+    <!-- YOUR SONG -->
 
-    <div class="tabs">
+    <div class="tabContent"
+         id="yoursong">
 
-        <button class="tab active"
-                data-tab="songs">
+        <div class="empty">
 
-            SONG
+            YOUR SONG EMPTY
 
-        </button>
-
-        <button class="tab"
-                data-tab="yoursong">
-
-            YOUR SONG
-
-        </button>
-
-        <button class="tab"
-                data-tab="activity">
-
-            ACTIVITY
-
-        </button>
+        </div>
 
     </div>
 
-    <!-- CONTENT -->
+    <!-- ACTIVITY -->
 
-    <div class="content">
+    <div class="tabContent"
+         id="activity">
 
-        <!-- SONG -->
+        <div id="activityList">
 
-        <div class="tabContent active"
-             id="songs">
+            <div class="activityItem">
 
-            <div id="songList">
-
-                <div class="songItem">
-
-                    Loading...
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <!-- YOUR SONG -->
-
-        <div class="tabContent"
-             id="yoursong">
-
-            <div class="empty">
-
-                YOUR SONG EMPTY
-
-            </div>
-
-        </div>
-
-        <!-- ACTIVITY -->
-
-        <div class="tabContent"
-             id="activity">
-
-            <div id="activityList">
-
-                <div class="activityItem">
-
-                    No activity.
-
-                </div>
+                No activity.
 
             </div>
 
@@ -164,11 +153,12 @@
 
     </div>
 
-    <script type="module"
-            src="prime.js">
+</div>
 
-    </script>
+<script type="module"
+        src="prime.js">
+
+</script>
 
 </body>
-
 </html>

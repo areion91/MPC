@@ -1,132 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-<title>Stream4Stream</title>
 
-<link rel="stylesheet" href="style.css">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Stream4Stream | Dashboard</title>
+
+    <link rel="stylesheet"
+          href="dashboard.css">
+
 </head>
 
 <body>
 
-<div class="container">
+    <div class="container">
 
-    <div class="box">
+        <div class="box">
 
-        <!-- AVATAR -->
-        <img
-        id="avatar"
-        class="avatar"
-        src="avatar.png">
+            <!-- PROFILE -->
+            <div id="profileBtn">
+                <img id="avatar">
+            </div>
 
-        <!-- ICON -->
-        <div class="music-icons">
-            ♪ ♬ ♪ ♬ ♪
-        </div>
+            <!-- NOTES -->
+            <div class="notes">
+                ♪ ♫ ♪ ♫ ♪
+            </div>
 
-        <!-- TITLE -->
-        <h1>STREAM4STREAM</h1>
+            <!-- TITLE -->
+            <div class="title">
 
-        <p class="subtitle">
-            COMMUNITY HUB
-        </p>
+                <h1>STREAM4STREAM</h1>
 
-        <!-- WELCOME -->
-        <div class="welcome">
-            WELCOME,
-            <span id="username">
-                MEMBER
-            </span>
-        </div>
-
-        <!-- PLAYLIST -->
-        <div class="playlists">
-
-            <!-- FREE -->
-            <div class="cd-card"
-            onclick="location.href='free.html'">
-
-                <div class="cd free-cd">
-
-                    <div class="center-hole"></div>
-
-                    <div class="cd-label">
-                        FREE
-                    </div>
-
-                </div>
-
-                <div class="cd-title">
-                    FREE
-                </div>
+                <p>COMMUNITY HUB</p>
 
             </div>
 
-            <!-- PREMIUM -->
-            <div class="cd-card"
-            onclick="location.href='premium.html'">
+            <!-- WELCOME -->
+            <div id="welcome">
+                WELCOME...
+            </div>
 
-                <div class="cd premium-cd">
+            <!-- INDIE -->
+            <div class="playlist">
 
-                    <div class="center-hole"></div>
+                <h2>
 
-                    <div class="cd-label">
-                        PREMIUM
-                    </div>
+                    <span id="indieTitle">
+                        > INDIE TRENDING
+                    </span>
 
-                </div>
+                    <span id="editIndieTitle"
+                          class="edit">
+                        ✏
+                    </span>
 
-                <div class="cd-title">
-                    PREMIUM
-                </div>
+                </h2>
+
+                <p>
+
+                    <span id="indieDesc">
+                        DISCOVER THE LATEST INDIE TRACKS
+                    </span>
+
+                    <span id="editIndieDesc"
+                          class="edit">
+                        ✏
+                    </span>
+
+                </p>
+
+                <button id="indie">
+                    OPEN PLAYLIST
+                </button>
 
             </div>
 
-        </div>
+            <!-- PRIME -->
+            <div class="playlist">
 
-        <!-- ADMIN -->
-        <div id="adminArea"
-        class="adminArea">
+                <h2>
 
-            <button id="adminBtn">
-                ⚙ ADMIN PANEL
+                    <span id="primeTitle">
+                        > PRIMEZONE
+                    </span>
+
+                    <span id="editPrimeTitle"
+                          class="edit">
+                        ✏
+                    </span>
+
+                </h2>
+
+                <p>
+
+                    <span id="primeDesc">
+                        PREMIUM CURATED PLAYLIST
+                    </span>
+
+                    <span id="editPrimeDesc"
+                          class="edit">
+                        ✏
+                    </span>
+
+                </p>
+
+                <button id="prime">
+                    OPEN PLAYLIST
+                </button>
+
+            </div>
+
+            <!-- ADMIN ONLY -->
+            <button id="createPlaylist"
+                    style="display:none;">
+                + CREATE PLAYLIST
             </button>
 
-        </div>
+            <!-- EQUALIZER -->
+            <div class="equalizer"
+                 id="equalizer">
 
-        <!-- EQUALIZER -->
-        <div class="equalizer">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
 
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
+            </div>
 
         </div>
 
     </div>
 
-</div>
-
-<script src="dashboard.js"></script>
+    <script type="module"
+            src="dashboard.js">
+    </script>
 
 </body>
+
 </html>

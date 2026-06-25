@@ -56,7 +56,7 @@ const user = JSON.parse(
 );
 
 if (!user) {
-
+    
     window.location.href =
         "./index.html";
 
@@ -226,7 +226,8 @@ onValue(
 
     ref(
         db,
-        "primeRequest/" + user.uid
+        "primeRequest/" +
+        user.email.replace(/\./g, "_")
     ),
 
     snapshot => {
@@ -250,7 +251,6 @@ onValue(
     }
 
 );
-
 // ======================
 // CHECK MEMBER
 // ======================
@@ -319,7 +319,7 @@ requestBtn.onclick =
             ref(
                 db,
                 "primeRequest/" +
-                user.uid
+                user.email.replace(/\./g,"_")
             ),
 
             {

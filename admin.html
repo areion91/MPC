@@ -1,168 +1,163 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
 
-<head>
+<meta name="viewport"
+      content="width=device-width,initial-scale=1.0">
 
-    <meta charset="UTF-8">
+<title>
 
-    <meta name="viewport"
-          content="width=device-width,initial-scale=1.0">
+    Stream4Stream Admin
 
-    <title>
+</title>
 
-        Stream4Stream Admin
+<link rel="stylesheet"
+      href="admin.css">
 
-    </title>
+</head><body><div class="container"><div class="box">
 
-    <link rel="stylesheet"
-          href="admin.css">
+    <!-- BACK -->
 
-</head>
+    <div id="backBtn">
 
-<body>
+        ← BACK
 
-<div class="container">
+    </div>
 
-    <div class="box">
+    <!-- NOTES -->
 
-        <!-- NOTES -->
+    <div class="notes">
 
-        <div class="notes">
+        ♪ ♫ ♪ ♫ ♪
 
-            ♪ ♫ ♪ ♫ ♪
+    </div>
 
-        </div>
+    <!-- TITLE -->
 
-        <!-- TITLE -->
+    <div class="title">
 
-        <div class="title">
+        <h1>
 
-            <h1>
+            ADMIN HUB
 
-                ADMIN HUB
+        </h1>
 
-            </h1>
+        <p>
 
-            <p>
+            STREAM4STREAM
 
-                STREAM4STREAM
+        </p>
 
-            </p>
+    </div>
 
-        </div>
+    <!-- STATUS -->
 
-        <!-- STATUS -->
+    <div id="status">
 
-        <div id="status">
+        READY
 
-            READY
+    </div>
 
-        </div>
+    <!-- MENU -->
 
-        <!-- MENU -->
+    <div class="menuContainer">
 
-        <div class="menuContainer">
+        <!-- JOIN -->
 
-            <!-- JOIN -->
+        <div class="menuCard"
+             onclick="location.href='joinre.html'">
 
-            <div class="menuCard"
-                 onclick="location.href='joinre.html'">
+            <div class="menuTitle">
 
-                <div class="menuTitle">
-
-                    JOIN REQUEST
-
-                </div>
-
-                <div id="joinCount"
-                     class="badge">
-
-                    0
-
-                </div>
+                JOIN REQUEST
 
             </div>
 
-            <!-- SONG -->
+            <div id="joinCount"
+                 class="badge">
 
-            <div class="menuCard gold"
-                 onclick="location.href='songre.html'">
-
-                <div class="menuTitle">
-
-                    SONG REQUEST
-
-                </div>
-
-                <div id="songCount"
-                     class="badge">
-
-                    0
-
-                </div>
-
-            </div>
-
-            <!-- SYNC -->
-
-            <div id="syncBtn"
-                 class="menuCard">
-
-                <div class="menuTitle">
-
-                    SYNC
-
-                </div>
-
-            </div>
-
-            <!-- ANNOUNCEMENT -->
-
-            <div id="announceBtn"
-                 class="menuCard">
-
-                <div class="menuTitle">
-
-                    ANNOUNCEMENT
-
-                </div>
+                0
 
             </div>
 
         </div>
 
-        <!-- POPUP -->
+        <!-- SONG -->
 
-        <div id="announcePopup"
-             class="popup">
+        <div class="menuCard gold"
+             onclick="location.href='songre.html'">
 
-            <div class="popupBox">
+            <div class="menuTitle">
 
-                <h2>
+                SONG REQUEST
 
-                    ANNOUNCEMENT
+            </div>
 
-                </h2>
+            <div id="songCount"
+                 class="badge">
 
-                <textarea id="announceText"
-                          placeholder="Write announcement...">
-                </textarea>
+                0
 
-                <div class="popupButtons">
+            </div>
 
-                    <button id="saveAnnouncement">
+        </div>
 
-                        SAVE
+        <!-- SYNC -->
 
-                    </button>
+        <div id="syncBtn"
+             class="menuCard">
 
-                    <button id="closeAnnouncement">
+            <div class="menuTitle">
 
-                        CLOSE
+                SYNC
 
-                    </button>
+            </div>
 
-                </div>
+        </div>
+
+        <!-- ANNOUNCEMENT -->
+
+        <div id="announceBtn"
+             class="menuCard">
+
+            <div class="menuTitle">
+
+                ANNOUNCEMENT
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- POPUP -->
+
+    <div id="announcePopup"
+         class="popup">
+
+        <div class="popupBox">
+
+            <h2>
+
+                ANNOUNCEMENT
+
+            </h2>
+
+            <textarea id="announceText"
+                      placeholder="Write announcement...">
+            </textarea>
+
+            <div class="popupButtons">
+
+                <button id="saveAnnouncement">
+
+                    SAVE
+
+                </button>
+
+                <button id="closeAnnouncement">
+
+                    CLOSE
+
+                </button>
 
             </div>
 
@@ -172,10 +167,8 @@
 
 </div>
 
-<script type="module"
+</div><script type="module"
         src="admin.js">
 </script>
-
 </body>
-
 </html>

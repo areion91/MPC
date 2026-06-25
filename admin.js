@@ -1,61 +1,61 @@
 import {
-    initializeApp
+initializeApp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
-    getDatabase,
-    ref,
-    set,
-    get,
-    onValue
+getDatabase,
+ref,
+set,
+remove,
+onValue
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 /* FIREBASE */
 
 const firebaseConfig = {
 
-    apiKey:
-        "AIzaSyD1qVByOVP_oLxyjVrE7zLNAHKwA5o3IyU",
+apiKey:
+    "AIzaSyD1qVByOVP_oLxyjVrE7zLNAHKwA5o3IyU",
 
-    authDomain:
-        "stream4stream-eda97.firebaseapp.com",
+authDomain:
+    "stream4stream-eda97.firebaseapp.com",
 
-    databaseURL:
-        "https://stream4stream-eda97-default-rtdb.asia-southeast1.firebasedatabase.app",
+databaseURL:
+    "https://stream4stream-eda97-default-rtdb.asia-southeast1.firebasedatabase.app",
 
-    projectId:
-        "stream4stream-eda97",
+projectId:
+    "stream4stream-eda97",
 
-    storageBucket:
-        "stream4stream-eda97.firebasestorage.app",
+storageBucket:
+    "stream4stream-eda97.firebasestorage.app",
 
-    messagingSenderId:
-        "315567847124",
+messagingSenderId:
+    "315567847124",
 
-    appId:
-        "1:315567847124:web:8ce342a02b38b030f26d41"
+appId:
+    "1:315567847124:web:8ce342a02b38b030f26d41"
 
 };
 
 const app =
-    initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 
 const db =
-    getDatabase(app);
+getDatabase(app);
 
 /* USER */
 
 const user =
-    JSON.parse(
-        localStorage.getItem(
-            "s4s_user"
-        )
-    );
+JSON.parse(
+localStorage.getItem(
+"s4s_user"
+)
+);
 
 if(!user){
 
-    location.href =
-        "./index.html";
+location.href =
+    "./index.html";
 
 }
 
@@ -63,269 +63,418 @@ if(!user){
 
 const ADMINS = [
 
-    "areionproject@gmail.com",
+"areionproject@gmail.com",
 
-    "ayigh77@gmail.com",
+"ayigh77@gmail.com",
 
-    "weeraster0@gmail.com"
+"weeraster0@gmail.com"
 
 ];
 
-const isAdmin =
+if(
 
-    user.email &&
-    ADMINS.includes(
-        user.email.toLowerCase()
-    );
+!ADMINS.includes(
+    user.email.toLowerCase()
+)
 
-if(!isAdmin){
+){
 
-    location.href =
-        "./dashboard.html";
+location.href =
+    "./dashboard.html";
 
 }
 
 /* BACK */
 
 document
-    .getElementById(
-        "backBtn"
-    )
-    ?.addEventListener(
+.getElementById(
+"backBtn"
+)
+?.addEventListener(
 
-        "click",
+    "click",
 
-        ()=>{
+    ()=>{
 
-            location.href =
-                "./dashboard.html";
+        location.href =
+            "./dashboard.html";
 
-        }
+    }
 
-    );
+);
 
 /* STATUS */
 
 const status =
-    document.getElementById(
-        "status"
+document.getElementById(
+"status"
+);
+
+/* ===================== /
+/ JOIN POPUP /
+/ ===================== */
+
+const joinPopup =
+document.getElementById(
+"joinPopup"
+);
+
+document
+.getElementById(
+"joinBtn"
+)
+.onclick = ()=>{
+
+    joinPopup.classList.add(
+        "show"
     );
 
-/* JOIN REQUEST */
+};
+
+document
+.getElementById(
+"closeJoin"
+)
+.onclick = ()=>{
+
+    joinPopup.classList.remove(
+        "show"
+    );
+
+};
+
+/* ===================== /
+/ SONG POPUP /
+/ ===================== */
+
+const songPopup =
+document.getElementById(
+"songPopup"
+);
+
+document
+.getElementById(
+"songBtn"
+)
+.onclick = ()=>{
+
+    songPopup.classList.add(
+        "show"
+    );
+
+};
+
+document
+.getElementById(
+"closeSong"
+)
+.onclick = ()=>{
+
+    songPopup.classList.remove(
+        "show"
+    );
+
+};
+
+/* ===================== /
+/ ANNOUNCEMENT /
+/ ===================== */
+
+const announcePopup =
+document.getElementById(
+"announcePopup"
+);
+
+document
+.getElementById(
+"announceBtn"
+)
+.onclick = ()=>{
+
+    announcePopup.classList.add(
+        "show"
+    );
+
+};
+
+document
+.getElementById(
+"closeAnnouncement"
+)
+.onclick = ()=>{
+
+    announcePopup.classList.remove(
+        "show"
+    );
+
+};
+
+document
+.getElementById(
+"saveAnnouncement"
+)
+.onclick = ()=>{
+
+    const text =
+
+        document
+        .getElementById(
+            "announceText"
+        )
+        .value;
+
+    set(
+
+        ref(
+            db,
+            "announcement"
+        ),
+
+        {
+
+            text:text,
+
+            timestamp:
+                Date.now()
+
+        }
+
+    );
+
+    status.textContent =
+        "ANNOUNCEMENT SAVED";
+
+    announcePopup.classList.remove(
+        "show"
+    );
+
+    setTimeout(()=>{
+
+        status.textContent =
+            "READY";
+
+    },2000);
+
+};
+
+/* ===================== /
+/ SYNC /
+/ ===================== */
+
+document
+.getElementById(
+"syncBtn"
+)
+.onclick = ()=>{
+
+    set(
+
+        ref(
+            db,
+            "sync"
+        ),
+
+        {
+
+            timestamp:
+                Date.now()
+
+        }
+
+    );
+
+    status.textContent =
+        "SYNC SUCCESS";
+
+    setTimeout(()=>{
+
+        status.textContent =
+            "READY";
+
+    },2000);
+
+};
+
+/* ===================== /
+/ JOIN REQUEST /
+/ ===================== */
 
 onValue(
 
-    ref(db,"joinRequests"),
+ref(
+    db,
+    "joinRequests"
+),
 
-    snapshot=>{
-
-        const data =
-            snapshot.val();
-
-        const count =
-            data
-            ? Object.keys(data).length
-            : 0;
-
-        document.getElementById(
-            "joinCount"
-        ).textContent =
-            count;
-
-    }
-
-);
-
-/* SONG REQUEST */
-
-onValue(
-
-    ref(db,"songRequests"),
-
-    snapshot=>{
-
-        const data =
-            snapshot.val();
-
-        const count =
-            data
-            ? Object.keys(data).length
-            : 0;
-
-        document.getElementById(
-            "songCount"
-        ).textContent =
-            count;
-
-    }
-
-);
-
-/* SYNC */
-
-document
-    .getElementById(
-        "syncBtn"
-    )
-    .addEventListener(
-
-        "click",
-
-        ()=>{
-
-            set(
-
-                ref(
-                    db,
-                    "sync"
-                ),
-
-                {
-
-                    timestamp:
-                        Date.now()
-
-                }
-
-            );
-
-            status.textContent =
-                "SYNC SUCCESS";
-
-            setTimeout(()=>{
-
-                status.textContent =
-                    "READY";
-
-            },3000);
-
-        }
-
-    );
-
-/* POPUP */
-
-const popup =
-    document.getElementById(
-        "announcePopup"
-    );
-
-document
-    .getElementById(
-        "announceBtn"
-    )
-    .addEventListener(
-
-        "click",
-
-        ()=>{
-
-            popup.classList.add(
-                "show"
-            );
-
-        }
-
-    );
-
-document
-    .getElementById(
-        "closeAnnouncement"
-    )
-    .addEventListener(
-
-        "click",
-
-        ()=>{
-
-            popup.classList.remove(
-                "show"
-            );
-
-        }
-
-    );
-
-/* LOAD ANNOUNCEMENT */
-
-get(
-
-    ref(
-        db,
-        "announcement"
-    )
-
-).then(snapshot=>{
+snapshot=>{
 
     const data =
         snapshot.val();
 
+    const list =
+        document.getElementById(
+            "joinList"
+        );
+
+    list.innerHTML = "";
+
+    let count = 0;
+
     if(data){
 
-        document.getElementById(
-            "announceText"
-        ).value =
-            data.text || "";
+        Object.keys(data)
+        .forEach(key=>{
+
+            count++;
+
+            const item =
+            data[key];
+
+            list.innerHTML += `
+
+            <div class="requestItem">
+
+                <h3>
+
+                    ${item.name}
+
+                </h3>
+
+                <p>
+
+                    ${item.playlist}
+
+                </p>
+
+                <button
+                onclick="approveJoin('${key}')">
+
+                    APPROVE
+
+                </button>
+
+            </div>
+
+            `;
+
+        });
 
     }
 
-});
-
-/* SAVE */
-
-document
+    document
     .getElementById(
-        "saveAnnouncement"
+        "joinCount"
     )
-    .addEventListener(
+    .textContent = count;
 
-        "click",
+}
 
-        ()=>{
+);
 
-            const text =
+/* ===================== /
+/ SONG REQUEST /
+/ ===================== */
 
-                document
-                .getElementById(
-                    "announceText"
-                )
-                .value
-                .trim();
+onValue(
 
-            set(
+ref(
+    db,
+    "songRequests"
+),
 
-                ref(
-                    db,
-                    "announcement"
-                ),
+snapshot=>{
 
-                {
+    const data =
+        snapshot.val();
 
-                    text:text,
+    const list =
+        document.getElementById(
+            "songList"
+        );
 
-                    active:true,
+    list.innerHTML = "";
 
-                    timestamp:
-                        Date.now()
+    let count = 0;
 
-                }
+    if(data){
 
-            );
+        Object.keys(data)
+        .forEach(key=>{
 
-            popup.classList.remove(
-                "show"
-            );
+            count++;
 
-            status.textContent =
-                "ANNOUNCEMENT SENT";
+            const item =
+            data[key];
 
-            setTimeout(()=>{
+            list.innerHTML += `
 
-                status.textContent =
-                    "READY";
+            <div class="requestItem">
 
-            },3000);
+                <h3>
 
-        }
+                    ${item.title}
 
-    );
+                </h3>
+
+                <p>
+
+                    ${item.artist}
+
+                </p>
+
+                <button
+                onclick="approveSong('${key}')">
+
+                    APPROVE
+
+                </button>
+
+            </div>
+
+            `;
+
+        });
+
+    }
+
+    document
+    .getElementById(
+        "songCount"
+    )
+    .textContent = count;
+
+}
+
+);
+
+/* ===================== /
+/ APPROVE /
+/ ===================== */
+
+window.approveJoin =
+function(id){
+
+remove(
+
+    ref(
+        db,
+        "joinRequests/" + id
+    )
+
+);
+
+};
+
+window.approveSong =
+function(id){
+
+remove(
+
+    ref(
+        db,
+        "songRequests/" + id
+    )
+
+);
+
+};

@@ -8,11 +8,11 @@
 body{
     background:#000;
     color:#fff;
-    min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    padding:20px;
+    min-height:100vh;
+    padding:30px 15px;
 }
 
 .container{
@@ -21,112 +21,117 @@ body{
 }
 
 .box{
-    position:relative;
     border:2px solid #fff;
-    padding:35px 20px;
+    padding:50px 30px;
+    position:relative;
     text-align:center;
     overflow:hidden;
 }
 
-/* ================= */
 /* AVATAR */
-/* ================= */
 
 .avatar{
     position:absolute;
-    top:20px;
-    right:20px;
+    top:25px;
+    right:25px;
     width:70px;
     height:70px;
     border-radius:50%;
-    object-fit:cover;
     border:2px solid white;
+    object-fit:cover;
 }
 
-/* ================= */
-/* MUSIC ICON */
-/* ================= */
+/* ICON */
 
 .music-icons{
-    margin-top:15px;
-    margin-bottom:30px;
-    font-size:18px;
-    letter-spacing:10px;
+    margin-top:20px;
+    margin-bottom:40px;
+    font-size:22px;
+    letter-spacing:15px;
     opacity:.8;
 }
 
-/* ================= */
 /* TITLE */
-/* ================= */
 
 h1{
-    font-size:52px;
-    letter-spacing:5px;
+    font-size:60px;
     font-weight:300;
+    letter-spacing:5px;
 }
 
 .subtitle{
-    margin-top:10px;
-    margin-bottom:45px;
-    color:#bbb;
-    letter-spacing:6px;
+    margin-top:15px;
+    margin-bottom:55px;
+    color:#aaa;
+    letter-spacing:8px;
+    font-size:15px;
 }
+
+/* WELCOME */
 
 .welcome{
-    margin-bottom:45px;
-    font-size:28px;
-    letter-spacing:6px;
+    font-size:32px;
+    letter-spacing:8px;
+    margin-bottom:55px;
 }
 
-/* ================= */
 /* PLAYLIST */
-/* ================= */
 
 .playlists{
     display:flex;
-    justify-content:center;
-    gap:50px;
+    justify-content:space-around;
+    align-items:center;
+    gap:30px;
     flex-wrap:wrap;
 }
 
 .cd-card{
-    width:220px;
+    cursor:pointer;
+    transition:.3s;
 }
 
-/* ================= */
+.cd-card:hover{
+    transform:scale(1.05);
+}
+
 /* CD */
-/* ================= */
 
 .cd{
     width:180px;
     height:180px;
     border-radius:50%;
-    margin:auto;
     position:relative;
+    margin:auto;
     animation:spin 8s linear infinite;
 }
+
+/* FREE */
 
 .free-cd{
     background:
     radial-gradient(circle,
-    #000 12%,
+    #000 15%,
     #222 25%,
     #000 40%,
-    #777 65%,
+    #666 65%,
     #ddd 85%,
     #fff 100%);
 }
 
+/* PREMIUM */
+
 .premium-cd{
     background:
     radial-gradient(circle,
-    #000 12%,
-    #222 25%,
+    #000 15%,
+    #333 25%,
     #ffd700 45%,
-    #fff6a0 70%,
+    #fff1a6 70%,
     #ffd700 100%);
-    box-shadow:0 0 30px gold;
+    box-shadow:0 0 25px gold;
 }
+
+/* CENTER */
 
 .center-hole{
     width:50px;
@@ -139,154 +144,98 @@ h1{
     transform:translate(-50%,-50%);
 }
 
+/* LABEL */
+
 .cd-label{
     position:absolute;
     top:50%;
     left:50%;
-    transform:translate(-50%,-50%) rotate(-90deg);
-    font-size:12px;
+    transform:
+    translate(-50%,-50%)
+    rotate(-90deg);
+
+    font-size:11px;
     letter-spacing:2px;
 }
+
+/* TITLE */
 
 .cd-title{
-    margin-top:18px;
-    font-size:18px;
-    letter-spacing:5px;
+    margin-top:20px;
+    font-size:22px;
+    letter-spacing:6px;
 }
 
-.cd-desc{
-    margin-top:8px;
-    color:#bbb;
-    font-size:13px;
-    letter-spacing:2px;
-}
-
-/* ================= */
-/* BUTTON */
-/* ================= */
-
-.join-btn{
-    margin-top:15px;
-    padding:10px 25px;
-    border:none;
-    border-radius:5px;
-    background:#fff;
-    color:#000;
-    cursor:pointer;
-    letter-spacing:2px;
-    transition:.3s;
-}
-
-.join-btn:hover{
-    background:#ddd;
-}
-
-/* ================= */
 /* ADMIN */
-/* ================= */
 
-.admin-panel{
-    margin-top:40px;
+.adminArea{
+    display:none;
+    margin-top:45px;
+    margin-bottom:30px;
 }
 
 #adminBtn{
-    padding:12px 35px;
     background:#111;
+    color:white;
     border:1px solid #666;
-    color:#fff;
+    padding:13px 35px;
     border-radius:8px;
-    cursor:pointer;
     letter-spacing:3px;
+    cursor:pointer;
     transition:.3s;
 }
 
 #adminBtn:hover{
     background:#222;
-    border-color:#aaa;
+    border-color:white;
+    box-shadow:0 0 15px rgba(255,255,255,.3);
 }
 
-/* ================= */
 /* EQ */
-/* ================= */
 
 .equalizer{
-    margin-top:35px;
     display:flex;
     justify-content:center;
     align-items:flex-end;
-    gap:5px;
+    gap:6px;
     height:80px;
+    margin-top:20px;
 }
 
-.equalizer span{
+.bar{
     width:14px;
     background:#fff;
     border-radius:2px;
-    animation:eq 1s ease-in-out infinite;
 }
 
-.equalizer span:nth-child(1){animation-delay:.1s;}
-.equalizer span:nth-child(2){animation-delay:.3s;}
-.equalizer span:nth-child(3){animation-delay:.5s;}
-.equalizer span:nth-child(4){animation-delay:.2s;}
-.equalizer span:nth-child(5){animation-delay:.6s;}
-.equalizer span:nth-child(6){animation-delay:.8s;}
-.equalizer span:nth-child(7){animation-delay:.4s;}
-.equalizer span:nth-child(8){animation-delay:.7s;}
-.equalizer span:nth-child(9){animation-delay:.2s;}
-.equalizer span:nth-child(10){animation-delay:.5s;}
-.equalizer span:nth-child(11){animation-delay:.9s;}
-.equalizer span:nth-child(12){animation-delay:.3s;}
-.equalizer span:nth-child(13){animation-delay:.6s;}
-.equalizer span:nth-child(14){animation-delay:.1s;}
-.equalizer span:nth-child(15){animation-delay:.7s;}
-.equalizer span:nth-child(16){animation-delay:.4s;}
-.equalizer span:nth-child(17){animation-delay:.8s;}
-.equalizer span:nth-child(18){animation-delay:.2s;}
-.equalizer span:nth-child(19){animation-delay:.5s;}
-.equalizer span:nth-child(20){animation-delay:.9s;}
-
-@keyframes eq{
-    0%{
-        height:20px;
-    }
-    50%{
-        height:75px;
-    }
-    100%{
-        height:20px;
-    }
-}
+/* SPIN */
 
 @keyframes spin{
     from{
         transform:rotate(0deg);
     }
+
     to{
         transform:rotate(360deg);
     }
 }
 
-/* ================= */
 /* MOBILE */
-/* ================= */
 
-@media(max-width:600px){
+@media(max-width:700px){
 
     h1{
-        font-size:40px;
-    }
-
-    .welcome{
-        font-size:20px;
+        font-size:38px;
     }
 
     .subtitle{
-        letter-spacing:3px;
+        font-size:13px;
+        letter-spacing:5px;
     }
 
-    .playlists{
-        gap:30px;
+    .welcome{
+        font-size:22px;
+        letter-spacing:4px;
     }
 
     .cd{
@@ -299,11 +248,11 @@ h1{
         height:60px;
     }
 
-    .equalizer span{
-        width:10px;
+    .cd-title{
+        font-size:18px;
     }
 
-    #adminBtn{
-        width:100%;
+    .bar{
+        width:10px;
     }
 }

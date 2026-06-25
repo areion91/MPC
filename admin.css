@@ -65,11 +65,11 @@ body{
 
     opacity:.7;
 
-    transition:.3s;
-
     font-size:13px;
 
     letter-spacing:2px;
+
+    transition:.3s;
 }
 
 #backBtn:hover{
@@ -103,7 +103,6 @@ body{
     100%{
         transform:translateX(-8px);
     }
-
 }
 
 /* TITLE */
@@ -182,12 +181,12 @@ body{
     border:2px solid gold;
 
     box-shadow:
-    0 0 20px rgba(255,215,0,.25);
+    0 0 15px rgba(255,215,0,.25);
 }
 
 .gold:hover{
 
-    background:#221900;
+    background:#1a1400;
 }
 
 .menuTitle{
@@ -214,6 +213,8 @@ body{
     border-radius:50%;
 
     background:#ff3030;
+
+    color:#fff;
 
     display:flex;
 
@@ -242,7 +243,7 @@ body{
 
     align-items:center;
 
-    z-index:999;
+    z-index:9999;
 }
 
 .popup.show{
@@ -250,15 +251,21 @@ body{
     display:flex;
 }
 
+/* BOX */
+
 .popupBox{
 
     width:90%;
 
-    max-width:420px;
+    max-width:430px;
 
-    border:2px solid #fff;
+    max-height:80vh;
+
+    overflow-y:auto;
 
     background:#000;
+
+    border:2px solid #fff;
 
     padding:25px;
 
@@ -273,14 +280,75 @@ body{
 
     text-align:center;
 
-    letter-spacing:3px;
+    letter-spacing:4px;
+
+    font-size:20px;
 }
 
-.popup textarea{
+/* REQUEST */
+
+.requestItem{
+
+    border:1px solid #555;
+
+    padding:18px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+    margin-bottom:15px;
+
+    background:#080808;
+}
+
+.requestItem h3{
+
+    font-size:16px;
+
+    letter-spacing:2px;
+}
+
+.requestItem p{
+
+    font-size:12px;
+
+    opacity:.7;
+}
+
+.requestItem button{
+
+    padding:10px;
+
+    border:1px solid #fff;
+
+    background:#111;
+
+    color:#fff;
+
+    cursor:pointer;
+
+    font-family:monospace;
+
+    transition:.3s;
+}
+
+.requestItem button:hover{
+
+    background:#fff;
+
+    color:#000;
+}
+
+/* TEXTAREA */
+
+textarea{
 
     width:100%;
 
-    height:130px;
+    height:120px;
 
     background:#111;
 
@@ -294,6 +362,8 @@ body{
 
     font-family:monospace;
 }
+
+/* BUTTONS */
 
 .popupButtons{
 
@@ -316,15 +386,31 @@ body{
 
     cursor:pointer;
 
+    font-family:monospace;
+
     transition:.3s;
 }
 
 .popupButtons button:hover{
 
-    background:#222;
+    background:#fff;
 
-    border-color:#fff;
+    color:#000;
 }
+
+/* SCROLL */
+
+.popupBox::-webkit-scrollbar{
+
+    width:6px;
+}
+
+.popupBox::-webkit-scrollbar-thumb{
+
+    background:#555;
+}
+
+/* MOBILE */
 
 @media(max-width:480px){
 
@@ -343,4 +429,13 @@ body{
         font-size:15px;
     }
 
+    .popupBox{
+
+        padding:20px;
+    }
+
+    .requestItem h3{
+
+        font-size:14px;
+    }
 }

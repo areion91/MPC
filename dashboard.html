@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
-<title>Stream4Stream Dashboard</title>
+<title>Stream4Stream</title>
 
 <link rel="stylesheet" href="style.css">
-
 </head>
+
 <body>
 
 <div class="container">
@@ -16,11 +16,13 @@ content="width=device-width, initial-scale=1.0">
     <div class="box">
 
         <!-- AVATAR -->
-        <img id="profileBtn"
+        <img
+        id="avatar"
+        class="avatar"
         src="avatar.png">
 
-        <!-- NOTES -->
-        <div class="notes">
+        <!-- ICON -->
+        <div class="music-icons">
             ♪ ♬ ♪ ♬ ♪
         </div>
 
@@ -31,7 +33,7 @@ content="width=device-width, initial-scale=1.0">
             COMMUNITY HUB
         </p>
 
-        <!-- USER -->
+        <!-- WELCOME -->
         <div class="welcome">
             WELCOME,
             <span id="username">
@@ -40,90 +42,83 @@ content="width=device-width, initial-scale=1.0">
         </div>
 
         <!-- PLAYLIST -->
-        <div class="playlistBox">
+        <div class="playlists">
 
             <!-- FREE -->
-
-            <div class="playlist"
+            <div class="cd-card"
             onclick="location.href='free.html'">
 
-                <div class="cd freeCD">
+                <div class="cd free-cd">
 
-                    <div class="hole"></div>
+                    <div class="center-hole"></div>
 
-                    <div class="label">
+                    <div class="cd-label">
                         FREE
                     </div>
 
                 </div>
 
-                <h2>FREE</h2>
-
-                <p id="freeDesc">
-                    FREE PLAYLIST
-                </p>
+                <div class="cd-title">
+                    FREE
+                </div>
 
             </div>
 
             <!-- PREMIUM -->
-
-            <div class="playlist"
+            <div class="cd-card"
             onclick="location.href='premium.html'">
 
-                <div class="cd premiumCD">
+                <div class="cd premium-cd">
 
-                    <div class="hole"></div>
+                    <div class="center-hole"></div>
 
-                    <div class="label">
+                    <div class="cd-label">
                         PREMIUM
                     </div>
 
                 </div>
 
-                <h2>PREMIUM</h2>
-
-                <p id="premiumDesc">
-                    PREMIUM PLAYLIST
-                </p>
+                <div class="cd-title">
+                    PREMIUM
+                </div>
 
             </div>
 
         </div>
 
         <!-- ADMIN -->
-
         <div id="adminArea"
-        style="display:none;">
+        class="adminArea">
 
-            <button id="adminBtn"
-            onclick="location.href='admin.html'">
-
+            <button id="adminBtn">
                 ⚙ ADMIN PANEL
-
             </button>
 
         </div>
 
         <!-- EQUALIZER -->
-
         <div class="equalizer">
 
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
 
         </div>
 

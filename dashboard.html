@@ -1,211 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>
-        Stream4Stream | Dashboard
-    </title>
-
-    <link rel="stylesheet"
-          href="dashboard.css">
-
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+<title>Stream4Stream Dashboard</title>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <div class="container">
+<div class="container">
+<div class="box">
 
-        <div class="box">
+    <!-- AVATAR -->
+    <img id="profileBtn"
+    src="avatar.png">
 
-            <!-- PROFILE -->
+    <!-- ICON -->
+    <div class="notes">
+        ♪ ♬ ♪ ♬ ♪
+    </div>
 
-            <div id="profileBtn">
+    <!-- TITLE -->
+    <h1>STREAM4STREAM</h1>
+    <p class="subtitle">
+        COMMUNITY HUB
+    </p>
 
-                <img id="avatar">
+    <!-- USER -->
+    <div class="welcome">
+        WELCOME,
+        <span id="username">
+            MEMBER
+        </span>
+    </div>
 
-            </div>
+    <!-- PLAYLIST -->
+    <div class="playlistBox">
 
-            <!-- NOTES -->
+        <div class="playlist"
+        onclick="location.href='free.html'">
 
-            <div class="notes">
+            <img src="free.png">
 
-                ♪ ♫ ♪ ♫ ♪
+            <h2>FREE</h2>
 
-            </div>
+            <p id="freeDesc">
+                FREE PLAYLIST
+            </p>
 
-            <!-- TITLE -->
+        </div>
 
-            <div class="title">
+        <div class="playlist"
+        onclick="location.href='premium.html'">
 
-                <h1>
+            <img src="premium.png">
 
-                    STREAM4STREAM
+            <h2>PREMIUM</h2>
 
-                </h1>
-
-                <p>
-
-                    COMMUNITY HUB
-
-                </p>
-
-            </div>
-
-            <!-- WELCOME -->
-
-            <div id="welcome">
-
-                WELCOME...
-
-            </div>
-
-            <!-- DISC AREA -->
-
-            <div class="discContainer">
-
-                <!-- FREE -->
-
-                <div class="discBox">
-
-                    <div id="free"
-                         class="disc freeDisc">
-
-                        <div class="discCenter">
-
-                            FREE
-
-                        </div>
-
-                    </div>
-
-                    <h2>
-
-                        <span id="freeTitle">
-
-                            FREE
-
-                        </span>
-
-                        <span id="editFreeTitle"
-                              class="edit">
-
-                            ✏
-
-                        </span>
-
-                    </h2>
-
-                    <p>
-
-                        <span id="freeDesc">
-
-                        </span>
-
-                        <span id="editFreeDesc"
-                              class="edit">
-
-                            ✏
-
-                        </span>
-
-                    </p>
-
-                </div>
-
-                <!-- PREMIUM -->
-
-                <div class="discBox">
-
-                    <div id="premium"
-                         class="disc premiumDisc">
-
-                        <div class="discCenter premiumCenter">
-
-                            PREMIUM
-
-                        </div>
-
-                    </div>
-
-                    <h2>
-
-                        <span id="premiumTitle">
-
-                            PREMIUM
-
-                        </span>
-
-                        <span id="editPremiumTitle"
-                              class="edit">
-
-                            ✏
-
-                        </span>
-
-                    </h2>
-
-                    <p>
-
-                        <span id="premiumDesc">
-
-                        </span>
-
-                        <span id="editPremiumDesc"
-                              class="edit">
-
-                            ✏
-
-                        </span>
-
-                    </p>
-
-                </div>
-
-            </div>
-
-            <!-- EQUALIZER -->
-
-            <div class="equalizer"
-                 id="equalizer">
-
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-
-            </div>
+            <p id="premiumDesc">
+                PREMIUM PLAYLIST
+            </p>
 
         </div>
 
     </div>
 
-    <script type="module"
-            src="dashboard.js">
-    </script>
+    <!-- ADMIN -->
+    <div id="adminArea"
+    style="display:none;">
+
+        <button id="adminBtn"
+        onclick="location.href='admin.html'">
+            ADMIN PANEL
+        </button>
+
+    </div>
+
+    <!-- EQ -->
+    <div class="equalizer">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+</div>
+</div>
+
+<script src="dashboard.js"></script>
 
 </body>
-
 </html>

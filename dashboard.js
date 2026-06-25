@@ -1,57 +1,112 @@
 // ======================
-// LOGIN
+// CEK LOGIN
 // ======================
-const user = JSON.parse(localStorage.getItem("s4s_user"));
 
-if (!user) {
+const user = JSON.parse(
+    localStorage.getItem("s4s_user")
+);
+
+if(!user){
     location.href = "index.html";
 }
 
 // ======================
-// ADMIN EMAIL
+// ELEMENT
 // ======================
+
+const username =
+document.getElementById("username");
+
+const avatar =
+document.getElementById("avatar");
+
+const adminArea =
+document.getElementById("adminArea");
+
+const adminBtn =
+document.getElementById("adminBtn");
+
+// ======================
+// DATA USER
+// ======================
+
+if(avatar && user.picture){
+    avatar.src = user.picture;
+}
+
+// ======================
+// EMAIL ADMIN
+// ======================
+
 const adminEmails = [
+
     "ayigh77@gmail.com",
     "weeraster0@gmail.com"
+
 ];
 
 // ======================
-// USERNAME
+// CEK ADMIN
 // ======================
-const username = document.getElementById("username");
 
-if (adminEmails.includes(user.email)) {
+if(
+    user.email &&
+    adminEmails.includes(
+        user.email.toLowerCase()
+    )
+){
+
     username.innerText = "ADMIN";
-    document.getElementById("adminArea").style.display = "block";
-} else {
-    username.innerText = user.name || "MEMBER";
+
+    adminArea.style.display = "block";
+
+    adminBtn.onclick = () => {
+        location.href = "admin.html";
+    };
+
+}else{
+
+    username.innerText =
+        user.name || "MEMBER";
+
 }
 
 // ======================
-// AVATAR
+// EQUALIZER
 // ======================
-const profileBtn = document.getElementById("profileBtn");
 
-if (profileBtn && user.picture) {
-    profileBtn.src = user.picture;
-}
+const bars =
+document.querySelectorAll(".bar");
 
-// ======================
-// EQ
-// ======================
-const bars = document.querySelectorAll(".equalizer span");
+function randomEQ(){
 
-setInterval(() => {
     bars.forEach(bar => {
+
+        const h =
+        Math.floor(
+            Math.random() * 60
+        ) + 20;
+
         bar.style.height =
-            Math.floor(Math.random() * 60 + 20) + "px";
+        h + "px";
+
     });
-}, 300);
+
+}
+
+setInterval(randomEQ,300);
 
 // ======================
 // LOGOUT
 // ======================
-function logout() {
-    localStorage.removeItem("s4s_user");
-    location.href = "index.html";
+
+function logout(){
+
+    localStorage.removeItem(
+        "s4s_user"
+    );
+
+    location.href =
+    "index.html";
+
 }

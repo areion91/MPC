@@ -1,61 +1,61 @@
 import {
-initializeApp
+    initializeApp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
-getDatabase,
-ref,
-set,
-remove,
-onValue
+    getDatabase,
+    ref,
+    set,
+    remove,
+    onValue
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 /* FIREBASE */
 
 const firebaseConfig = {
 
-apiKey:
-    "AIzaSyD1qVByOVP_oLxyjVrE7zLNAHKwA5o3IyU",
+    apiKey:
+        "AIzaSyD1qVByOVP_oLxyjVrE7zLNAHKwA5o3IyU",
 
-authDomain:
-    "stream4stream-eda97.firebaseapp.com",
+    authDomain:
+        "stream4stream-eda97.firebaseapp.com",
 
-databaseURL:
-    "https://stream4stream-eda97-default-rtdb.asia-southeast1.firebasedatabase.app",
+    databaseURL:
+        "https://stream4stream-eda97-default-rtdb.asia-southeast1.firebasedatabase.app",
 
-projectId:
-    "stream4stream-eda97",
+    projectId:
+        "stream4stream-eda97",
 
-storageBucket:
-    "stream4stream-eda97.firebasestorage.app",
+    storageBucket:
+        "stream4stream-eda97.firebasestorage.app",
 
-messagingSenderId:
-    "315567847124",
+    messagingSenderId:
+        "315567847124",
 
-appId:
-    "1:315567847124:web:8ce342a02b38b030f26d41"
+    appId:
+        "1:315567847124:web:8ce342a02b38b030f26d41"
 
 };
 
 const app =
-initializeApp(firebaseConfig);
+    initializeApp(firebaseConfig);
 
 const db =
-getDatabase(app);
+    getDatabase(app);
 
 /* USER */
 
 const user =
 JSON.parse(
-localStorage.getItem(
-"s4s_user"
-)
+    localStorage.getItem(
+        "s4s_user"
+    )
 );
 
 if(!user){
 
-location.href =
-    "./index.html";
+    location.href =
+        "./index.html";
 
 }
 
@@ -63,24 +63,24 @@ location.href =
 
 const ADMINS = [
 
-"areionproject@gmail.com",
+    "areionproject@gmail.com",
 
-"ayigh77@gmail.com",
+    "ayigh77@gmail.com",
 
-"weeraster0@gmail.com"
+    "weeraster0@gmail.com"
 
 ];
 
 if(
 
-!ADMINS.includes(
-    user.email.toLowerCase()
-)
+    !ADMINS.includes(
+        user.email.toLowerCase()
+    )
 
 ){
 
-location.href =
-    "./dashboard.html";
+    location.href =
+        "./dashboard.html";
 
 }
 
@@ -88,7 +88,7 @@ location.href =
 
 document
 .getElementById(
-"backBtn"
+    "backBtn"
 )
 ?.addEventListener(
 
@@ -107,54 +107,21 @@ document
 
 const status =
 document.getElementById(
-"status"
+    "status"
 );
 
-/* ===================== /
-/ JOIN POPUP /
-/ ===================== */
-
-const joinPopup =
-document.getElementById(
-"joinPopup"
-);
-
-document
-.getElementById(
-"joinBtn"
-)
-.onclick = ()=>{
-
-    joinPopup.classList.add(
-        "show"
-    );
-
-};
-
-document
-.getElementById(
-"closeJoin"
-)
-.onclick = ()=>{
-
-    joinPopup.classList.remove(
-        "show"
-    );
-
-};
-
-/* ===================== /
-/ SONG POPUP /
-/ ===================== */
+/* ===================== */
+/* SONG POPUP */
+/* ===================== */
 
 const songPopup =
 document.getElementById(
-"songPopup"
+    "songPopup"
 );
 
 document
 .getElementById(
-"songBtn"
+    "songBtn"
 )
 .onclick = ()=>{
 
@@ -166,7 +133,7 @@ document
 
 document
 .getElementById(
-"closeSong"
+    "closeSong"
 )
 .onclick = ()=>{
 
@@ -176,18 +143,51 @@ document
 
 };
 
-/* ===================== /
-/ ANNOUNCEMENT /
-/ ===================== */
+/* ===================== */
+/* PLAYLIST POPUP */
+/* ===================== */
 
-const announcePopup =
+const playlistPopup =
 document.getElementById(
-"announcePopup"
+    "playlistPopup"
 );
 
 document
 .getElementById(
-"announceBtn"
+    "playlistBtn"
+)
+.onclick = ()=>{
+
+    playlistPopup.classList.add(
+        "show"
+    );
+
+};
+
+document
+.getElementById(
+    "closePlaylist"
+)
+.onclick = ()=>{
+
+    playlistPopup.classList.remove(
+        "show"
+    );
+
+};
+
+/* ===================== */
+/* ANNOUNCEMENT */
+/* ===================== */
+
+const announcePopup =
+document.getElementById(
+    "announcePopup"
+);
+
+document
+.getElementById(
+    "announceBtn"
 )
 .onclick = ()=>{
 
@@ -199,7 +199,7 @@ document
 
 document
 .getElementById(
-"closeAnnouncement"
+    "closeAnnouncement"
 )
 .onclick = ()=>{
 
@@ -211,7 +211,7 @@ document
 
 document
 .getElementById(
-"saveAnnouncement"
+    "saveAnnouncement"
 )
 .onclick = ()=>{
 
@@ -257,13 +257,13 @@ document
 
 };
 
-/* ===================== /
-/ SYNC /
-/ ===================== */
+/* ===================== */
+/* SYNC */
+/* ===================== */
 
 document
 .getElementById(
-"syncBtn"
+    "syncBtn"
 )
 .onclick = ()=>{
 
@@ -295,186 +295,96 @@ document
 
 };
 
-/* ===================== /
-/ JOIN REQUEST /
-/ ===================== */
+/* ===================== */
+/* SONG REQUEST */
+/* ===================== */
 
 onValue(
-
-ref(
-    db,
-    "joinRequests"
-),
-
-snapshot=>{
-
-    const data =
-        snapshot.val();
-
-    const list =
-        document.getElementById(
-            "joinList"
-        );
-
-    list.innerHTML = "";
-
-    let count = 0;
-
-    if(data){
-
-        Object.keys(data)
-        .forEach(key=>{
-
-            count++;
-
-            const item =
-            data[key];
-
-            list.innerHTML += `
-
-            <div class="requestItem">
-
-                <h3>
-
-                    ${item.name}
-
-                </h3>
-
-                <p>
-
-                    ${item.playlist}
-
-                </p>
-
-                <button
-                onclick="approveJoin('${key}')">
-
-                    APPROVE
-
-                </button>
-
-            </div>
-
-            `;
-
-        });
-
-    }
-
-    document
-    .getElementById(
-        "joinCount"
-    )
-    .textContent = count;
-
-}
-
-);
-
-/* ===================== /
-/ SONG REQUEST /
-/ ===================== */
-
-onValue(
-
-ref(
-    db,
-    "songRequests"
-),
-
-snapshot=>{
-
-    const data =
-        snapshot.val();
-
-    const list =
-        document.getElementById(
-            "songList"
-        );
-
-    list.innerHTML = "";
-
-    let count = 0;
-
-    if(data){
-
-        Object.keys(data)
-        .forEach(key=>{
-
-            count++;
-
-            const item =
-            data[key];
-
-            list.innerHTML += `
-
-            <div class="requestItem">
-
-                <h3>
-
-                    ${item.title}
-
-                </h3>
-
-                <p>
-
-                    ${item.artist}
-
-                </p>
-
-                <button
-                onclick="approveSong('${key}')">
-
-                    APPROVE
-
-                </button>
-
-            </div>
-
-            `;
-
-        });
-
-    }
-
-    document
-    .getElementById(
-        "songCount"
-    )
-    .textContent = count;
-
-}
-
-);
-
-/* ===================== /
-/ APPROVE /
-/ ===================== */
-
-window.approveJoin =
-function(id){
-
-remove(
 
     ref(
         db,
-        "joinRequests/" + id
-    )
+        "songRequests"
+    ),
+
+    snapshot=>{
+
+        const data =
+            snapshot.val();
+
+        const list =
+            document.getElementById(
+                "songList"
+            );
+
+        list.innerHTML = "";
+
+        let count = 0;
+
+        if(data){
+
+            Object.keys(data)
+            .forEach(key=>{
+
+                count++;
+
+                const item =
+                data[key];
+
+                list.innerHTML += `
+
+                <div class="requestItem">
+
+                    <h3>
+
+                        ${item.title}
+
+                    </h3>
+
+                    <p>
+
+                        ${item.artist}
+
+                    </p>
+
+                    <button
+                    onclick="approveSong('${key}')">
+
+                        APPROVE
+
+                    </button>
+
+                </div>
+
+                `;
+
+            });
+
+        }
+
+        document
+        .getElementById(
+            "songCount"
+        )
+        .textContent = count;
+
+    }
 
 );
 
-};
+/* ===================== */
+/* APPROVE SONG */
+/* ===================== */
 
 window.approveSong =
 function(id){
 
-remove(
+    remove(
 
-    ref(
-        db,
-        "songRequests/" + id
-    )
+        ref(
+            db,
+            "songRequests/" + id
+        )
 
-);
+    );
 
 };

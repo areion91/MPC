@@ -7,11 +7,14 @@ import {
     getAuth,
     GoogleAuthProvider,
     signInWithRedirect,
-    getRedirectResult
+    getRedirectResult,
+    onAuthStateChanged
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
+// ======================
 // FIREBASE
+// ======================
 const firebaseConfig = {
 
     apiKey:
@@ -37,21 +40,49 @@ const firebaseConfig = {
 
 };
 
+// ======================
+// INIT
+// ======================
 const app =
     initializeApp(
         firebaseConfig
     );
 
 const auth =
-    getAuth(app);
+    getAuth(
+        app
+    );
 
 const provider =
     new GoogleAuthProvider();
 
-// HASIL LOGIN
+// ======================
+// LOGIN BUTTON
+// ======================
+document
+    .getElementById(
+        "googleLogin"
+    )
+    ?.addEventListener(
+        "click",
+
+        () => {
+
+            signInWithRedirect(
+                auth,
+                provider
+            );
+
+        }
+
+    );
+
+// ======================
+// REDIRECT RESULT
+// ======================
 getRedirectResult(auth)
 
-.then((result) => {
+.then(result => {
 
     if (!result)
         return;
@@ -60,7 +91,9 @@ getRedirectResult(auth)
         result.user;
 
     localStorage.setItem(
+
         "s4s_user",
+
         JSON.stringify({
 
             uid:
@@ -76,6 +109,7 @@ getRedirectResult(auth)
                 user.photoURL
 
         })
+
     );
 
     window.location.href =
@@ -83,28 +117,65 @@ getRedirectResult(auth)
 
 })
 
-.catch((error) => {
+.catch(error => {
+
+    console.error(error);
 
     alert(
-        error.code
+
+        error.code +
+        "\n\n" +
+        error.message
+
     );
 
 });
 
-// TOMBOL LOGIN
-document
-.getElementById(
-    "googleLogin"
-)
-.addEventListener(
-    "click",
+// ======================
+// AUTO LOGIN
+// ======================
+onAuthStateChanged(
 
-    () => {
+    auth,
 
-        signInWithRedirect(
-            auth,
-            provider
+    user => {
+
+        if (!user)
+            return;
+
+        localStorage.setItem(
+
+            "s4s_user",
+
+            JSON.stringify({
+
+                uid:
+                    user.uid,
+
+                name:
+                    user.displayName,
+
+                email:
+                    user.email,
+
+                picture:
+                    user.photoURL
+
+            })
+
         );
+
+        if (
+            !window.location.pathname
+            .includes(
+                "dashboard"
+            )
+        ) {
+
+            window.location.href =
+                "./dashboard.html";
+
+        }
 
     }
 

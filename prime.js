@@ -183,18 +183,31 @@ const memberPanel =
         "memberPanel"
     );
 
+if (requestBtn) {
+
+    requestBtn.style.display =
+        "none";
+
+}
+
 memberPanel.style.display =
-    "none";
+    "block";
+
+document
+    .getElementById(
+        "checkinBtn"
+    )
+    .disabled = true;
 
 // ======================
-// CHECK MEMBER
+// PROGRESS
 // ======================
 
 onValue(
 
     ref(
         db,
-        "primeMember/" + user.uid
+        "primeProgress/" + user.uid
     ),
 
     snapshot => {
@@ -202,165 +215,34 @@ onValue(
         const data =
             snapshot.val();
 
-        if (
-            data &&
-            data.approved
-        ) {
+        const progress =
+            data?.progress || 0;
 
-            requestBtn.style.display =
-                "none";
+        document
+            .getElementById(
+                "progressValue"
+            )
+            .textContent =
+            progress + "%";
 
-            memberPanel.style.display =
-                "block";
+        document
+            .getElementById(
+                "progressFill"
+            )
+            .style.width =
+            progress + "%";
 
-        }
+        const checkBtn =
+            document.getElementById(
+                "checkinBtn"
+            );
 
-    }
-
-);
-// ======================
-// REQUEST STATUS
-// ======================
-
-onValue(
-
-    ref(
-        db,
-        "primeRequest/" +
-        user.email.replace(/\./g, "_")
-    ),
-
-    snapshot => {
-
-        const data =
-            snapshot.val();
-
-        if (
-            data &&
-            !data.approved
-        ) {
-
-            requestBtn.innerText =
-                "WAITING";
-
-            requestBtn.disabled =
-                true;
-
-        }
+        checkBtn.disabled =
+            progress < 100;
 
     }
 
 );
-// ======================
-// CHECK MEMBER
-// ======================
-
-onValue(
-
-    ref(
-        db,
-        "primeMember/" + user.uid
-    ),
-
-    snapshot => {
-
-        const data =
-            snapshot.val();
-
-        if (
-            data &&
-            data.approved
-        ) {
-
-            requestBtn.style.display =
-                "none";
-
-            memberPanel.style.display =
-                "block";
-
-            document
-                .getElementById(
-                    "progressValue"
-                )
-                .textContent =
-                (
-                    data.progress || 0
-                ) + "%";
-
-            document
-                .getElementById(
-                    "progressFill"
-                )
-                .style.width =
-                (
-                    data.progress || 0
-                ) + "%";
-
-        }
-
-    }
-
-);
-
-// ======================
-// REQUEST JOIN
-// ======================
-
-requestBtn.onclick =
-    () => {
-
-        if (
-            requestBtn.innerText ===
-            "WAITING"
-        ) return;
-
-        set(
-
-            ref(
-                db,
-                "primeRequest/" +
-                user.email.replace(/\./g,"_")
-            ),
-
-            {
-
-                uid:
-                    user.uid,
-
-                name:
-                    user.name ||
-                    "USER",
-
-                email:
-                    user.email ||
-                    "",
-
-                picture:
-                    user.picture ||
-                    "",
-
-                approved:
-                    false,
-
-                progress:
-                    0,
-
-                time:
-                    Date.now()
-
-            }
-
-        ).then(() => {
-
-            requestBtn.innerText =
-                "WAITING";
-
-            requestBtn.disabled =
-                true;
-
-        });
-
-    };
 
 // ======================
 // CHECK IN

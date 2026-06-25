@@ -121,6 +121,38 @@ if (isAdmin) {
     welcome.textContent =
         "WELCOME, ADMIN";
 
+    const adminArea =
+        document.getElementById(
+            "adminArea"
+        );
+
+    if(adminArea){
+
+        adminArea.classList.add(
+            "show"
+        );
+
+    }
+
+    const adminBtn =
+        document.getElementById(
+            "adminBtn"
+        );
+
+    if(adminBtn){
+
+        adminBtn.addEventListener(
+            "click",
+            () => {
+
+                window.location.href =
+                    "./admin.html";
+
+            }
+        );
+
+    }
+
 } else {
 
     welcome.textContent =

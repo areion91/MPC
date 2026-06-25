@@ -1,290 +1,337 @@
 import {
-    initializeApp
+initializeApp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
-    getDatabase,
-    ref,
-    set,
-    push,
-    onValue
+getDatabase,
+ref,
+set,
+onValue
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-// ======================
-// FIREBASE
-// ======================
+/* =====================
+FIREBASE
+===================== */
 
 const firebaseConfig = {
 
-    apiKey:
-        "AIzaSyD1qVByOVP_oLxyjVrE7zLNAHKwA5o3IyU",
+apiKey:
+    "AIzaSyD1qVByOVP_oLxyjVrE7zLNAHKwA5o3IyU",
 
-    authDomain:
-        "stream4stream-eda97.firebaseapp.com",
+authDomain:
+    "stream4stream-eda97.firebaseapp.com",
 
-    databaseURL:
-        "https://stream4stream-eda97-default-rtdb.asia-southeast1.firebasedatabase.app",
+databaseURL:
+    "https://stream4stream-eda97-default-rtdb.asia-southeast1.firebasedatabase.app",
 
-    projectId:
-        "stream4stream-eda97",
+projectId:
+    "stream4stream-eda97",
 
-    storageBucket:
-        "stream4stream-eda97.firebasestorage.app",
+storageBucket:
+    "stream4stream-eda97.firebasestorage.app",
 
-    messagingSenderId:
-        "315567847124",
+messagingSenderId:
+    "315567847124",
 
-    appId:
-        "1:315567847124:web:8ce342a02b38b030f26d41"
+appId:
+    "1:315567847124:web:8ce342a02b38b030f26d41"
 
 };
 
 const app =
-    initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 
 const db =
-    getDatabase(app);
+getDatabase(app);
 
-// ======================
-// USER
-// ======================
+/* =====================
+USER
+===================== */
 
 const user = JSON.parse(
-    localStorage.getItem(
-        "s4s_user"
-    )
+localStorage.getItem(
+"s4s_user"
+)
 );
 
 if (!user) {
-    
-    window.location.href =
-        "./index.html";
+
+window.location.href =
+    "./index.html";
 
 }
 
-// ======================
-// AVATAR
-// ======================
+/* =====================
+AVATAR
+===================== */
 
 const avatar =
-    document.getElementById(
-        "avatar"
-    );
+document.getElementById(
+"avatar"
+);
 
 if (
-    avatar &&
-    user.picture
+avatar &&
+user.picture
 ) {
 
-    avatar.src =
-        user.picture;
+avatar.src =
+    user.picture;
 
 }
 
-// ======================
-// BACK
-// ======================
+/* =====================
+BACK
+===================== */
 
 document
-    .getElementById(
-        "backBtn"
-    )
-    ?.addEventListener(
-        "click",
-        () => {
+.getElementById(
+"backBtn"
+)
+?.addEventListener(
+"click",
+() => {
 
-            window.location.href =
-                "./premium.html";
+        window.location.href =
+            "./premium.html";
 
-        }
-    );
+    }
+);
 
-// ======================
-// PROFILE
-// ======================
+/* =====================
+PROFILE
+===================== */
 
 document
-    .getElementById(
-        "profileBtn"
-    )
-    ?.addEventListener(
-        "click",
-        () => {
+.getElementById(
+"profileBtn"
+)
+?.addEventListener(
+"click",
+() => {
 
-            window.location.href =
-                "./profile.html";
+        window.location.href =
+            "./profile.html";
 
-        }
-    );
+    }
+);
 
-// ======================
-// TAB
-// ======================
+/* =====================
+TAB
+===================== */
 
 const tabs =
-    document.querySelectorAll(
-        ".tab"
-    );
+document.querySelectorAll(
+".tab"
+);
 
 const contents =
-    document.querySelectorAll(
-        ".tabContent"
-    );
+document.querySelectorAll(
+".tabContent"
+);
 
 tabs.forEach(tab => {
 
-    tab.addEventListener(
-        "click",
-        () => {
+tab.addEventListener(
+    "click",
+    () => {
 
-            tabs.forEach(t =>
-                t.classList.remove(
-                    "active"
-                )
-            );
+        tabs.forEach(t =>
+            t.classList.remove(
+                "active"
+            )
+        );
 
-            contents.forEach(c =>
-                c.classList.remove(
-                    "active"
-                )
-            );
+        contents.forEach(c =>
+            c.classList.remove(
+                "active"
+            )
+        );
 
-            tab.classList.add(
+        tab.classList.add(
+            "active"
+        );
+
+        const id =
+            tab.dataset.tab;
+
+        document
+            .getElementById(
+                id
+            )
+            .classList.add(
                 "active"
             );
 
-            const id =
-                tab.dataset.tab;
-
-            document
-                .getElementById(
-                    id
-                )
-                .classList.add(
-                    "active"
-                );
-
-        }
-    );
+    }
+);
 
 });
 
-// ======================
-// MEMBER STATUS
-// ======================
+/* =====================
+CHECKIN LOCK
+===================== */
 
-const requestBtn =
-    document.getElementById(
-        "requestBtn"
-    );
+const checkBtn =
+document.getElementById(
+"checkinBtn"
+);
 
-const memberPanel =
-    document.getElementById(
-        "memberPanel"
-    );
+checkBtn.disabled =
+true;
 
-if (requestBtn) {
-
-    requestBtn.style.display =
-        "none";
-
-}
-
-memberPanel.style.display =
-    "block";
-
-document
-    .getElementById(
-        "checkinBtn"
-    )
-    .disabled = true;
-
-// ======================
-// PROGRESS
-// ======================
+/* =====================
+PROGRESS
+===================== */
 
 onValue(
 
-    ref(
-        db,
-        "primeProgress/" + user.uid
-    ),
+ref(
+    db,
+    "primeProgress/" + user.uid
+),
 
-    snapshot => {
+snapshot => {
 
-        const data =
-            snapshot.val();
+    const data =
+        snapshot.val();
 
-        const progress =
-            data?.progress || 0;
+    const progress =
+        data?.progress || 0;
 
-        document
-            .getElementById(
-                "progressValue"
-            )
-            .textContent =
-            progress + "%";
+    document
+        .getElementById(
+            "progressValue"
+        )
+        .textContent =
+        progress + "%";
 
-        document
-            .getElementById(
-                "progressFill"
-            )
-            .style.width =
-            progress + "%";
+    document
+        .getElementById(
+            "progressFill"
+        )
+        .style.width =
+        progress + "%";
 
-        const checkBtn =
-            document.getElementById(
-                "checkinBtn"
-            );
+    document
+        .querySelector(
+            ".progressBar"
+        )
+        .style.setProperty(
+            "--progress",
+            progress + "%"
+        );
 
-        checkBtn.disabled =
-            progress < 100;
+    checkBtn.disabled =
+        progress < 100;
 
-    }
+}
 
 );
 
-// ======================
-// CHECK IN
-// ======================
+/* =====================
+CHECKIN
+===================== */
 
-document
-    .getElementById(
-        "checkinBtn"
-    )
-    ?.addEventListener(
-        "click",
-        () => {
+checkBtn
+?.addEventListener(
+"click",
+() => {
 
-            const today =
-                new Date()
-                .toDateString();
+        const today =
+            new Date()
+            .toDateString();
 
-            set(
+        set(
 
-                ref(
-                    db,
-                    "primeCheckin/" +
-                    user.uid
-                ),
+            ref(
+                db,
+                "primeCheckin/" +
+                user.uid
+            ),
 
-                {
+            {
 
-                    uid:
-                        user.uid,
+                uid:
+                    user.uid,
 
-                    name:
-                        user.name,
+                name:
+                    user.name,
 
-                    date:
-                        today,
+                picture:
+                    user.picture,
 
-                    time:
-                        Date.now()
+                date:
+                    today,
 
-                }
+                time:
+                    Date.now()
 
-            );
+            }
 
-        }
-    );
+        );
+
+        alert(
+            "CHECK IN SUCCESS"
+        );
+
+    }
+);
+
+/* =====================
+ACTIVITY
+===================== */
+
+onValue(
+
+ref(
+    db,
+    "primeCheckin"
+),
+
+snapshot => {
+
+    const data =
+        snapshot.val();
+
+    const activity =
+        document.getElementById(
+            "activityList"
+        );
+
+    activity.innerHTML =
+        "";
+
+    if (!data) {
+
+        activity.innerHTML =
+            `
+            <div class="activityItem">
+                No activity.
+            </div>
+            `;
+
+        return;
+
+    }
+
+    Object.values(data)
+        .reverse()
+        .forEach(item => {
+
+            activity.innerHTML +=
+            `
+            <div class="activityItem">
+
+                ${item.name}
+
+                checked in
+
+            </div>
+            `;
+
+        });
+
+}
+
+);

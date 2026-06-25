@@ -1,73 +1,57 @@
 // ======================
-// CEK LOGIN
+// LOGIN
 // ======================
 const user = JSON.parse(localStorage.getItem("s4s_user"));
 
 if (!user) {
-  window.location.href = "index.html";
+    location.href = "index.html";
 }
 
 // ======================
-// DATA USER
-// ======================
-const username = document.getElementById("username");
-const avatar = document.getElementById("avatar");
-
-if (username) {
-  username.innerText = user.name || "MEMBER";
-}
-
-if (avatar) {
-  avatar.src = user.picture;
-}
-
-// ======================
-// EMAIL ADMIN
+// ADMIN EMAIL
 // ======================
 const adminEmails = [
-  "ayigh77@gmail.com",
-  "weeraster0@gmail.com",
-  "emailadmin3@gmail.com"
+    "ayigh77@gmail.com",
+    "weeraster0@gmail.com"
 ];
 
 // ======================
-// TAMPILKAN TOMBOL ADMIN
+// USERNAME
 // ======================
+const username = document.getElementById("username");
+
 if (adminEmails.includes(user.email)) {
-  const adminBtn = document.createElement("button");
-
-  adminBtn.id = "adminBtn";
-  adminBtn.innerHTML = "⚙ ADMIN PANEL";
-
-  adminBtn.onclick = () => {
-    window.location.href = "admin.html";
-  };
-
-  const eq = document.querySelector(".equalizer");
-
-  if (eq) {
-    eq.parentNode.insertBefore(adminBtn, eq);
-  } else {
-    document.body.appendChild(adminBtn);
-  }
+    username.innerText = "ADMIN";
+    document.getElementById("adminArea").style.display = "block";
+} else {
+    username.innerText = user.name || "MEMBER";
 }
+
+// ======================
+// AVATAR
+// ======================
+const profileBtn = document.getElementById("profileBtn");
+
+if (profileBtn && user.picture) {
+    profileBtn.src = user.picture;
+}
+
+// ======================
+// EQ
+// ======================
+const bars = document.querySelectorAll(".equalizer span");
+
+setInterval(() => {
+    bars.forEach(bar => {
+        bar.style.height =
+            Math.floor(Math.random() * 60 + 20) + "px";
+    });
+}, 300);
 
 // ======================
 // LOGOUT
 // ======================
 function logout() {
-  localStorage.removeItem("s4s_user");
-  window.location.href = "index.html";
+    localStorage.removeItem("s4s_user");
+    location.href = "index.html";
 }
-
-// ======================
-// ANIMASI EQ RANDOM
-// ======================
-const bars = document.querySelectorAll(".bar");
-
-setInterval(() => {
-  bars.forEach(bar => {
-    const h = Math.floor(Math.random() * 80) + 20;
-    bar.style.height = h + "px";
-  });
-}, 300);

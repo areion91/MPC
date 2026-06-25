@@ -1,126 +1,152 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<!DOCTYPE html>
+<html lang="en">
 
-<meta name="viewport"
-      content="width=device-width,initial-scale=1.0">
+<head>
 
-<title>
+    <meta charset="UTF-8">
 
-    Stream4Stream Admin
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0">
 
-</title>
+    <title>
 
-<link rel="stylesheet"
-      href="admin.css">
+        Stream4Stream Admin
 
-</head><body><div class="container"><div class="box">
+    </title>
 
-    <!-- BACK -->
+    <link rel="stylesheet"
+          href="admin.css">
 
-    <div id="backBtn">
+</head>
 
-        ← BACK
+<body>
 
-    </div>
+<div class="container">
 
-    <!-- NOTES -->
+    <div class="box">
 
-    <div class="notes">
+        <!-- BACK -->
 
-        ♪ ♫ ♪ ♫ ♪
+        <div id="backBtn">
 
-    </div>
-
-    <!-- TITLE -->
-
-    <div class="title">
-
-        <h1>
-
-            ADMIN HUB
-
-        </h1>
-
-        <p>
-
-            STREAM4STREAM
-
-        </p>
-
-    </div>
-
-    <!-- STATUS -->
-
-    <div id="status">
-
-        READY
-
-    </div>
-
-    <!-- MENU -->
-
-    <div class="menuContainer">
-
-        <!-- JOIN REQUEST -->
-
-        <div id="joinBtn"
-             class="menuCard">
-
-            <div class="menuTitle">
-
-                JOIN REQUEST
-
-            </div>
-
-            <div id="joinCount"
-                 class="badge">
-
-                0
-
-            </div>
+            ← BACK
 
         </div>
 
-        <!-- SONG REQUEST -->
+        <!-- NOTES -->
 
-        <div id="songBtn"
-             class="menuCard gold">
+        <div class="notes">
 
-            <div class="menuTitle">
-
-                SONG REQUEST
-
-            </div>
-
-            <div id="songCount"
-                 class="badge">
-
-                0
-
-            </div>
+            ♪ ♫ ♪ ♫ ♪
 
         </div>
 
-        <!-- SYNC -->
+        <!-- TITLE -->
 
-        <div id="syncBtn"
-             class="menuCard">
+        <div class="title">
 
-            <div class="menuTitle">
+            <h1>
 
-                SYNC
+                ADMIN HUB
 
-            </div>
+            </h1>
+
+            <p>
+
+                STREAM4STREAM
+
+            </p>
 
         </div>
 
-        <!-- ANNOUNCEMENT -->
+        <!-- STATUS -->
 
-        <div id="announceBtn"
-             class="menuCard">
+        <div id="status">
 
-            <div class="menuTitle">
+            READY
 
-                ANNOUNCEMENT
+        </div>
+
+        <!-- MENU -->
+
+        <div class="menuContainer">
+
+            <!-- JOIN REQUEST -->
+
+            <div id="joinBtn"
+                 class="menuCard">
+
+                <div class="menuTitle">
+
+                    JOIN REQUEST
+
+                </div>
+
+                <div id="joinCount"
+                     class="badge">
+
+                    0
+
+                </div>
+
+            </div>
+
+            <!-- SONG REQUEST -->
+
+            <div id="songBtn"
+                 class="menuCard gold">
+
+                <div class="menuTitle">
+
+                    SONG REQUEST
+
+                </div>
+
+                <div id="songCount"
+                     class="badge">
+
+                    0
+
+                </div>
+
+            </div>
+
+            <!-- PLAYLIST -->
+
+            <div id="playlistBtn"
+                 class="menuCard">
+
+                <div class="menuTitle">
+
+                    PLAYLIST
+
+                </div>
+
+            </div>
+
+            <!-- SYNC -->
+
+            <div id="syncBtn"
+                 class="menuCard">
+
+                <div class="menuTitle">
+
+                    SYNC
+
+                </div>
+
+            </div>
+
+            <!-- ANNOUNCEMENT -->
+
+            <div id="announceBtn"
+                 class="menuCard">
+
+                <div class="menuTitle">
+
+                    ANNOUNCEMENT
+
+                </div>
 
             </div>
 
@@ -130,89 +156,189 @@
 
 </div>
 
-</div><!-- ===================== --><!-- JOIN POPUP --><!-- ===================== --><div id="joinPopup"
-     class="popup"><div class="popupBox">
+<!-- ===================== -->
+<!-- JOIN POPUP -->
+<!-- ===================== -->
 
-    <h2>
+<div id="joinPopup"
+     class="popup">
 
-        JOIN REQUEST
+    <div class="popupBox">
 
-    </h2>
+        <h2>
 
-    <div id="joinList">
+            JOIN REQUEST
 
-    </div>
+        </h2>
 
-    <div class="popupButtons">
+        <div id="joinList">
 
-        <button id="closeJoin">
+        </div>
 
-            CLOSE
+        <div class="popupButtons">
 
-        </button>
+            <button id="closeJoin">
 
-    </div>
+                CLOSE
 
-</div>
+            </button>
 
-</div><!-- ===================== --><!-- SONG POPUP --><!-- ===================== --><div id="songPopup"
-     class="popup"><div class="popupBox">
-
-    <h2>
-
-        SONG REQUEST
-
-    </h2>
-
-    <div id="songList">
-
-    </div>
-
-    <div class="popupButtons">
-
-        <button id="closeSong">
-
-            CLOSE
-
-        </button>
+        </div>
 
     </div>
 
 </div>
 
-</div><!-- ===================== --><!-- ANNOUNCEMENT POPUP --><!-- ===================== --><div id="announcePopup"
-     class="popup"><div class="popupBox">
+<!-- ===================== -->
+<!-- SONG POPUP -->
+<!-- ===================== -->
 
-    <h2>
+<div id="songPopup"
+     class="popup">
 
-        ANNOUNCEMENT
+    <div class="popupBox">
 
-    </h2>
+        <h2>
 
-    <textarea id="announceText"
-              placeholder="Write announcement...">
-    </textarea>
+            SONG REQUEST
 
-    <div class="popupButtons">
+        </h2>
 
-        <button id="saveAnnouncement">
+        <div id="songList">
 
-            SAVE
+        </div>
 
-        </button>
+        <div class="popupButtons">
 
-        <button id="closeAnnouncement">
+            <button id="closeSong">
 
-            CLOSE
+                CLOSE
 
-        </button>
+            </button>
+
+        </div>
 
     </div>
 
 </div>
 
-</div><script type="module"
+<!-- ===================== -->
+<!-- PLAYLIST POPUP -->
+<!-- ===================== -->
+
+<div id="playlistPopup"
+     class="popup">
+
+    <div class="popupBox">
+
+        <h2>
+
+            PLAYLIST
+
+        </h2>
+
+        <div id="playlistList">
+
+            <div class="menuCard">
+
+                PRIME ZONE
+
+            </div>
+
+            <div class="menuCard">
+
+                UPMOOD
+
+            </div>
+
+            <div class="menuCard">
+
+                LAGI MELLOW
+
+            </div>
+
+            <div class="menuCard">
+
+                CHILL & HEAL
+
+            </div>
+
+            <div class="menuCard">
+
+                GLOBAL INDIE MIX
+
+            </div>
+
+            <div class="menuCard">
+
+                BREAKBEAT RISING
+
+            </div>
+
+            <div class="menuCard">
+
+                INDIE NEW MIX
+
+            </div>
+
+        </div>
+
+        <div class="popupButtons">
+
+            <button id="closePlaylist">
+
+                CLOSE
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ===================== -->
+<!-- ANNOUNCEMENT -->
+<!-- ===================== -->
+
+<div id="announcePopup"
+     class="popup">
+
+    <div class="popupBox">
+
+        <h2>
+
+            ANNOUNCEMENT
+
+        </h2>
+
+        <textarea id="announceText"
+                  placeholder="Write announcement...">
+        </textarea>
+
+        <div class="popupButtons">
+
+            <button id="saveAnnouncement">
+
+                SAVE
+
+            </button>
+
+            <button id="closeAnnouncement">
+
+                CLOSE
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script type="module"
         src="admin.js">
 </script>
+
 </body>
 </html>

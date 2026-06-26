@@ -1,112 +1,226 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>
     PRIME ZONE
-</title><link rel="stylesheet"
-      href="prime.css"></head><body><!-- BACK --><div id="backBtn">← BACK
+</title>
 
-</div><!-- PROFILE --><div id="profileBtn"><img id="avatar">
+<link rel="stylesheet"
+      href="prime.css">
 
-</div><!-- HEADER --><div class="playlistHeader"><div class="playlistCover">
+</head>
 
-    <img id="playlistCover">
+<body>
+
+<!-- BACK -->
+
+<div id="backBtn">
+
+    ← BACK
 
 </div>
 
-<div class="playlistInfo">
+<!-- PROFILE -->
 
-    <h1 id="playlistTitle">
+<div id="profileBtn">
 
-        PRIME ZONE
+    <img id="avatar">
 
-    </h1>
+</div>
 
-    <div id="playlistDesc">
+<!-- HEADER -->
 
-        Dreamy healing night vibe.
+<div class="playlistHeader">
 
-    </div>
+    <div class="playlistCover">
 
-    <div class="playlistStats">
-
-        <span id="playlistSongs">
-
-            0 SONGS
-
-        </span>
-
-        <span id="playlistMembers">
-
-            0 MEMBERS
-
-        </span>
+        <img id="playlistCover">
 
     </div>
 
-    <div class="progressRow">
+    <div class="playlistInfo">
 
-        <div class="progressBar">
+        <h1 id="playlistTitle">
 
-            <div id="progressFill">
+            PRIME ZONE
+
+        </h1>
+
+        <div id="playlistDesc">
+
+            Dreamy healing night vibe.
+
+        </div>
+
+        <div class="playlistStats">
+
+            <span id="playlistSongs">
+
+                0 SONGS
+
+            </span>
+
+            <span id="playlistMembers">
+
+                0 MEMBERS
+
+            </span>
+
+        </div>
+
+        <div class="progressRow">
+
+            <div class="progressBar">
+
+                <div id="progressFill">
+
+                </div>
+
+            </div>
+
+            <span id="progressValue">
+
+                0%
+
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- CHECKIN -->
+
+<div class="checkArea">
+
+    <button id="checkinBtn">
+
+        CHECK IN
+
+    </button>
+
+    <div id="checkinInfo">
+
+        0 / 2 CHECKIN TODAY
+
+    </div>
+
+</div>
+
+<!-- TABS -->
+
+<div class="tabs">
+
+    <button class="tab active"
+            data-tab="songs">
+
+        SONG
+
+    </button>
+
+    <button class="tab"
+            data-tab="member">
+
+        MEMBER
+
+    </button>
+
+    <button class="tab"
+            data-tab="activity">
+
+        ACTIVITY
+
+    </button>
+
+</div>
+
+<!-- CONTENT -->
+
+<div class="content">
+
+    <!-- SONG -->
+
+    <div class="tabContent active"
+         id="songs">
+
+        <div id="songList">
+
+            <div class="empty">
+
+                Loading playlist...
 
             </div>
 
         </div>
 
-        <span id="progressValue">
+    </div>
 
-            0%
+    <!-- MEMBER -->
 
-        </span>
+    <div class="tabContent"
+         id="member">
+
+        <!-- BELUM JOIN -->
+
+        <div id="joinArea">
+
+            <button id="joinBtn">
+
+                JOIN AS LISTENER
+
+            </button>
+
+        </div>
+
+        <!-- WAITING -->
+
+        <div id="waitingArea"
+             style="display:none;">
+
+            WAITING APPROVAL
+
+        </div>
+
+        <!-- MEMBER LIST -->
+
+        <div id="memberList">
+
+        </div>
+
+        <!-- ADMIN CONTROL -->
+
+        <div id="adminControl">
+
+            <button id="resetMemberBtn">
+
+                RESET
+
+            </button>
+
+        </div>
 
     </div>
 
-</div>
+    <!-- ACTIVITY -->
 
-</div><!-- CHECKIN --><div class="checkArea"><button id="checkinBtn">
+    <div class="tabContent"
+         id="activity">
 
-    CHECK IN
+        <div id="activityList">
 
-</button>
+            <div class="empty">
 
-<div id="checkinInfo">
+                No activity.
 
-    0 / 2 CHECKIN TODAY
-
-</div>
-
-</div><!-- TABS --><div class="tabs"><button class="tab active"
-        data-tab="songs">
-
-    SONG
-
-</button>
-
-<button class="tab"
-        data-tab="member">
-
-    MEMBER
-
-</button>
-
-<button class="tab"
-        data-tab="activity">
-
-    ACTIVITY
-
-</button>
-
-</div><!-- CONTENT --><div class="content"><!-- SONG -->
-
-<div class="tabContent active"
-     id="songs">
-
-    <div id="songList">
-
-        <div class="songItem">
-
-            Loading playlist...
+            </div>
 
         </div>
 
@@ -114,62 +228,29 @@ content="width=device-width, initial-scale=1.0">
 
 </div>
 
-<!-- MEMBER -->
+<!-- HISTORY MODAL -->
 
-<div class="tabContent"
-     id="member">
+<div id="historyModal">
 
-    <!-- BELUM JOIN -->
+    <div class="historyBox">
 
-    <div id="joinArea">
+        <div class="historyHeader">
 
-        <button id="joinBtn">
+            <span id="historyName">
 
-            JOIN AS LISTENER
+                MEMBER
 
-        </button>
+            </span>
 
-    </div>
+            <button id="closeHistory">
 
-    <!-- WAITING -->
+                ✕
 
-    <div id="waitingArea"
-         style="display:none;">
+            </button>
 
-        WAITING APPROVAL
+        </div>
 
-    </div>
-
-    <!-- MEMBER LIST -->
-
-    <div id="memberList">
-
-    </div>
-
-    <!-- ADMIN BUTTON -->
-
-    <div id="adminControl">
-
-        <button id="resetMemberBtn">
-
-            RESET WEEK
-
-        </button>
-
-    </div>
-
-</div>
-
-<!-- ACTIVITY -->
-
-<div class="tabContent"
-     id="activity">
-
-    <div id="activityList">
-
-        <div class="activityItem">
-
-            No activity.
+        <div id="historyContent">
 
         </div>
 
@@ -177,31 +258,43 @@ content="width=device-width, initial-scale=1.0">
 
 </div>
 
-</div><!-- VIEW HISTORY MODAL --><div id="historyModal"><div class="historyBox">
+<!-- RESET MODAL -->
 
-    <div class="historyHeader">
+<div id="resetModal">
 
-        <span id="historyName">
+    <div class="resetBox">
 
-            MEMBER
+        <div class="resetTitle">
 
-        </span>
+            SERIOUSLY?
 
-        <button id="closeHistory">
+        </div>
 
-            ✕
+        <div class="resetButtons">
 
-        </button>
+            <button id="resetYes">
 
-    </div>
+                YEA
 
-    <div id="historyContent">
+            </button>
+
+            <button id="resetNo">
+
+                NO
+
+            </button>
+
+        </div>
 
     </div>
 
 </div>
 
-</div><script type="module"
+<script type="module"
         src="prime.js">
 
-</script></body></html>
+</script>
+
+</body>
+
+</html>

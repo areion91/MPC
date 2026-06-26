@@ -303,11 +303,35 @@ document
 )
 .onclick = ()=>{
 
+    const playlist = prompt(
+
+        "SYNC PLAYLIST:\n\n" +
+
+        "primezone\n" +
+
+        "upmood\n" +
+
+        "lagimellow\n" +
+
+        "chillheal\n" +
+
+        "globalindiemix\n" +
+
+        "breakbeatrising\n" +
+
+        "indienewmix"
+
+    );
+
+    if(!playlist)
+        return;
+
     set(
 
         ref(
             db,
-            "sync"
+            "sync/" +
+            playlist.toLowerCase()
         ),
 
         {

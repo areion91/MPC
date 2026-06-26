@@ -1,718 +1,798 @@
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
 body{
 
-    background:
-    linear-gradient(
-        135deg,
-        #050505 0%,
-        #191026 40%,
-        #6f5200 100%
-    );
+background:
+linear-gradient(
+    135deg,
+    #050505 0%,
+    #191026 40%,
+    #6f5200 100%
+);
 
-    color:#fff;
+color:#fff;
 
-    font-family:monospace;
+font-family:monospace;
 
-    min-height:100vh;
+min-height:100vh;
 
-    overflow:hidden;
+overflow:hidden;
 
 }
 
-/************************/
-/* BACK */
-/************************/
+/************************
+BACK
+************************/
 
 #backBtn{
 
-    position:fixed;
+position:fixed;
 
-    top:20px;
-    left:20px;
+top:20px;
+left:20px;
 
-    border:1px solid gold;
+border:1px solid gold;
 
-    padding:8px 15px;
+padding:8px 15px;
 
-    color:gold;
+color:gold;
 
-    cursor:pointer;
+cursor:pointer;
 
-    z-index:999;
+z-index:999;
 
-    font-size:12px;
+font-size:12px;
 
-    letter-spacing:2px;
+letter-spacing:2px;
 
-    transition:.2s;
+transition:.2s;
 
 }
 
 #backBtn:hover{
 
-    background:gold;
+background:gold;
 
-    color:#000;
+color:#000;
 
 }
 
-/************************/
-/* PROFILE */
-/************************/
+/************************
+PROFILE
+************************/
 
 #profileBtn{
 
-    position:fixed;
+position:fixed;
 
-    top:18px;
-    right:20px;
+top:18px;
+right:20px;
 
-    width:46px;
-    height:46px;
+width:46px;
+height:46px;
 
-    z-index:999;
+z-index:999;
 
-    cursor:pointer;
+cursor:pointer;
 
 }
 
 #avatar{
 
-    width:100%;
-    height:100%;
+width:100%;
+height:100%;
 
-    border-radius:50%;
+border-radius:50%;
 
-    border:2px solid gold;
+border:2px solid gold;
 
-    object-fit:cover;
+object-fit:cover;
 
-    box-shadow:
-    0 0 15px rgba(255,215,0,.3);
+box-shadow:
+0 0 15px rgba(255,215,0,.4);
 
 }
 
-/************************/
-/* PLAYLIST HEADER */
-/************************/
+/************************
+HEADER
+************************/
 
 .playlistHeader{
 
-    margin-top:90px;
+margin-top:85px;
 
-    padding:20px;
+padding:20px;
 
-    display:flex;
+display:flex;
 
-    gap:20px;
-
-    align-items:flex-start;
+gap:20px;
 
 }
 
 .playlistCover{
 
-    width:100px;
-    height:100px;
+width:100px;
+height:100px;
 
-    border:2px solid gold;
+overflow:hidden;
 
-    overflow:hidden;
+border:2px solid gold;
 
-    flex-shrink:0;
+box-shadow:
+0 0 20px rgba(255,215,0,.25);
 
-    box-shadow:
-    0 0 20px rgba(255,215,0,.25);
+flex-shrink:0;
 
 }
 
 #playlistCover{
 
-    width:100%;
-    height:100%;
+width:100%;
+height:100%;
 
-    object-fit:cover;
+object-fit:cover;
 
 }
 
 .playlistInfo{
 
-    flex:1;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:10px;
+flex:1;
 
 }
 
 #playlistTitle{
 
-    font-size:28px;
+color:gold;
 
-    letter-spacing:3px;
+font-size:28px;
 
-    color:gold;
+letter-spacing:3px;
+
+margin-bottom:8px;
 
 }
 
 #playlistDesc{
 
-    height:18px;
+font-size:12px;
 
-    overflow:hidden;
+opacity:.7;
 
-    white-space:nowrap;
-
-    font-size:12px;
-
-    opacity:.7;
+margin-bottom:10px;
 
 }
 
-#playlistDesc span{
+.playlistStats{
 
-    display:inline-block;
+display:flex;
 
-    animation:
-    descMove 15s linear infinite;
+gap:15px;
 
-}
+font-size:11px;
 
-@keyframes descMove{
+color:#bbb;
 
-    from{
-
-        transform:
-        translateX(100%);
-
-    }
-
-    to{
-
-        transform:
-        translateX(-100%);
-
-    }
+margin-bottom:15px;
 
 }
 
-/************************/
-/* PROGRESS */
-/************************/
+/************************
+PROGRESS
+************************/
 
 .progressRow{
 
-    display:flex;
+display:flex;
 
-    align-items:center;
+align-items:center;
 
-    gap:10px;
+gap:12px;
 
 }
 
 .progressBar{
 
-    flex:1;
+flex:1;
 
-    height:4px;
+height:4px;
 
-    position:relative;
+position:relative;
 
-    --progress:0%;
+--progress:0%;
 
 }
 
 .progressBar::before{
 
-    content:"";
+content:"";
 
-    position:absolute;
+position:absolute;
 
-    left:0;
-    right:0;
+left:0;
+right:0;
 
-    top:0;
+top:0;
 
-    height:4px;
+height:4px;
 
-    background:
-    rgba(255,255,255,.1);
+background:
+rgba(255,255,255,.1);
 
 }
 
 .progressBar::after{
 
-    content:"◉";
+content:"◉";
 
-    position:absolute;
+position:absolute;
 
-    left:calc(var(--progress) - 8px);
+left:calc(var(--progress) - 8px);
 
-    top:-8px;
+top:-8px;
 
-    color:gold;
+color:gold;
 
-    text-shadow:
-    0 0 12px gold;
-
-    transition:.4s;
+text-shadow:
+0 0 15px gold;
 
 }
 
 #progressFill{
 
-    width:0%;
+width:0%;
 
-    height:4px;
+height:4px;
 
-    background:
-    linear-gradient(
-        90deg,
-        gold,
-        orange
-    );
+background:
+linear-gradient(
+    90deg,
+    gold,
+    orange
+);
 
-    box-shadow:
-    0 0 12px gold;
+box-shadow:
+0 0 12px gold;
 
-    transition:.4s;
+transition:.4s;
 
 }
 
 #progressValue{
 
-    color:gold;
+color:gold;
 
-    font-size:13px;
-
-    min-width:40px;
+min-width:40px;
 
 }
 
-/************************/
-/* CHECKIN */
-/************************/
+/************************
+CHECK
+************************/
 
 .checkArea{
 
-    display:flex;
+text-align:center;
 
-    justify-content:center;
-
-    margin-bottom:20px;
+margin-bottom:15px;
 
 }
 
 #checkinBtn{
 
-    width:180px;
+width:180px;
 
-    height:42px;
+height:42px;
 
-    border:1px solid gold;
+border:1px solid gold;
 
-    background:
-    rgba(255,215,0,.05);
+background:
+rgba(255,215,0,.05);
 
-    color:gold;
+color:gold;
 
-    font-family:monospace;
+letter-spacing:3px;
 
-    font-weight:bold;
-
-    letter-spacing:4px;
-
-    cursor:pointer;
-
-    transition:.3s;
-
-    box-shadow:
-    0 0 20px rgba(255,215,0,.1);
+cursor:pointer;
 
 }
 
 #checkinBtn:hover{
 
-    background:gold;
+background:gold;
 
-    color:#000;
+color:#000;
 
 }
 
 #checkinBtn:disabled{
 
-    opacity:.35;
+opacity:.3;
 
-    cursor:not-allowed;
-
-    box-shadow:none;
+cursor:not-allowed;
 
 }
 
-/************************/
-/* TABS */
-/************************/
+#checkinInfo{
+
+margin-top:10px;
+
+font-size:11px;
+
+opacity:.6;
+
+}
+
+/************************
+TABS
+************************/
 
 .tabs{
 
-    position:sticky;
+display:flex;
 
-    top:0;
+background:#111;
 
-    z-index:50;
+border-top:
+1px solid rgba(255,255,255,.1);
 
-    display:flex;
-
-    background:#111;
-
-    border-top:
-    1px solid rgba(255,255,255,.1);
-
-    border-bottom:
-    1px solid rgba(255,255,255,.1);
+border-bottom:
+1px solid rgba(255,255,255,.1);
 
 }
 
 .tab{
 
-    flex:1;
+flex:1;
 
-    height:48px;
+height:48px;
 
-    border:none;
+border:none;
 
-    background:#111;
+background:#111;
 
-    color:#777;
+color:#777;
 
-    font-family:monospace;
+cursor:pointer;
 
-    cursor:pointer;
-
-    letter-spacing:2px;
-
-    transition:.2s;
+letter-spacing:2px;
 
 }
 
 .tab.active{
 
-    background:gold;
+background:gold;
 
-    color:#000;
-
-    font-weight:bold;
+color:#000;
 
 }
 
-/************************/
-/* CONTENT */
-/************************/
+/************************
+CONTENT
+************************/
 
 .content{
 
-    height:calc(100vh - 285px);
+height:calc(100vh - 290px);
 
-    overflow-y:auto;
+overflow-y:auto;
 
-    padding:15px;
+padding:15px;
 
 }
 
 .tabContent{
 
-    display:none;
+display:none;
 
 }
 
 .tabContent.active{
 
-    display:block;
+display:block;
 
 }
 
-/************************/
-/* SONG */
-/************************/
+/************************
+SONG
+************************/
 
 .songItem{
 
-    display:flex;
+display:flex;
 
-    gap:15px;
+gap:15px;
 
-    padding:15px 0;
+padding:14px;
 
-    border-bottom:
-    1px solid rgba(255,255,255,.08);
+border-bottom:
+1px solid rgba(255,255,255,.08);
 
 }
 
 .songCover{
 
-    width:55px;
-    height:55px;
+width:55px;
 
-    overflow:hidden;
+height:55px;
 
-    border:1px solid #333;
+overflow:hidden;
 
-    flex-shrink:0;
+flex-shrink:0;
 
-}
-
-.songCover img{
-
-    width:100%;
-    height:100%;
-
-    object-fit:cover;
+border:1px solid #333;
 
 }
 
-.songInfo{
+.songCover img,
+.songItem img{
 
-    flex:1;
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+}
+
+.songText{
+
+flex:1;
 
 }
 
 .songTitle{
 
-    font-size:15px;
+color:#fff;
 
-    margin-bottom:4px;
-
-    color:#fff;
+font-size:14px;
 
 }
 
 .songArtist{
 
-    font-size:12px;
+color:#aaa;
 
-    color:#aaa;
+font-size:11px;
 
-}
-
-/************************/
-/* PLAYED */
-/************************/
-
-.songPlayed .songTitle{
-
-    color:#00ff88;
+margin-top:4px;
 
 }
 
-.songPlayed .songArtist{
+/************************
+PLAYED
+************************/
 
-    color:#8affc7;
+.playedSong{
 
-}
-
-/************************/
-/* EQ */
-/************************/
-
-.eq{
-
-    display:flex;
-
-    gap:2px;
-
-    align-items:flex-end;
-
-    height:18px;
-
-    margin-top:6px;
+background:
+rgba(0,255,100,.05);
 
 }
 
-.eq span{
+.playedSong .songTitle{
 
-    width:3px;
-
-    background:gold;
-
-    animation:eq 1s infinite;
+color:#00ff88;
 
 }
 
-.eq span:nth-child(1){
+.playedSong .songArtist{
 
-    height:8px;
-
-}
-
-.eq span:nth-child(2){
-
-    height:16px;
+color:#a0ffd0;
 
 }
 
-.eq span:nth-child(3){
+/************************
+PLAYING NOW
+************************/
 
-    height:10px;
+.playingNow{
 
-}
+color:gold;
 
-.eq span:nth-child(4){
+font-size:10px;
 
-    height:18px;
+letter-spacing:2px;
 
-}
+margin-top:8px;
 
-.eq span:nth-child(5){
-
-    height:8px;
-
-}
-
-@keyframes eq{
-
-    50%{
-
-        transform:
-        scaleY(.3);
-
-    }
+animation:blink 1s infinite;
 
 }
 
-.playingText{
+@keyframes blink{
 
-    color:gold;
+50%{
 
-    font-size:10px;
-
-    letter-spacing:2px;
-
-    margin-top:5px;
+    opacity:.4;
 
 }
 
-.historyText{
+}
 
-    color:#00ff88;
+/************************
+HISTORY
+************************/
 
-    font-size:10px;
+.songHistory{
 
-    margin-top:5px;
+color:#00ff88;
+
+font-size:10px;
+
+margin-top:8px;
 
 }
 
-/************************/
-/* ACTIVITY */
-/************************/
+/************************
+MEMBER
+************************/
+
+#joinArea{
+
+padding:30px;
+
+text-align:center;
+
+}
+
+#joinBtn{
+
+width:220px;
+
+height:45px;
+
+border:1px solid gold;
+
+background:none;
+
+color:gold;
+
+cursor:pointer;
+
+}
+
+#waitingArea{
+
+padding:30px;
+
+text-align:center;
+
+opacity:.6;
+
+}
+
+.memberItem{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:15px;
+
+border-bottom:
+1px solid rgba(255,255,255,.08);
+
+}
+
+.memberName{
+
+color:#fff;
+
+}
+
+.memberPlay{
+
+color:gold;
+
+letter-spacing:2px;
+
+}
+
+.memberButton{
+
+border:1px solid gold;
+
+background:none;
+
+color:gold;
+
+padding:5px 10px;
+
+cursor:pointer;
+
+}
+
+/************************
+ADMIN
+************************/
+
+#adminControl{
+
+text-align:center;
+
+margin-top:20px;
+
+}
+
+#resetMemberBtn{
+
+width:150px;
+
+height:40px;
+
+border:1px solid red;
+
+background:none;
+
+color:red;
+
+}
+
+/************************
+ACTIVITY
+************************/
 
 .activityItem{
 
-    padding:15px;
+display:flex;
 
-    border-bottom:
-    1px solid rgba(255,255,255,.08);
+justify-content:space-between;
 
-    font-size:12px;
+align-items:center;
 
-    letter-spacing:1px;
+padding:15px;
+
+border-bottom:
+1px solid rgba(255,255,255,.08);
+
+font-size:12px;
 
 }
 
-/************************/
-/* EMPTY */
-/************************/
+/************************
+MODAL
+************************/
+
+#historyModal{
+
+position:fixed;
+
+inset:0;
+
+background:
+rgba(0,0,0,.8);
+
+display:none;
+
+justify-content:center;
+
+align-items:center;
+
+z-index:9999;
+
+}
+
+.historyBox{
+
+width:90%;
+
+max-width:500px;
+
+max-height:80vh;
+
+overflow-y:auto;
+
+background:#111;
+
+border:1px solid gold;
+
+padding:20px;
+
+}
+
+.historyHeader{
+
+display:flex;
+
+justify-content:space-between;
+
+margin-bottom:20px;
+
+}
+
+#closeHistory{
+
+background:none;
+
+border:none;
+
+color:red;
+
+cursor:pointer;
+
+}
+
+/************************
+EMPTY
+************************/
 
 .empty{
 
-    padding:30px;
+padding:40px;
 
-    text-align:center;
+text-align:center;
 
-    opacity:.5;
+opacity:.5;
 
 }
 
-/************************/
-/* SCROLLBAR */
-/************************/
+/************************
+SCROLL
+************************/
 
 ::-webkit-scrollbar{
 
-    width:6px;
+width:6px;
 
 }
 
 ::-webkit-scrollbar-thumb{
 
-    background:gold;
+background:gold;
 
 }
 
-/************************/
-/* MOBILE */
-/************************/
+/************************
+MOBILE
+************************/
 
 @media(max-width:600px){
 
-    .playlistHeader{
+.playlistHeader{
 
-        gap:15px;
+    gap:15px;
 
-        padding:15px;
+    padding:15px;
 
-    }
+}
 
-    .playlistCover{
+.playlistCover{
 
-        width:85px;
-        height:85px;
+    width:80px;
 
-    }
+    height:80px;
 
-    #playlistTitle{
+}
 
-        font-size:22px;
+#playlistTitle{
 
-    }
+    font-size:22px;
 
-    .tab{
+}
 
-        font-size:11px;
+.content{
 
-    }
+    height:
+    calc(100vh - 270px);
 
-    .songTitle{
+}
 
-        font-size:13px;
+.tab{
 
-    }
+    font-size:11px;
 
-    .songArtist{
+}
 
-        font-size:11px;
+.songTitle{
 
-    }
+    font-size:13px;
 
-    .content{
-
-        height:
-        calc(100vh - 270px);
-
-    }
-
-    #checkinBtn{
-
-        width:150px;
-
-        font-size:11px;
-
-    }
+}
 
 }

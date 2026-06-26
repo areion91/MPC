@@ -4,60 +4,52 @@
     box-sizing:border-box;
 }
 
-html,
-body{
-
-    width:100%;
-    height:100%;
-
-}
-
 body{
 
     background:
     linear-gradient(
         135deg,
         #050505 0%,
-        #13091f 40%,
-        #6b5000 100%
+        #140b22 40%,
+        #6f5200 100%
     );
 
     color:#fff;
 
     font-family:monospace;
 
-    display:flex;
-
-    flex-direction:column;
+    height:100vh;
 
     overflow:hidden;
 
 }
 
 /************************
-BACK
+TOP BUTTON
 ************************/
 
 #backBtn{
 
     position:fixed;
 
-    top:15px;
-    left:15px;
+    top:18px;
+    left:20px;
 
-    padding:8px 14px;
+    padding:10px 18px;
 
     border:1px solid gold;
 
     color:gold;
 
-    font-size:11px;
+    font-size:12px;
 
     letter-spacing:2px;
 
     cursor:pointer;
 
     z-index:999;
+
+    transition:.2s;
 
 }
 
@@ -69,23 +61,19 @@ BACK
 
 }
 
-/************************
-PROFILE
-************************/
-
 #profileBtn{
 
     position:fixed;
 
-    top:12px;
-    right:15px;
+    top:15px;
+    right:20px;
 
-    width:42px;
-    height:42px;
-
-    z-index:999;
+    width:45px;
+    height:45px;
 
     cursor:pointer;
+
+    z-index:999;
 
 }
 
@@ -94,14 +82,14 @@ PROFILE
     width:100%;
     height:100%;
 
-    object-fit:cover;
-
     border-radius:50%;
+
+    object-fit:cover;
 
     border:2px solid gold;
 
     box-shadow:
-    0 0 15px rgba(255,215,0,.3);
+    0 0 15px rgba(255,215,0,.4);
 
 }
 
@@ -111,15 +99,26 @@ HEADER
 
 .playlistHeader{
 
-    margin-top:70px;
+    position:fixed;
 
-    padding:20px;
+    top:70px;
+    left:0;
+    right:0;
 
     display:flex;
 
-    gap:15px;
+    gap:20px;
 
-    flex-shrink:0;
+    padding:20px;
+
+    z-index:500;
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(5,5,5,.95),
+        rgba(20,10,30,.95)
+    );
 
 }
 
@@ -128,14 +127,14 @@ HEADER
     width:90px;
     height:90px;
 
+    flex-shrink:0;
+
     border:2px solid gold;
 
     overflow:hidden;
 
-    flex-shrink:0;
-
     box-shadow:
-    0 0 20px rgba(255,215,0,.2);
+    0 0 20px rgba(255,215,0,.3);
 
 }
 
@@ -158,7 +157,7 @@ HEADER
 
     color:gold;
 
-    font-size:24px;
+    font-size:28px;
 
     letter-spacing:4px;
 
@@ -168,9 +167,9 @@ HEADER
 
 #playlistDesc{
 
-    font-size:11px;
-
     color:#bbb;
+
+    font-size:12px;
 
     margin-bottom:10px;
 
@@ -180,13 +179,13 @@ HEADER
 
     display:flex;
 
-    gap:15px;
+    gap:20px;
+
+    color:#999;
 
     font-size:11px;
 
-    color:#888;
-
-    margin-bottom:10px;
+    margin-bottom:12px;
 
 }
 
@@ -211,7 +210,7 @@ PROGRESS
     height:4px;
 
     background:
-    rgba(255,255,255,.1);
+    rgba(255,255,255,.08);
 
     position:relative;
 
@@ -243,9 +242,9 @@ PROGRESS
 
     color:gold;
 
-    font-size:12px;
-
     min-width:45px;
+
+    font-size:12px;
 
 }
 
@@ -255,29 +254,44 @@ CHECKIN
 
 .checkArea{
 
+    position:fixed;
+
+    top:210px;
+    left:0;
+    right:0;
+
     text-align:center;
 
-    padding-bottom:15px;
+    z-index:500;
 
-    flex-shrink:0;
+    background:
+    linear-gradient(
+        135deg,
+        rgba(5,5,5,.95),
+        rgba(20,10,30,.95)
+    );
+
+    padding-bottom:15px;
 
 }
 
 #checkinBtn{
 
-    width:180px;
+    width:220px;
 
-    height:42px;
-
-    background:none;
+    height:45px;
 
     border:1px solid gold;
 
+    background:none;
+
     color:gold;
 
-    letter-spacing:4px;
+    letter-spacing:5px;
 
     cursor:pointer;
+
+    font-family:monospace;
 
 }
 
@@ -293,17 +307,15 @@ CHECKIN
 
     opacity:.3;
 
-    cursor:not-allowed;
-
 }
 
 #checkinInfo{
 
-    margin-top:10px;
+    margin-top:12px;
 
-    font-size:11px;
+    color:#999;
 
-    color:#777;
+    font-size:12px;
 
 }
 
@@ -313,11 +325,18 @@ TAB
 
 .tabs{
 
+    position:fixed;
+
+    top:305px;
+
+    left:0;
+    right:0;
+
     display:flex;
 
-    flex-shrink:0;
+    z-index:500;
 
-    background:#080808;
+    background:#050505;
 
     border-top:
     1px solid rgba(255,255,255,.1);
@@ -331,17 +350,17 @@ TAB
 
     flex:1;
 
-    height:48px;
+    height:50px;
 
     border:none;
 
-    background:#080808;
+    background:#050505;
 
-    color:#666;
+    color:#777;
 
     font-family:monospace;
 
-    letter-spacing:3px;
+    letter-spacing:4px;
 
     cursor:pointer;
 
@@ -363,21 +382,22 @@ CONTENT
 
 .content{
 
-    flex:1;
+    position:fixed;
 
-    overflow:hidden;
+    top:355px;
+    bottom:0;
+    left:0;
+    right:0;
+
+    overflow-y:auto;
+
+    padding:15px;
 
 }
 
 .tabContent{
 
     display:none;
-
-    height:100%;
-
-    overflow-y:auto;
-
-    padding:15px;
 
 }
 
@@ -397,7 +417,7 @@ SONG
 
     gap:15px;
 
-    padding:12px 0;
+    padding:15px 0;
 
     border-bottom:
     1px solid rgba(255,255,255,.08);
@@ -406,15 +426,23 @@ SONG
 
 .songCover{
 
-    width:55px;
+    width:60px;
+    height:60px;
 
-    height:55px;
+    overflow:hidden;
 
-    object-fit:cover;
+    flex-shrink:0;
 
     border:1px solid #333;
 
-    flex-shrink:0;
+}
+
+.songCover img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
 
 }
 
@@ -428,28 +456,17 @@ SONG
 
     color:#fff;
 
-    font-size:14px;
+    font-size:15px;
 
 }
 
 .songArtist{
 
-    color:#888;
+    color:#aaa;
 
-    font-size:11px;
+    font-size:12px;
 
-    margin-top:4px;
-
-}
-
-/************************
-PLAYED
-************************/
-
-.playedSong{
-
-    background:
-    rgba(0,255,100,.04);
+    margin-top:5px;
 
 }
 
@@ -459,19 +476,19 @@ PLAYED
 
 }
 
-.playedSong .songArtist{
-
-    color:#7dffc2;
-
-}
-
 /************************
-PLAYING
+EQ
 ************************/
 
 .playingNow{
 
-    margin-top:7px;
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-top:8px;
 
     color:gold;
 
@@ -479,15 +496,65 @@ PLAYING
 
     letter-spacing:2px;
 
-    animation:blink 1s infinite;
+}
+
+.eq{
+
+    display:flex;
+
+    gap:2px;
+
+    height:15px;
+
+    align-items:flex-end;
 
 }
 
-@keyframes blink{
+.eq span{
+
+    width:3px;
+
+    background:gold;
+
+    animation:eq 1s infinite;
+
+}
+
+.eq span:nth-child(1){
+
+    height:5px;
+
+}
+
+.eq span:nth-child(2){
+
+    height:15px;
+
+}
+
+.eq span:nth-child(3){
+
+    height:9px;
+
+}
+
+.eq span:nth-child(4){
+
+    height:14px;
+
+}
+
+.eq span:nth-child(5){
+
+    height:6px;
+
+}
+
+@keyframes eq{
 
     50%{
 
-        opacity:.3;
+        transform:scaleY(.3);
 
     }
 
@@ -495,7 +562,7 @@ PLAYING
 
 .songHistory{
 
-    margin-top:7px;
+    margin-top:8px;
 
     color:#00ff88;
 
@@ -507,6 +574,42 @@ PLAYING
 MEMBER
 ************************/
 
+#joinArea{
+
+    text-align:center;
+
+    padding:40px 0;
+
+}
+
+#joinBtn{
+
+    width:250px;
+
+    height:50px;
+
+    border:1px solid gold;
+
+    background:none;
+
+    color:gold;
+
+    letter-spacing:2px;
+
+    cursor:pointer;
+
+}
+
+#waitingArea{
+
+    text-align:center;
+
+    padding:40px;
+
+    color:#999;
+
+}
+
 .memberItem{
 
     display:flex;
@@ -515,7 +618,7 @@ MEMBER
 
     align-items:center;
 
-    padding:15px 0;
+    padding:15px;
 
     border-bottom:
     1px solid rgba(255,255,255,.08);
@@ -538,7 +641,7 @@ MEMBER
 
 .memberButton{
 
-    padding:5px 10px;
+    padding:6px 14px;
 
     border:1px solid gold;
 
@@ -548,26 +651,35 @@ MEMBER
 
 }
 
-#joinArea,
-#waitingArea{
+/************************
+RESET
+************************/
+
+#adminControl{
 
     text-align:center;
 
-    padding:40px;
+    padding:40px 0;
+
+    display:none;
 
 }
 
-#joinBtn{
+#resetMemberBtn{
 
-    width:220px;
+    width:180px;
 
     height:45px;
 
-    border:1px solid gold;
+    border:1px solid red;
 
     background:none;
 
-    color:gold;
+    color:red;
+
+    letter-spacing:4px;
+
+    cursor:pointer;
 
 }
 
@@ -583,26 +695,10 @@ ACTIVITY
 
     align-items:center;
 
-    padding:15px 0;
+    padding:15px;
 
     border-bottom:
     1px solid rgba(255,255,255,.08);
-
-    font-size:12px;
-
-}
-
-/************************
-EMPTY
-************************/
-
-.empty{
-
-    text-align:center;
-
-    padding:50px;
-
-    color:#666;
 
 }
 
@@ -610,7 +706,8 @@ EMPTY
 MODAL
 ************************/
 
-#historyModal{
+#historyModal,
+#resetModal{
 
     position:fixed;
 
@@ -629,21 +726,18 @@ MODAL
 
 }
 
-.historyBox{
+.historyBox,
+.resetBox{
 
     width:90%;
 
-    max-width:500px;
-
-    max-height:80vh;
-
-    overflow-y:auto;
+    max-width:350px;
 
     background:#111;
 
     border:1px solid gold;
 
-    padding:20px;
+    padding:30px;
 
 }
 
@@ -659,11 +753,80 @@ MODAL
 
 #closeHistory{
 
+    background:none;
+
     border:none;
+
+    color:red;
+
+}
+
+.resetTitle{
+
+    color:gold;
+
+    text-align:center;
+
+    font-size:24px;
+
+    margin-bottom:25px;
+
+    letter-spacing:4px;
+
+}
+
+.resetButtons{
+
+    display:flex;
+
+    gap:15px;
+
+}
+
+#resetYes,
+#resetNo{
+
+    flex:1;
+
+    height:45px;
+
+    border:1px solid gold;
 
     background:none;
 
-    color:red;
+    color:gold;
+
+}
+
+#resetYes:hover{
+
+    background:red;
+
+    border-color:red;
+
+    color:#fff;
+
+}
+
+#resetNo:hover{
+
+    background:gold;
+
+    color:#000;
+
+}
+
+/************************
+EMPTY
+************************/
+
+.empty{
+
+    text-align:center;
+
+    padding:40px;
+
+    opacity:.5;
 
 }
 
@@ -673,7 +836,7 @@ SCROLL
 
 ::-webkit-scrollbar{
 
-    width:4px;
+    width:5px;
 
 }
 
@@ -689,12 +852,6 @@ MOBILE
 
 @media(max-width:600px){
 
-    .playlistHeader{
-
-        padding:15px;
-
-    }
-
     .playlistCover{
 
         width:75px;
@@ -704,13 +861,7 @@ MOBILE
 
     #playlistTitle{
 
-        font-size:20px;
-
-    }
-
-    .songTitle{
-
-        font-size:13px;
+        font-size:22px;
 
     }
 
@@ -720,95 +871,10 @@ MOBILE
 
     }
 
-}
+    #joinBtn{
 
-/************************
-EQ PLAYING
-************************/
+        width:220px;
 
-.playingWrap{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:8px;
-
-    margin-top:7px;
-
-}
-
-.eq{
-
-    display:flex;
-
-    align-items:flex-end;
-
-    gap:2px;
-
-    height:14px;
-
-}
-
-.eq span{
-
-    width:3px;
-
-    background:gold;
-
-    border-radius:2px;
-
-    animation:eqMove .8s infinite ease-in-out;
-
-}
-
-.eq span:nth-child(1){
-    height:5px;
-    animation-delay:0s;
-}
-
-.eq span:nth-child(2){
-    height:12px;
-    animation-delay:.2s;
-}
-
-.eq span:nth-child(3){
-    height:8px;
-    animation-delay:.4s;
-}
-
-.eq span:nth-child(4){
-    height:14px;
-    animation-delay:.1s;
-}
-
-.eq span:nth-child(5){
-    height:6px;
-    animation-delay:.3s;
-}
-
-@keyframes eqMove{
-
-    0%{
-        transform:scaleY(.3);
     }
-
-    50%{
-        transform:scaleY(1);
-    }
-
-    100%{
-        transform:scaleY(.3);
-    }
-
-}
-
-.playingNow{
-
-    color:gold;
-
-    font-size:10px;
-
-    letter-spacing:2px;
 
 }

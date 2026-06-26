@@ -297,51 +297,93 @@ document
 /* SYNC */
 /* ===================== */
 
+const syncPopup =
+document.getElementById(
+    "syncPopup"
+);
+
+const syncList =
+document.getElementById(
+    "syncList"
+);
+
+const PLAYLISTS = [
+
+    "primezone",
+
+    "upmood",
+
+    "lagimellow",
+
+    "chillheal",
+
+    "globalindiemix",
+
+    "breakbeatrising",
+
+    "indienewmix"
+
+];
+
 document
 .getElementById(
     "syncBtn"
 )
-.onclick = ()=>{
+.onclick = async ()=>{
 
-    const playlist = prompt(
-
-        "SYNC PLAYLIST:\n\n" +
-
-        "primezone\n" +
-
-        "upmood\n" +
-
-        "lagimellow\n" +
-
-        "chillheal\n" +
-
-        "globalindiemix\n" +
-
-        "breakbeatrising\n" +
-
-        "indienewmix"
-
+    syncPopup.classList.add(
+        "show"
     );
 
-    if(!playlist)
-        return;
+    syncList.innerHTML = "";
 
-    set(
+    for(const playlist of PLAYLISTS){
 
-        ref(
-            db,
-            "sync/" +
-            playlist.toLowerCase()
-        ),
+        syncList.innerHTML += `
 
-        {
+        <div
+        class="syncItem syncLoading"
+        id="sync-${playlist}">
 
-            timestamp:
-                Date.now()
+            ${playlist.toUpperCase()}
 
-        }
+        </div>
 
-    );
+        `;
+
+        await set(
+
+            ref(
+                db,
+                "sync/" + playlist
+            ),
+
+            {
+
+                timestamp:
+                    Date.now()
+
+            }
+
+        );
+
+        document
+        .getElementById(
+            "sync-" + playlist
+        )
+        .className =
+            "syncItem syncSuccess";
+
+        document
+        .getElementById(
+            "sync-" + playlist
+        )
+        .innerHTML =
+
+            playlist.toUpperCase() +
+            " ✓";
+
+    }
 
     status.textContent =
         "SYNC SUCCESS";
@@ -352,6 +394,18 @@ document
             "READY";
 
     },2000);
+
+};
+
+document
+.getElementById(
+    "closeSync"
+)
+.onclick = ()=>{
+
+    syncPopup.classList.remove(
+        "show"
+    );
 
 };
 
@@ -446,6 +500,22 @@ function(id){
         )
 
     );
+
+};
+
+/* ===================== */
+/* CLOSE CLICK OUTSIDE */
+/* ===================== */
+
+syncPopup.onclick = (e)=>{
+
+    if(e.target === syncPopup){
+
+        syncPopup.classList.remove(
+            "show"
+        );
+
+    }
 
 };
 

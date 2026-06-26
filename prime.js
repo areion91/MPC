@@ -7,158 +7,262 @@ import {
     ref,
     set,
     get,
-    onValue,
-    remove
+    update,
+    remove,
+    onValue
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-/* =====================
-FIREBASE
-===================== */
+/* =========================
+   FIREBASE
+========================= */
 
 const firebaseConfig = {
 
     apiKey:
-        "AIzaSyD1qVByOVP_oLxyjVrE7zLNAHKwA5o3IyU",
+    "AIzaSyD1qVByOVP_oLxyjVrE7zLNAHKwA5o3IyU",
 
     authDomain:
-        "stream4stream-eda97.firebaseapp.com",
+    "stream4stream-eda97.firebaseapp.com",
 
     databaseURL:
-        "https://stream4stream-eda97-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "https://stream4stream-eda97-default-rtdb.asia-southeast1.firebasedatabase.app",
 
     projectId:
-        "stream4stream-eda97",
+    "stream4stream-eda97",
 
     storageBucket:
-        "stream4stream-eda97.firebasestorage.app",
+    "stream4stream-eda97.appspot.com",
 
     messagingSenderId:
-        "315567847124",
+    "315567847124",
 
     appId:
-        "1:315567847124:web:8ce342a02b38b030f26d41"
+    "1:315567847124:web:8ce342a02b38b030f26d41"
 
 };
 
 const app =
-    initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 
 const db =
-    getDatabase(app);
+getDatabase(app);
 
-/* =====================
-USER
-===================== */
+/* =========================
+   USER
+========================= */
 
 const user =
-    JSON.parse(
-        localStorage.getItem(
-            "s4s_user"
-        )
-    );
+JSON.parse(
+    localStorage.getItem(
+        "s4s_user"
+    )
+);
 
-if (!user) {
+if(!user){
 
     location.href =
-        "./index.html";
+    "./index.html";
 
 }
 
-/* =====================
-UID
-===================== */
+/* =========================
+   UID
+========================= */
 
 const UID =
-    user.email
-    .toLowerCase()
-    .replace(/\./g, "_")
-    .replace(/@/g, "_");
+user.email
+.toLowerCase()
+.replace(/\./g,"_")
+.replace(/@/g,"_");
 
-/* =====================
-PLAYLIST
-===================== */
+/* =========================
+   PLAYLIST
+========================= */
 
 const PLAYLIST_ID =
-    "primezone";
+"primezone";
 
-/* =====================
-LASTFM
-===================== */
+/* =========================
+   LASTFM
+========================= */
 
 const LASTFM_API =
-    "e7666184bdc7537f3e1d8c9e54419b7f";
+"e7666184bdc7537f3e1d8c9e54419b7f";
 
 let currentLastfm =
-    null;
+null;
 
-/* =====================
-DATA
-===================== */
+/* =========================
+   ADMIN
+========================= */
 
-let playlistSongs = [];
+let isAdmin =
+false;
 
-let playedSongs = {};
+/* =========================
+   DATE
+========================= */
+
+const TODAY =
+new Date().toDateString();
+
+/* =========================
+   DATA
+========================= */
+
+let songs = [];
+
+let progressSongs = {};
+
+let sessionSongs = [];
 
 let todayCheckin = 0;
 
 let totalProgress = 0;
 
-/* =====================
-ELEMENT
-===================== */
+let members = [];
+
+/* =========================
+   ELEMENT
+========================= */
 
 const avatar =
-    document.getElementById(
-        "avatar"
-    );
-
-const checkBtn =
-    document.getElementById(
-        "checkinBtn"
-    );
-
-const songList =
-    document.getElementById(
-        "songList"
-    );
-
-const activityList =
-    document.getElementById(
-        "activityList"
-    );
+document.getElementById(
+    "avatar"
+);
 
 const playlistCover =
-    document.getElementById(
-        "playlistCover"
-    );
+document.getElementById(
+    "playlistCover"
+);
+
+const playlistTitle =
+document.getElementById(
+    "playlistTitle"
+);
+
+const playlistDesc =
+document.getElementById(
+    "playlistDesc"
+);
+
+const playlistSongs =
+document.getElementById(
+    "playlistSongs"
+);
+
+const playlistMembers =
+document.getElementById(
+    "playlistMembers"
+);
 
 const progressFill =
-    document.getElementById(
-        "progressFill"
-    );
+document.getElementById(
+    "progressFill"
+);
 
 const progressValue =
-    document.getElementById(
-        "progressValue"
-    );
+document.getElementById(
+    "progressValue"
+);
 
-/* =====================
-AVATAR
-===================== */
+const checkBtn =
+document.getElementById(
+    "checkinBtn"
+);
 
-if (
+const checkInfo =
+document.getElementById(
+    "checkinInfo"
+);
+
+const songList =
+document.getElementById(
+    "songList"
+);
+
+const memberList =
+document.getElementById(
+    "memberList"
+);
+
+const joinArea =
+document.getElementById(
+    "joinArea"
+);
+
+const waitingArea =
+document.getElementById(
+    "waitingArea"
+);
+
+const joinBtn =
+document.getElementById(
+    "joinBtn"
+);
+
+const activityList =
+document.getElementById(
+    "activityList"
+);
+
+const resetBtn =
+document.getElementById(
+    "resetMemberBtn"
+);
+
+const historyModal =
+document.getElementById(
+    "historyModal"
+);
+
+const historyName =
+document.getElementById(
+    "historyName"
+);
+
+const historyContent =
+document.getElementById(
+    "historyContent"
+);
+
+const closeHistory =
+document.getElementById(
+    "closeHistory"
+);
+
+const confirmModal =
+document.getElementById(
+    "confirmModal"
+);
+
+const confirmYes =
+document.getElementById(
+    "confirmYes"
+);
+
+const confirmNo =
+document.getElementById(
+    "confirmNo"
+);
+
+/* =========================
+   AVATAR
+========================= */
+
+if(
     avatar &&
     user.picture
-) {
+){
 
     avatar.src =
-        user.picture;
+    user.picture;
 
 }
 
-/* =====================
-BACK
-===================== */
+/* =========================
+   BACK
+========================= */
 
 document
 .getElementById(
@@ -167,13 +271,13 @@ document
 .onclick = ()=>{
 
     location.href =
-        "./premium.html";
+    "./premium.html";
 
 };
 
-/* =====================
-PROFILE
-===================== */
+/* =========================
+   PROFILE
+========================= */
 
 document
 .getElementById(
@@ -182,13 +286,13 @@ document
 .onclick = ()=>{
 
     location.href =
-        "./profile.html";
+    "./profile.html";
 
 };
 
-/* =====================
-TAB
-===================== */
+/* =========================
+   TAB
+========================= */
 
 const tabs =
 document.querySelectorAll(
@@ -204,21 +308,21 @@ tabs.forEach(tab=>{
 
     tab.onclick = ()=>{
 
-        tabs.forEach(t=>
+        tabs.forEach(t=>{
 
             t.classList.remove(
                 "active"
-            )
+            );
 
-        );
+        });
 
-        contents.forEach(c=>
+        contents.forEach(c=>{
 
             c.classList.remove(
                 "active"
-            )
+            );
 
-        );
+        });
 
         tab.classList.add(
             "active"
@@ -236,34 +340,28 @@ tabs.forEach(tab=>{
 
 });
 
-/* =====================
-LOAD PRIMARY LASTFM
-===================== */
+/* =========================
+   LOAD PRIMARY LASTFM
+========================= */
 
 async function loadPrimary(){
 
     const snap =
 
-        await get(
+    await get(
 
-            ref(
+        ref(
+            db,
+            "users/" + UID
+        )
 
-                db,
-
-                "users/" +
-
-                user.email
-                .replace(/\./g,"_")
-
-            )
-
-        );
+    );
 
     if(!snap.exists())
         return;
 
     const data =
-        snap.val();
+    snap.val();
 
     if(
         !data.lastfm ||
@@ -273,29 +371,206 @@ async function loadPrimary(){
 
     currentLastfm =
 
-        data.lastfm[
-            data.primary - 1
-        ];
+    data.lastfm[
+        data.primary - 1
+    ];
 
 }
 
 loadPrimary();
 
-/* =====================
-TIME AGO
-===================== */
+/* =========================
+   CHECK ADMIN
+========================= */
+
+async function checkAdmin(){
+
+    const snap =
+
+    await get(
+
+        ref(
+            db,
+            "admins/" + UID
+        )
+
+    );
+
+    isAdmin =
+    snap.exists();
+
+    if(
+        !isAdmin &&
+        resetBtn
+    ){
+
+        resetBtn.style.display =
+        "none";
+
+    }
+
+}
+
+checkAdmin();
+
+/* =========================
+   PLAYLIST INFO
+========================= */
+
+onValue(
+
+    ref(
+        db,
+        "playlistInfo/" +
+        PLAYLIST_ID
+    ),
+
+    snapshot=>{
+
+        const data =
+        snapshot.val();
+
+        if(!data)
+            return;
+
+        if(
+            playlistTitle &&
+            data.title
+        ){
+
+            playlistTitle.innerText =
+            data.title;
+
+        }
+
+        if(
+            playlistDesc &&
+            data.description
+        ){
+
+            playlistDesc.innerText =
+            data.description;
+
+        }
+
+        if(
+            playlistCover &&
+            data.cover
+        ){
+
+            playlistCover.src =
+            data.cover;
+
+        }
+
+    }
+
+);
+
+/* =========================
+   PLAYLIST SONG
+========================= */
+
+onValue(
+
+    ref(
+        db,
+        "playlists/" +
+        PLAYLIST_ID
+    ),
+
+    snapshot=>{
+
+        const data =
+        snapshot.val();
+
+        if(!data)
+            return;
+
+        songs =
+        Object.values(data);
+
+        if(playlistSongs){
+
+            playlistSongs.innerText =
+
+            songs.length +
+            " SONGS";
+
+        }
+
+        renderSongs();
+
+        updateProgress();
+
+    }
+
+);
+
+/* =========================
+   MEMBER COUNT
+========================= */
+
+onValue(
+
+    ref(
+        db,
+        "primeMembers"
+    ),
+
+    snapshot=>{
+
+        const data =
+        snapshot.val();
+
+        members = [];
+
+        if(data){
+
+            Object.keys(data)
+            .forEach(uid=>{
+
+                members.push({
+
+                    uid:
+                    uid,
+
+                    ...data[uid]
+
+                });
+
+            });
+
+        }
+
+        if(playlistMembers){
+
+            playlistMembers.innerText =
+
+            members.length +
+            " MEMBERS";
+
+        }
+
+    }
+
+);
+
+/* =========================
+   TIME AGO
+========================= */
 
 function timeAgo(time){
 
     const diff =
 
-        Math.floor(
+    Math.floor(
 
-            (Date.now() - time)
+        (Date.now() - time)
 
-            / 1000
+        / 1000
 
-        );
+    );
 
     if(diff < 60){
 
@@ -306,9 +581,7 @@ function timeAgo(time){
     if(diff < 3600){
 
         return Math.floor(
-
             diff / 60
-
         ) + " minutes ago";
 
     }
@@ -316,129 +589,174 @@ function timeAgo(time){
     if(diff < 86400){
 
         return Math.floor(
-
             diff / 3600
-
         ) + " hours ago";
 
     }
 
     return Math.floor(
-
         diff / 86400
-
     ) + " days ago";
 
 }
 
-/* =====================
-PROGRESS
-===================== */
+/* =========================
+   PROGRESS
+========================= */
 
 function updateProgress(){
 
     const total =
-
-        playlistSongs.length;
+    songs.length;
 
     const played =
 
-        Object.keys(
-            playedSongs
-        ).length;
-
-    const percent =
-
-        total === 0
-
-        ? 0
-
-        :
-
-        Math.floor(
-
-            (played / total)
-
-            * 100
-
-        );
+    Object.keys(
+        progressSongs
+    ).length;
 
     totalProgress =
 
-        percent;
+    total === 0
 
-    document
-    .getElementById(
-        "progressValue"
-    )
-    .innerText =
+    ? 0
 
-        percent + "%";
+    :
 
-    document
-    .getElementById(
-        "progressFill"
-    )
-    .style.width =
+    Math.floor(
 
-        percent + "%";
+        (played / total)
 
-    document
-    .querySelector(
-        ".progressBar"
-    )
-    .style.setProperty(
-
-        "--progress",
-
-        percent + "%"
+        * 100
 
     );
 
-    checkBtn.disabled =
+    if(progressValue){
 
-        percent < 100 ||
+        progressValue.innerText =
+
+        totalProgress + "%";
+
+    }
+
+    if(progressFill){
+
+        progressFill.style.width =
+
+        totalProgress + "%";
+
+    }
+
+    const bar =
+
+    document.querySelector(
+        ".progressBar"
+    );
+
+    if(bar){
+
+        bar.style.setProperty(
+
+            "--progress",
+
+            totalProgress + "%"
+
+        );
+
+    }
+
+    if(checkInfo){
+
+        checkInfo.innerText =
+
+        todayCheckin +
+
+        " / 2 CHECKIN TODAY";
+
+    }
+
+    if(checkBtn){
+
+        checkBtn.disabled =
+
+        totalProgress < 100 ||
 
         todayCheckin >= 2;
 
+    }
+
 }
 
-/* =====================
-RENDER SONG
-===================== */
+/* =========================
+   SONG MATCH
+========================= */
+
+function matchSong(
+
+    title,
+    artist
+
+){
+
+    return (
+
+        title +
+        artist
+
+    )
+
+    .toLowerCase()
+
+    .replace(/\s/g,"");
+
+}
+
+/* =========================
+   RENDER SONG
+========================= */
 
 function renderSongs(){
 
+    if(!songList)
+        return;
+
     songList.innerHTML = "";
 
-    playlistSongs.forEach(
-
-        (song,index)=>{
+    songs.forEach(song=>{
 
         const key =
 
-            (
-                song.title +
-                song.artist
-            )
-            .toLowerCase()
-            .replace(/\s/g,"");
+        matchSong(
 
-        const playData =
+            song.title,
 
-            playedSongs[key];
+            song.artist
+
+        );
+
+        const played =
+
+        progressSongs[key];
 
         let status = "";
 
-        if(playData){
+        if(played){
 
-            if(playData.now){
+            if(played.now){
 
                 status = `
 
                 <div class="playingNow">
 
-                    ▂▅▃▆▂
+                    <div class="eq">
+
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                    </div>
 
                     PLAYING NOW
 
@@ -455,7 +773,7 @@ function renderSongs(){
                 <div class="songHistory">
 
                     ${timeAgo(
-                        playData.time
+                        played.time
                     )}
 
                 </div>
@@ -469,13 +787,15 @@ function renderSongs(){
         songList.innerHTML += `
 
         <div class="songItem
-        ${playData ? "playedSong" : ""}">
+        ${played ? "playedSong" : ""}">
 
-            <img
-            class="songCover"
-            src="${
-                song.cover || ""
-            }">
+            <div class="songCover">
+
+                <img src="${
+                    song.cover || ""
+                }">
+
+            </div>
 
             <div class="songText">
 
@@ -503,113 +823,76 @@ function renderSongs(){
 
 }
 
-/* =====================
-PLAYLIST REALTIME
-===================== */
+/* =========================
+   SAVE PROGRESS
+========================= */
+
+async function saveProgress(){
+
+    await set(
+
+        ref(
+            db,
+            "primeProgress/" +
+            UID
+        ),
+
+        {
+
+            progress:
+            progressSongs,
+
+            session:
+            sessionSongs,
+
+            updated:
+            Date.now()
+
+        }
+
+    );
+
+}
+
+/* =========================
+   LOAD PROGRESS
+========================= */
 
 onValue(
 
     ref(
         db,
-        "playlists/" +
-        PLAYLIST_ID
+        "primeProgress/" +
+        UID
     ),
 
     snapshot=>{
 
         const data =
-            snapshot.val();
+        snapshot.val();
 
         if(!data)
             return;
 
-        playlistSongs =
-            Object.values(
-                data
-            );
-
         if(
-            playlistSongs[0]
+
+            Object.keys(
+                progressSongs
+            ).length === 0
+
         ){
 
-            if(playlistCover){
+            progressSongs =
 
-                playlistCover.src =
+            data.progress || {};
 
-                    playlistSongs[0]
-                    .cover || "";
+            sessionSongs =
 
-            }
+            data.session || [];
 
-        }
+            renderSongs();
 
-        renderSongs();
-
-        updateProgress();
-
-    }
-
-);
-
-/* =====================
-SYNC INFO
-===================== */
-
-onValue(
-
-    ref(
-        db,
-        "playlistInfo/" +
-        PLAYLIST_ID
-    ),
-
-    snapshot=>{
-
-        const data =
-            snapshot.val();
-
-        if(!data)
-            return;
-
-        const title =
-
-            document.getElementById(
-                "playlistTitle"
-            );
-
-        const desc =
-
-            document.getElementById(
-                "playlistDesc"
-            );
-
-        if(
-            title &&
-            data.title
-        ){
-
-            title.innerText =
-                data.title;
-
-        }
-
-        if(
-            desc &&
-            data.description
-        ){
-
-            desc.innerText =
-                data.description;
-
-        }
-
-        if(
-            playlistCover &&
-            data.cover
-        ){
-
-            playlistCover.src =
-                data.cover;
+            updateProgress();
 
         }
 
@@ -617,9 +900,9 @@ onValue(
 
 );
 
-/* =====================
-LASTFM CHECK
-===================== */
+/* =========================
+   LASTFM CHECK
+========================= */
 
 async function checkLastfm(){
 
@@ -643,67 +926,130 @@ async function checkLastfm(){
         "&limit=50";
 
         const response =
-            await fetch(url);
+        await fetch(url);
 
         const json =
-            await response.json();
+        await response.json();
 
         if(
+
             !json.recenttracks ||
+
             !json.recenttracks.track
-        )
+
+        ){
+
             return;
 
-        const tracks =
-            json.recenttracks.track;
+        }
 
-        const newPlayed = {};
+        const tracks =
+
+        json.recenttracks.track;
 
         tracks.forEach(track=>{
 
             const title =
 
-                track.name || "";
+            track.name || "";
 
             const artist =
 
-                track.artist["#text"] || "";
+            track.artist["#text"] || "";
 
             const key =
 
-                (
-                    title +
-                    artist
-                )
-                .toLowerCase()
-                .replace(/\s/g,"");
+            matchSong(
+                title,
+                artist
+            );
 
             const isPlaying =
 
-                track["@attr"] &&
-                track["@attr"].nowplaying === "true";
+            track["@attr"] &&
 
-            newPlayed[key] = {
+            track["@attr"].nowplaying ===
+            "true";
+
+            const exists =
+
+            songs.some(song=>{
+
+                const songKey =
+
+                matchSong(
+
+                    song.title,
+
+                    song.artist
+
+                );
+
+                return songKey === key;
+
+            });
+
+            if(!exists)
+                return;
+
+            progressSongs[key] = {
 
                 now:
-                    isPlaying,
+                isPlaying,
+
+                title:
+                title,
+
+                artist:
+                artist,
 
                 time:
 
-                    track.date
-                    ?
-                    Number(
-                        track.date.uts
-                    ) * 1000
-                    :
-                    Date.now()
+                track.date
+
+                ?
+
+                Number(
+                    track.date.uts
+                ) * 1000
+
+                :
+
+                Date.now()
 
             };
 
-        });
+            const already =
 
-        playedSongs =
-            newPlayed;
+            sessionSongs.find(
+
+                s=>
+
+                s.key === key
+
+            );
+
+            if(!already){
+
+                sessionSongs.push({
+
+                    key:
+                    key,
+
+                    title:
+                    title,
+
+                    artist:
+                    artist,
+
+                    time:
+                    Date.now()
+
+                });
+
+            }
+
+        });
 
         renderSongs();
 
@@ -716,85 +1062,20 @@ async function checkLastfm(){
     catch(error){
 
         console.log(
+
             "LASTFM ERROR",
+
             error
+
         );
 
     }
 
 }
 
-/* =====================
-SAVE PROGRESS
-===================== */
-
-async function saveProgress(){
-
-    await set(
-
-        ref(
-            db,
-            "primeProgress/" +
-            UID
-        ),
-
-        {
-
-            playedSongs:
-                playedSongs,
-
-            updated:
-                Date.now()
-
-        }
-
-    );
-
-}
-
-/* =====================
-LOAD PROGRESS
-===================== */
-
-onValue(
-
-    ref(
-        db,
-        "primeProgress/" +
-        UID
-    ),
-
-    snapshot=>{
-
-        const data =
-            snapshot.val();
-
-        if(!data)
-            return;
-
-        if(
-            Object.keys(
-                playedSongs
-            ).length === 0
-        ){
-
-            playedSongs =
-
-                data.playedSongs || {};
-
-            renderSongs();
-
-            updateProgress();
-
-        }
-
-    }
-
-);
-
-/* =====================
-LASTFM INTERVAL
-===================== */
+/* =========================
+   FIRST CHECK
+========================= */
 
 setTimeout(
 
@@ -808,6 +1089,10 @@ setTimeout(
 
 );
 
+/* =========================
+   AUTO CHECK
+========================= */
+
 setInterval(
 
     ()=>{
@@ -820,17 +1105,9 @@ setInterval(
 
 );
 
-/* =====================
-TODAY
-===================== */
-
-const TODAY =
-    new Date()
-    .toDateString();
-
-/* =====================
-CHECKIN COUNT
-===================== */
+/* =========================
+   USER CHECKIN TODAY
+========================= */
 
 onValue(
 
@@ -843,7 +1120,7 @@ onValue(
     snapshot=>{
 
         const data =
-            snapshot.val();
+        snapshot.val();
 
         todayCheckin = 0;
 
@@ -870,58 +1147,178 @@ onValue(
 
 );
 
-/* =====================
-CHECKIN
-===================== */
+/* =========================
+   CHECKIN
+========================= */
 
 checkBtn.onclick =
 async ()=>{
 
-    if(
-        totalProgress < 100
-    )
+    if(totalProgress < 100){
+
+        alert(
+            "COMPLETE ALL SONGS FIRST"
+        );
+
         return;
 
-    if(
-        todayCheckin >= 2
-    )
+    }
+
+    if(todayCheckin >= 2){
+
+        alert(
+            "CHECKIN LIMIT TODAY"
+        );
+
         return;
 
-    const time =
-        Date.now();
+    }
+
+    const now =
+    Date.now();
+
+    /* CHECKIN */
 
     await set(
 
         ref(
+
             db,
+
             "primeCheckin/" +
+
             UID +
+
             "/" +
-            time
+
+            now
+
         ),
 
         {
 
             uid:
-                UID,
+            UID,
 
             name:
-                user.name,
+            user.name,
 
             picture:
-                user.picture,
+            user.picture,
 
             date:
-                TODAY,
+            TODAY,
 
             time:
-                time
+            now
 
         }
 
     );
 
-    playedSongs = {};
+    /* HISTORY */
+
+    const saveDate =
+
+    new Date()
+
+    .toISOString()
+
+    .split("T")[0];
+
+    await set(
+
+        ref(
+
+            db,
+
+            "primeHistory/" +
+
+            UID +
+
+            "/" +
+
+            saveDate
+
+        ),
+
+        {
+
+            name:
+            user.name,
+
+            songs:
+            sessionSongs,
+
+            time:
+            now
+
+        }
+
+    );
+
+    /* MEMBER DATA */
+
+    const memberSnap =
+
+    await get(
+
+        ref(
+            db,
+            "primeMembers/" +
+            UID
+        )
+
+    );
+
+    if(memberSnap.exists()){
+
+        const member =
+        memberSnap.val();
+
+        let weekly =
+
+        member.weekly || 0;
+
+        let saving =
+
+        member.saving || 0;
+
+        weekly++;
+
+        if(weekly > 5){
+
+            saving++;
+
+        }
+
+        await update(
+
+            ref(
+                db,
+                "primeMembers/" +
+                UID
+            ),
+
+            {
+
+                weekly:
+                weekly,
+
+                saving:
+                saving
+
+            }
+
+        );
+
+    }
+
+    /* RESET PROGRESS */
+
+    progressSongs = {};
+
+    sessionSongs = [];
 
     await saveProgress();
 
@@ -935,9 +1332,231 @@ async ()=>{
 
 };
 
-/* =====================
-ACTIVITY
-===================== */
+/* =========================
+   MEMBER REQUEST
+========================= */
+
+onValue(
+
+    ref(
+        db,
+        "primeRequests"
+    ),
+
+    snapshot=>{
+
+        const data =
+        snapshot.val();
+
+        if(
+            data &&
+            data[UID]
+        ){
+
+            waitingArea.style.display =
+            "block";
+
+            joinArea.style.display =
+            "none";
+
+        }
+
+    }
+
+);
+
+/* =========================
+   JOIN BUTTON
+========================= */
+
+if(joinBtn){
+
+    joinBtn.onclick =
+    async ()=>{
+
+        await set(
+
+            ref(
+
+                db,
+
+                "primeRequests/" +
+
+                UID
+
+            ),
+
+            {
+
+                uid:
+                UID,
+
+                name:
+                user.name,
+
+                picture:
+                user.picture,
+
+                time:
+                Date.now()
+
+            }
+
+        );
+
+        joinArea.style.display =
+        "none";
+
+        waitingArea.style.display =
+        "block";
+
+    };
+
+}
+
+/* =========================
+   MEMBER LIST
+========================= */
+
+onValue(
+
+    ref(
+        db,
+        "primeMembers"
+    ),
+
+    snapshot=>{
+
+        const data =
+        snapshot.val();
+
+        memberList.innerHTML = "";
+
+        let joined = false;
+
+        if(data){
+
+            Object.keys(data)
+            .forEach(uid=>{
+
+                const member =
+                data[uid];
+
+                if(uid === UID){
+
+                    joined = true;
+
+                }
+
+                const weekly =
+
+                member.weekly || 0;
+
+                const saving =
+
+                member.saving || 0;
+
+                let badge = "";
+
+                if(weekly >= 5){
+
+                    badge =
+                    "✓";
+
+                }
+
+                let savingIcon = "";
+
+                for(
+
+                    let i = 0;
+
+                    i < saving;
+
+                    i++
+
+                ){
+
+                    savingIcon += "🎵";
+
+                }
+
+                let viewBtn = "";
+
+                if(isAdmin){
+
+                    viewBtn =
+
+                    `
+
+                    <button
+                    class="memberButton"
+
+                    onclick="openHistory(
+
+                        '${uid}'
+
+                    )">
+
+                        VIEW
+
+                    </button>
+
+                    `;
+
+                }
+
+                memberList.innerHTML +=
+
+                `
+
+                <div class="memberItem">
+
+                    <div>
+
+                        <div class="memberName">
+
+                            ${member.name}
+
+                            ${badge}
+
+                        </div>
+
+                        <div class="memberPlay">
+
+                            ${savingIcon}
+
+                        </div>
+
+                    </div>
+
+                    ${viewBtn}
+
+                </div>
+
+                `;
+
+            });
+
+        }
+
+        if(joined){
+
+            joinArea.style.display =
+            "none";
+
+            waitingArea.style.display =
+            "none";
+
+        }
+
+    }
+
+);
+
+/* =========================
+   ACTIVITY
+========================= */
 
 onValue(
 
@@ -949,62 +1568,137 @@ onValue(
     snapshot=>{
 
         const data =
-            snapshot.val();
+        snapshot.val();
 
-        const activity =
-
-            document.getElementById(
-                "activityList"
-            );
-
-        activity.innerHTML = "";
+        activityList.innerHTML = "";
 
         if(!data){
 
-            activity.innerHTML =
+            activityList.innerHTML =
 
             `
+
             <div class="activityItem">
 
                 No activity.
 
             </div>
+
             `;
 
             return;
 
         }
 
+        let rows = [];
+
         Object.keys(data)
         .forEach(uid=>{
 
-            const entries =
-
-                Object.values(
-                    data[uid]
-                );
-
-            const todayEntries =
-
-                entries.filter(
-
-                    item=>
-
-                    item.date === TODAY
-
-                );
-
-            if(
-                todayEntries.length === 0
+            Object.values(
+                data[uid]
             )
-                return;
+            .forEach(item=>{
 
-            const name =
+                rows.push(item);
 
-                todayEntries[0]
-                .name;
+            });
 
-            activity.innerHTML +=
+        });
+
+        rows.sort(
+
+            (a,b)=>
+
+            b.time - a.time
+
+        );
+
+        let currentDate = "";
+
+        rows.forEach(item=>{
+
+            let label = "";
+
+            const yesterday =
+
+            new Date();
+
+            yesterday.setDate(
+
+                yesterday.getDate()-1
+
+            );
+
+            if(item.date === TODAY){
+
+                label = "TODAY";
+
+            }
+
+            else if(
+
+                item.date ===
+
+                yesterday.toDateString()
+
+            ){
+
+                label = "YESTERDAY";
+
+            }
+
+            else{
+
+                label = item.date;
+
+            }
+
+            if(currentDate !== label){
+
+                currentDate = label;
+
+                activityList.innerHTML +=
+
+                `
+
+                <div class="activityDate">
+
+                    ${label}
+
+                </div>
+
+                `;
+
+            }
+
+            let view = "";
+
+            if(isAdmin){
+
+                view =
+
+                `
+
+                <button
+
+                class="memberButton"
+
+                onclick="openHistory(
+
+                    '${item.uid}'
+
+                )">
+
+                    VIEW
+
+                </button>
+
+                `;
+
+            }
+
+            activityList.innerHTML +=
 
             `
 
@@ -1012,17 +1706,13 @@ onValue(
 
                 <span>
 
-                    ${name}
-
-                </span>
-
-                <span>
-
-                    ${todayEntries.length}
+                    ${item.name}
 
                     CHECKIN
 
                 </span>
+
+                ${view}
 
             </div>
 
@@ -1034,58 +1724,324 @@ onValue(
 
 );
 
-/* =====================
-AUTO CLEAN 30 DAYS
-===================== */
+/* =========================
+   OPEN HISTORY
+========================= */
 
-async function cleanHistory(){
+window.openHistory =
+async function(uid){
 
     const snap =
+
+    await get(
+
+        ref(
+
+            db,
+
+            "primeHistory/" +
+
+            uid
+
+        )
+
+    );
+
+    if(!snap.exists()){
+
+        historyContent.innerHTML =
+
+        "<div class='empty'>NO HISTORY</div>";
+
+        historyModal.style.display =
+        "flex";
+
+        return;
+
+    }
+
+    const data =
+    snap.val();
+
+    historyContent.innerHTML = "";
+
+    const dates =
+
+    Object.keys(data)
+    .reverse();
+
+    dates.forEach(date=>{
+
+        let title = date;
+
+        const d =
+
+        new Date(date)
+        .toDateString();
+
+        const yesterday =
+
+        new Date();
+
+        yesterday.setDate(
+
+            yesterday.getDate()-1
+
+        );
+
+        if(d === TODAY){
+
+            title = "TODAY";
+
+        }
+
+        else if(
+
+            d ===
+
+            yesterday.toDateString()
+
+        ){
+
+            title = "YESTERDAY";
+
+        }
+
+        historyContent.innerHTML +=
+
+        `
+
+        <div class="historyDay">
+
+            ${title}
+
+        </div>
+
+        `;
+
+        data[date]
+
+        .songs
+
+        .forEach(
+
+            (song,index)=>{
+
+            historyContent.innerHTML +=
+
+            `
+
+            <div class="historySong">
+
+                ${index + 1}.
+
+                ${song.title}
+
+            </div>
+
+            `;
+
+        });
+
+    });
+
+    historyModal.style.display =
+    "flex";
+
+};
+
+/* =========================
+   CLOSE HISTORY
+========================= */
+
+if(closeHistory){
+
+    closeHistory.onclick = ()=>{
+
+        historyModal.style.display =
+        "none";
+
+    };
+
+}
+
+window.onclick = e=>{
+
+    if(
+
+        e.target === historyModal
+
+    ){
+
+        historyModal.style.display =
+        "none";
+
+    }
+
+};
+
+/* =========================
+   RESET BUTTON
+========================= */
+
+if(resetBtn){
+
+    resetBtn.onclick = ()=>{
+
+        if(!isAdmin)
+            return;
+
+        confirmModal.style.display =
+        "flex";
+
+    };
+
+}
+
+/* =========================
+   CONFIRM NO
+========================= */
+
+if(confirmNo){
+
+    confirmNo.onclick = ()=>{
+
+        confirmModal.style.display =
+        "none";
+
+    };
+
+}
+
+/* =========================
+   CONFIRM YES
+========================= */
+
+if(confirmYes){
+
+    confirmYes.onclick =
+    async ()=>{
+
+        confirmModal.style.display =
+        "none";
+
+        const snap =
 
         await get(
 
             ref(
                 db,
-                "primeCheckin/" +
-                UID
+                "primeMembers"
             )
 
         );
+
+        if(!snap.exists())
+            return;
+
+        const data =
+        snap.val();
+
+        Object.keys(data)
+        .forEach(uid=>{
+
+            update(
+
+                ref(
+
+                    db,
+
+                    "primeMembers/" +
+
+                    uid
+
+                ),
+
+                {
+
+                    weekly:0
+
+                }
+
+            );
+
+        });
+
+        alert(
+            "RESET SUCCESS"
+        );
+
+    };
+
+}
+
+/* =========================
+   CLEAN HISTORY
+========================= */
+
+async function cleanHistory(){
+
+    const snap =
+
+    await get(
+
+        ref(
+
+            db,
+
+            "primeHistory/" +
+
+            UID
+
+        )
+
+    );
 
     if(!snap.exists())
         return;
 
     const data =
-        snap.val();
+    snap.val();
 
     const limit =
 
-        Date.now() -
+    Date.now()
 
-        (
-            30 *
-            24 *
-            60 *
-            60 *
-            1000
-        );
+    -
+
+    (
+        7 *
+        24 *
+        60 *
+        60 *
+        1000
+    );
 
     Object.keys(data)
-    .forEach(key=>{
+    .forEach(date=>{
 
         if(
-            data[key].time <
+
+            data[date].time <
+
             limit
+
         ){
 
             remove(
 
                 ref(
+
                     db,
-                    "primeCheckin/" +
+
+                    "primeHistory/" +
+
                     UID +
+
                     "/" +
-                    key
+
+                    date
+
                 )
 
             );
@@ -1098,11 +2054,16 @@ async function cleanHistory(){
 
 cleanHistory();
 
-/* =====================
-START
-===================== */
+/* =========================
+   START
+========================= */
 
-checkBtn.disabled = true;
+if(checkBtn){
+
+    checkBtn.disabled =
+    true;
+
+}
 
 renderSongs();
 

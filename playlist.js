@@ -309,12 +309,20 @@ async ()=>{
         return;
 
     const response =
-        await fetch(
+    await fetch(
+        "https://stream4stream-api.areionproject.workers.dev/?url=" +
+        encodeURIComponent(link)
+    );
 
-            "https://stream4stream-api.areionproject.workers.dev/?url=" +
-            encodeURIComponent(link)
+console.log(response.status);
 
-        );
+const text =
+    await response.text();
+
+console.log(text);
+
+song =
+    JSON.parse(text);
 
     const song =
         await response.json();

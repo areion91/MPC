@@ -1,28 +1,14 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>
     PRIME ZONE
-</title>
+</title><link rel="stylesheet"
+      href="prime.css"></head><body><!-- BACK --><div id="backBtn">← BACK
 
-<link rel="stylesheet"
-      href="prime.css">
+</div><!-- PROFILE --><div id="profileBtn"><img id="avatar">
 
-</head><body><!-- BACK -->
-
-<div id="backBtn">
-    ← BACK
-</div>
-
-<!-- PROFILE -->
-
-<div id="profileBtn">
-    <img id="avatar">
-</div>
-      
-<!-- PLAYLIST HEADER --><div class="playlistHeader"><div class="playlistCover">
+</div><!-- HEADER --><div class="playlistHeader"><div class="playlistCover">
 
     <img id="playlistCover">
 
@@ -39,6 +25,22 @@
     <div id="playlistDesc">
 
         Dreamy healing night vibe.
+
+    </div>
+
+    <div class="playlistStats">
+
+        <span id="playlistSongs">
+
+            0 SONGS
+
+        </span>
+
+        <span id="playlistMembers">
+
+            0 MEMBERS
+
+        </span>
 
     </div>
 
@@ -62,87 +64,49 @@
 
 </div>
 
-</div><!-- CHECK IN --><div class="checkArea"><button id="checkinBtn">
+</div><!-- CHECKIN --><div class="checkArea"><button id="checkinBtn">
 
     CHECK IN
 
 </button>
 
-</div>
+<div id="checkinInfo">
 
-<!-- TABS -->
-
-<div class="tabs">
-
-    <button class="tab active"
-            data-tab="songs">
-
-        SONG
-
-    </button>
-
-    <button class="tab"
-            data-tab="yoursong">
-
-        YOUR SONG
-
-    </button>
-
-    <button class="tab"
-            data-tab="activity">
-
-        ACTIVITY
-
-    </button>
+    0 / 2 CHECKIN TODAY
 
 </div>
 
-<!-- CONTENT -->
+</div><!-- TABS --><div class="tabs"><button class="tab active"
+        data-tab="songs">
 
-<div class="content">
+    SONG
 
-    <!-- SONG -->
+</button>
 
-    <div class="tabContent active"
-         id="songs">
+<button class="tab"
+        data-tab="member">
 
-        <div id="songList">
+    MEMBER
 
-            <div class="songItem">
+</button>
 
-                Loading...
+<button class="tab"
+        data-tab="activity">
 
-            </div>
+    ACTIVITY
 
-        </div>
+</button>
 
-    </div>
+</div><!-- CONTENT --><div class="content"><!-- SONG -->
 
-    <!-- YOUR SONG -->
+<div class="tabContent active"
+     id="songs">
 
-    <div class="tabContent"
-         id="yoursong">
+    <div id="songList">
 
-        <div class="empty">
+        <div class="songItem">
 
-            YOUR SONG EMPTY
-
-        </div>
-
-    </div>
-
-    <!-- ACTIVITY -->
-
-    <div class="tabContent"
-         id="activity">
-
-        <div id="activityList">
-
-            <div class="activityItem">
-
-                No activity.
-
-            </div>
+            Loading playlist...
 
         </div>
 
@@ -150,10 +114,94 @@
 
 </div>
 
-<script type="module"
+<!-- MEMBER -->
+
+<div class="tabContent"
+     id="member">
+
+    <!-- BELUM JOIN -->
+
+    <div id="joinArea">
+
+        <button id="joinBtn">
+
+            JOIN AS LISTENER
+
+        </button>
+
+    </div>
+
+    <!-- WAITING -->
+
+    <div id="waitingArea"
+         style="display:none;">
+
+        WAITING APPROVAL
+
+    </div>
+
+    <!-- MEMBER LIST -->
+
+    <div id="memberList">
+
+    </div>
+
+    <!-- ADMIN BUTTON -->
+
+    <div id="adminControl">
+
+        <button id="resetMemberBtn">
+
+            RESET WEEK
+
+        </button>
+
+    </div>
+
+</div>
+
+<!-- ACTIVITY -->
+
+<div class="tabContent"
+     id="activity">
+
+    <div id="activityList">
+
+        <div class="activityItem">
+
+            No activity.
+
+        </div>
+
+    </div>
+
+</div>
+
+</div><!-- VIEW HISTORY MODAL --><div id="historyModal"><div class="historyBox">
+
+    <div class="historyHeader">
+
+        <span id="historyName">
+
+            MEMBER
+
+        </span>
+
+        <button id="closeHistory">
+
+            ✕
+
+        </button>
+
+    </div>
+
+    <div id="historyContent">
+
+    </div>
+
+</div>
+
+</div><script type="module"
         src="prime.js">
 
-</script>
-
-</body>
-</html>
+</script></body></html>

@@ -335,3 +335,138 @@ snapshot => {
 }
 
 );
+
+/* =====================
+PLAYLIST
+===================== */
+
+const PLAYLIST_ID = "primezone";
+
+const songList =
+document.getElementById(
+    "songList"
+);
+
+const cover =
+document.getElementById(
+    "cover"
+);
+
+const disc =
+document.getElementById(
+    "disc"
+);
+
+function renderSongs(data){
+
+    songList.innerHTML = "";
+
+    if(!data){
+
+        songList.innerHTML = `
+        <div class="songItem">
+            No songs.
+        </div>
+        `;
+
+        return;
+    }
+
+    const songs =
+        Object.values(data);
+
+    songs.forEach((song,index)=>{
+
+        songList.innerHTML += `
+
+        <div class="songItem">
+
+            <div class="songNumber">
+                ${index + 1}
+            </div>
+
+            <div class="songInfo">
+
+                <div class="songTitle">
+                    ${song.title}
+                </div>
+
+                <div class="songArtist">
+                    ${song.artist}
+                </div>
+
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
+    if(songs[0]){
+
+        cover.src =
+            songs[0].cover || "";
+
+    }
+
+}
+
+/* realtime playlist */
+
+onValue(
+
+    ref(
+        db,
+        "playlists/" + PLAYLIST_ID
+    ),
+
+    snapshot => {
+
+        renderSongs(
+            snapshot.val()
+        );
+
+    }
+
+);
+
+/* =====================
+SYNC
+===================== */
+
+onValue(
+
+    ref(
+        db,
+        "sync/" + PLAYLIST_ID
+    ),
+
+    snapshot => {
+
+        const data =
+            snapshot.val();
+
+        if(!data)
+            return;
+
+        const progress =
+            data.progress || 0;
+
+        document
+        .getElementById(
+            "progressFill"
+        )
+        .style.width =
+            progress + "%";
+
+        document
+        .getElementById(
+            "progressValue"
+        )
+        .innerText =
+            progress + "%";
+
+    }
+
+);

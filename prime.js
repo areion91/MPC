@@ -92,6 +92,9 @@ const LASTFM_API =
 let currentLastfm =
 null;
 
+let currentLastfmName =
+"";
+
 /* =========================
    ADMIN
 ========================= */
@@ -116,9 +119,9 @@ let progressSongs = {};
 
 let sessionSongs = [];
 
-let todayCheckin = 0;
-
 let totalProgress = 0;
+
+let todayCheckin = 0;
 
 let members = [];
 
@@ -233,17 +236,17 @@ document.getElementById(
 
 const confirmModal =
 document.getElementById(
-    "confirmModal"
+    "resetModal"
 );
 
 const confirmYes =
 document.getElementById(
-    "confirmYes"
+    "resetYes"
 );
 
 const confirmNo =
 document.getElementById(
-    "confirmNo"
+    "resetNo"
 );
 
 /* =========================
@@ -261,7 +264,7 @@ if(
 }
 
 /* =========================
-   BACK
+   BUTTON
 ========================= */
 
 document
@@ -274,10 +277,6 @@ document
     "./premium.html";
 
 };
-
-/* =========================
-   PROFILE
-========================= */
 
 document
 .getElementById(
@@ -341,13 +340,12 @@ tabs.forEach(tab=>{
 });
 
 /* =========================
-   LOAD PRIMARY LASTFM
+   LASTFM ACCOUNT
 ========================= */
 
 async function loadPrimary(){
 
     const snap =
-
     await get(
 
         ref(
@@ -375,18 +373,20 @@ async function loadPrimary(){
         data.primary - 1
     ];
 
+    currentLastfmName =
+    currentLastfm;
+
 }
 
 loadPrimary();
 
 /* =========================
-   CHECK ADMIN
+   ADMIN
 ========================= */
 
 async function checkAdmin(){
 
     const snap =
-
     await get(
 
         ref(
@@ -412,6 +412,58 @@ async function checkAdmin(){
 }
 
 checkAdmin();
+
+/* =========================
+   MATCH SONG
+========================= */
+
+function matchSong(
+    title,
+    artist
+){
+
+    return (
+        title +
+        artist
+    )
+    .toLowerCase()
+    .replace(/\s/g,"")
+    .replace(/[^\w]/g,"");
+
+}
+
+/* =========================
+   TIME AGO
+========================= */
+
+function timeAgo(time){
+
+    const diff =
+
+    Math.floor(
+        (Date.now() - time)
+        / 1000
+    );
+
+    if(diff < 60){
+
+        return "JUST NOW";
+
+    }
+
+    if(diff < 3600){
+
+        return Math.floor(
+            diff / 60
+        ) + " MIN AGO";
+
+    }
+
+    return Math.floor(
+        diff / 3600
+    ) + " H AGO";
+
+}
 
 /* =========================
    PLAYLIST INFO
@@ -468,7 +520,7 @@ onValue(
 );
 
 /* =========================
-   PLAYLIST SONG
+   PLAYLIST SONGS
 ========================= */
 
 onValue(
@@ -490,7 +542,9 @@ onValue(
         songs =
         Object.values(data);
 
-        if(playlistSongs){
+        if(
+            playlistSongs
+        ){
 
             playlistSongs.innerText =
 
@@ -508,7 +562,7 @@ onValue(
 );
 
 /* =========================
-   MEMBER COUNT
+   MEMBER DATA
 ========================= */
 
 onValue(
@@ -543,7 +597,9 @@ onValue(
 
         }
 
-        if(playlistMembers){
+        if(
+            playlistMembers
+        ){
 
             playlistMembers.innerText =
 
@@ -557,783 +613,7 @@ onValue(
 );
 
 /* =========================
-   TIME AGO
-========================= */
-
-function timeAgo(time){
-
-    const diff =
-
-    Math.floor(
-
-        (Date.now() - time)
-
-        / 1000
-
-    );
-
-    if(diff < 60){
-
-        return "just now";
-
-    }
-
-    if(diff < 3600){
-
-        return Math.floor(
-            diff / 60
-        ) + " minutes ago";
-
-    }
-
-    if(diff < 86400){
-
-        return Math.floor(
-            diff / 3600
-        ) + " hours ago";
-
-    }
-
-    return Math.floor(
-        diff / 86400
-    ) + " days ago";
-
-}
-
-/* =========================
-   PROGRESS
-========================= */
-
-function updateProgress(){
-
-    const total =
-    songs.length;
-
-    const played =
-
-    Object.keys(
-        progressSongs
-    ).length;
-
-    totalProgress =
-
-    total === 0
-
-    ? 0
-
-    :
-
-    Math.floor(
-
-        (played / total)
-
-        * 100
-
-    );
-
-    if(progressValue){
-
-        progressValue.innerText =
-
-        totalProgress + "%";
-
-    }
-
-    if(progressFill){
-
-        progressFill.style.width =
-
-        totalProgress + "%";
-
-    }
-
-    const bar =
-
-    document.querySelector(
-        ".progressBar"
-    );
-
-    if(bar){
-
-        bar.style.setProperty(
-
-            "--progress",
-
-            totalProgress + "%"
-
-        );
-
-    }
-
-    if(checkInfo){
-
-        checkInfo.innerText =
-
-        todayCheckin +
-
-        " / 2 CHECKIN TODAY";
-
-    }
-
-    if(checkBtn){
-
-        checkBtn.disabled =
-
-        totalProgress < 100 ||
-
-        todayCheckin >= 2;
-
-    }
-
-}
-
-/* =========================
-   SONG MATCH
-========================= */
-
-function matchSong(
-
-    title,
-    artist
-
-){
-
-    return (
-
-        title +
-        artist
-
-    )
-
-    .toLowerCase()
-
-    .replace(/\s/g,"");
-
-}
-
-/* =========================
-   RENDER SONG
-========================= */
-
-function renderSongs(){
-
-    if(!songList)
-        return;
-
-    songList.innerHTML = "";
-
-    songs.forEach(song=>{
-
-        const key =
-
-        matchSong(
-
-            song.title,
-
-            song.artist
-
-        );
-
-        const played =
-
-        progressSongs[key];
-
-        let status = "";
-
-        if(played){
-
-            if(played.now){
-
-                status = `
-
-                <div class="playingNow">
-
-                    <div class="eq">
-
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-
-                    </div>
-
-                    PLAYING NOW
-
-                </div>
-
-                `;
-
-            }
-
-            else{
-
-                status = `
-
-                <div class="songHistory">
-
-                    ${timeAgo(
-                        played.time
-                    )}
-
-                </div>
-
-                `;
-
-            }
-
-        }
-
-        songList.innerHTML += `
-
-        <div class="songItem
-        ${played ? "playedSong" : ""}">
-
-            <div class="songCover">
-
-                <img src="${
-                    song.cover || ""
-                }">
-
-            </div>
-
-            <div class="songText">
-
-                <div class="songTitle">
-
-                    ${song.title}
-
-                </div>
-
-                <div class="songArtist">
-
-                    ${song.artist}
-
-                </div>
-
-                ${status}
-
-            </div>
-
-        </div>
-
-        `;
-
-    });
-
-}
-
-/* =========================
-   SAVE PROGRESS
-========================= */
-
-async function saveProgress(){
-
-    await set(
-
-        ref(
-            db,
-            "primeProgress/" +
-            UID
-        ),
-
-        {
-
-            progress:
-            progressSongs,
-
-            session:
-            sessionSongs,
-
-            updated:
-            Date.now()
-
-        }
-
-    );
-
-}
-
-/* =========================
-   LOAD PROGRESS
-========================= */
-
-onValue(
-
-    ref(
-        db,
-        "primeProgress/" +
-        UID
-    ),
-
-    snapshot=>{
-
-        const data =
-        snapshot.val();
-
-        if(!data)
-            return;
-
-        if(
-
-            Object.keys(
-                progressSongs
-            ).length === 0
-
-        ){
-
-            progressSongs =
-
-            data.progress || {};
-
-            sessionSongs =
-
-            data.session || [];
-
-            renderSongs();
-
-            updateProgress();
-
-        }
-
-    }
-
-);
-
-/* =========================
-   LASTFM CHECK
-========================= */
-
-async function checkLastfm(){
-
-    if(!currentLastfm)
-        return;
-
-    try{
-
-        const url =
-
-        "https://ws.audioscrobbler.com/2.0/" +
-
-        "?method=user.getrecenttracks" +
-
-        "&user=" + currentLastfm +
-
-        "&api_key=" + LASTFM_API +
-
-        "&format=json" +
-
-        "&limit=50";
-
-        const response =
-        await fetch(url);
-
-        const json =
-        await response.json();
-
-        if(
-
-            !json.recenttracks ||
-
-            !json.recenttracks.track
-
-        ){
-
-            return;
-
-        }
-
-        const tracks =
-
-        json.recenttracks.track;
-
-        tracks.forEach(track=>{
-
-            const title =
-
-            track.name || "";
-
-            const artist =
-
-            track.artist["#text"] || "";
-
-            const key =
-
-            matchSong(
-                title,
-                artist
-            );
-
-            const isPlaying =
-
-            track["@attr"] &&
-
-            track["@attr"].nowplaying ===
-            "true";
-
-            const exists =
-
-            songs.some(song=>{
-
-                const songKey =
-
-                matchSong(
-
-                    song.title,
-
-                    song.artist
-
-                );
-
-                return songKey === key;
-
-            });
-
-            if(!exists)
-                return;
-
-            progressSongs[key] = {
-
-                now:
-                isPlaying,
-
-                title:
-                title,
-
-                artist:
-                artist,
-
-                time:
-
-                track.date
-
-                ?
-
-                Number(
-                    track.date.uts
-                ) * 1000
-
-                :
-
-                Date.now()
-
-            };
-
-            const already =
-
-            sessionSongs.find(
-
-                s=>
-
-                s.key === key
-
-            );
-
-            if(!already){
-
-                sessionSongs.push({
-
-                    key:
-                    key,
-
-                    title:
-                    title,
-
-                    artist:
-                    artist,
-
-                    time:
-                    Date.now()
-
-                });
-
-            }
-
-        });
-
-        renderSongs();
-
-        updateProgress();
-
-        saveProgress();
-
-    }
-
-    catch(error){
-
-        console.log(
-
-            "LASTFM ERROR",
-
-            error
-
-        );
-
-    }
-
-}
-
-/* =========================
-   FIRST CHECK
-========================= */
-
-setTimeout(
-
-    ()=>{
-
-        checkLastfm();
-
-    },
-
-    3000
-
-);
-
-/* =========================
-   AUTO CHECK
-========================= */
-
-setInterval(
-
-    ()=>{
-
-        checkLastfm();
-
-    },
-
-    20000
-
-);
-
-/* =========================
-   USER CHECKIN TODAY
-========================= */
-
-onValue(
-
-    ref(
-        db,
-        "primeCheckin/" +
-        UID
-    ),
-
-    snapshot=>{
-
-        const data =
-        snapshot.val();
-
-        todayCheckin = 0;
-
-        if(data){
-
-            Object.values(data)
-            .forEach(item=>{
-
-                if(
-                    item.date === TODAY
-                ){
-
-                    todayCheckin++;
-
-                }
-
-            });
-
-        }
-
-        updateProgress();
-
-    }
-
-);
-
-/* =========================
-   CHECKIN
-========================= */
-
-checkBtn.onclick =
-async ()=>{
-
-    if(totalProgress < 100){
-
-        alert(
-            "COMPLETE ALL SONGS FIRST"
-        );
-
-        return;
-
-    }
-
-    if(todayCheckin >= 2){
-
-        alert(
-            "CHECKIN LIMIT TODAY"
-        );
-
-        return;
-
-    }
-
-    const now =
-    Date.now();
-
-    /* CHECKIN */
-
-    await set(
-
-        ref(
-
-            db,
-
-            "primeCheckin/" +
-
-            UID +
-
-            "/" +
-
-            now
-
-        ),
-
-        {
-
-            uid:
-            UID,
-
-            name:
-            user.name,
-
-            picture:
-            user.picture,
-
-            date:
-            TODAY,
-
-            time:
-            now
-
-        }
-
-    );
-
-    /* HISTORY */
-
-    const saveDate =
-
-    new Date()
-
-    .toISOString()
-
-    .split("T")[0];
-
-    await set(
-
-        ref(
-
-            db,
-
-            "primeHistory/" +
-
-            UID +
-
-            "/" +
-
-            saveDate
-
-        ),
-
-        {
-
-            name:
-            user.name,
-
-            songs:
-            sessionSongs,
-
-            time:
-            now
-
-        }
-
-    );
-
-    /* MEMBER DATA */
-
-    const memberSnap =
-
-    await get(
-
-        ref(
-            db,
-            "primeMembers/" +
-            UID
-        )
-
-    );
-
-    if(memberSnap.exists()){
-
-        const member =
-        memberSnap.val();
-
-        let weekly =
-
-        member.weekly || 0;
-
-        let saving =
-
-        member.saving || 0;
-
-        weekly++;
-
-        if(weekly > 5){
-
-            saving++;
-
-        }
-
-        await update(
-
-            ref(
-                db,
-                "primeMembers/" +
-                UID
-            ),
-
-            {
-
-                weekly:
-                weekly,
-
-                saving:
-                saving
-
-            }
-
-        );
-
-    }
-
-    /* RESET PROGRESS */
-
-    progressSongs = {};
-
-    sessionSongs = [];
-
-    await saveProgress();
-
-    renderSongs();
-
-    updateProgress();
-
-    alert(
-        "CHECK IN SUCCESS"
-    );
-
-};
-
-/* =========================
-   MEMBER REQUEST
+   JOIN REQUEST
 ========================= */
 
 onValue(
@@ -1432,7 +712,8 @@ onValue(
 
         memberList.innerHTML = "";
 
-        let joined = false;
+        let joined =
+        false;
 
         if(data){
 
@@ -1444,7 +725,8 @@ onValue(
 
                 if(uid === UID){
 
-                    joined = true;
+                    joined =
+                    true;
 
                 }
 
@@ -1456,12 +738,12 @@ onValue(
 
                 member.saving || 0;
 
-                let badge = "";
+                let complete = "";
 
                 if(weekly >= 5){
 
-                    badge =
-                    "✓";
+                    complete =
+                    "✅";
 
                 }
 
@@ -1477,7 +759,8 @@ onValue(
 
                 ){
 
-                    savingIcon += "🎵";
+                    savingIcon +=
+                    "🎵";
 
                 }
 
@@ -1518,7 +801,7 @@ onValue(
 
                             ${member.name}
 
-                            ${badge}
+                            ${complete}
 
                         </div>
 
@@ -1555,6 +838,655 @@ onValue(
 );
 
 /* =========================
+   UPDATE PROGRESS
+========================= */
+
+function updateProgress(){
+
+    const total =
+    songs.length;
+
+    const played =
+    Object.keys(
+        progressSongs
+    ).length;
+
+    totalProgress =
+
+    total === 0
+
+    ? 0
+
+    :
+
+    Math.floor(
+
+        (played / total)
+
+        * 100
+
+    );
+
+    if(progressValue){
+
+        progressValue.innerText =
+
+        totalProgress + "%";
+
+    }
+
+    if(progressFill){
+
+        progressFill.style.width =
+
+        totalProgress + "%";
+
+    }
+
+    const bar =
+
+    document.querySelector(
+        ".progressBar"
+    );
+
+    if(bar){
+
+        bar.style.setProperty(
+
+            "--progress",
+
+            totalProgress + "%"
+
+        );
+
+    }
+
+    if(checkInfo){
+
+        checkInfo.innerText =
+
+        todayCheckin +
+
+        " / 2 CHECKIN";
+
+    }
+
+    if(checkBtn){
+
+        checkBtn.disabled =
+
+        totalProgress < 100 ||
+
+        todayCheckin >= 2;
+
+    }
+
+}
+
+/* =========================
+   LOAD PROGRESS
+========================= */
+
+onValue(
+
+    ref(
+        db,
+        "primeProgress/" +
+        UID
+    ),
+
+    snapshot=>{
+
+        const data =
+        snapshot.val();
+
+        if(!data)
+            return;
+
+        progressSongs =
+
+        data.progress || {};
+
+        sessionSongs =
+
+        data.session || [];
+
+        renderSongs();
+
+        updateProgress();
+
+    }
+
+);
+
+/* =========================
+   SAVE PROGRESS
+========================= */
+
+async function saveProgress(){
+
+    await set(
+
+        ref(
+            db,
+            "primeProgress/" +
+            UID
+        ),
+
+        {
+
+            progress:
+            progressSongs,
+
+            session:
+            sessionSongs,
+
+            updated:
+            Date.now()
+
+        }
+
+    );
+
+}
+
+/* =========================
+   LASTFM CHECK
+========================= */
+
+async function checkLastfm(){
+
+    if(!currentLastfm)
+        return;
+
+    try{
+
+        const url =
+
+        "https://ws.audioscrobbler.com/2.0/" +
+
+        "?method=user.getrecenttracks" +
+
+        "&user=" +
+
+        currentLastfm +
+
+        "&api_key=" +
+
+        LASTFM_API +
+
+        "&format=json" +
+
+        "&limit=2";
+
+        const response =
+        await fetch(url);
+
+        const json =
+        await response.json();
+
+        if(
+
+            !json.recenttracks ||
+
+            !json.recenttracks.track
+
+        ){
+
+            return;
+
+        }
+
+        const tracks =
+
+        Array.isArray(
+            json.recenttracks.track
+        )
+
+        ?
+
+        json.recenttracks.track
+
+        :
+
+        [
+            json.recenttracks.track
+        ];
+
+        let activeSongs = {};
+
+        tracks.forEach(track=>{
+
+            const title =
+
+            (
+                track.name || ""
+            )
+            .trim()
+            .toLowerCase();
+
+            const artist =
+
+            (
+                track.artist["#text"] || ""
+            )
+            .trim()
+            .toLowerCase();
+
+            songs.forEach(song=>{
+
+                const songTitle =
+
+                (
+                    song.title || ""
+                )
+                .trim()
+                .toLowerCase();
+
+                const songArtist =
+
+                (
+                    song.artist || ""
+                )
+                .trim()
+                .toLowerCase();
+
+                if(
+
+                    title === songTitle &&
+
+                    artist === songArtist
+
+                ){
+
+                    const key =
+
+                    matchSong(
+
+                        song.title,
+
+                        song.artist
+
+                    );
+
+                    activeSongs[key] = {
+
+                        title:
+                        song.title,
+
+                        artist:
+                        song.artist,
+
+                        now:
+
+                        track["@attr"]
+
+                        &&
+
+                        track["@attr"]
+
+                        .nowplaying ===
+
+                        "true",
+
+                        time:
+                        Date.now()
+
+                    };
+
+                }
+
+            });
+
+        });
+
+        /* RESET JIKA SUDAH HILANG */
+
+        Object.keys(
+            progressSongs
+        ).forEach(key=>{
+
+            if(
+
+                !activeSongs[key]
+
+            ){
+
+                delete progressSongs[key];
+
+            }
+
+        });
+
+        /* SET YANG MASIH ADA */
+
+        Object.keys(
+            activeSongs
+        ).forEach(key=>{
+
+            progressSongs[key] =
+
+            activeSongs[key];
+
+            const exist =
+
+            sessionSongs.find(
+
+                s=>
+
+                s.key === key
+
+            );
+
+            if(!exist){
+
+                sessionSongs.push({
+
+                    key:
+                    key,
+
+                    title:
+                    activeSongs[key]
+                    .title,
+
+                    artist:
+                    activeSongs[key]
+                    .artist,
+
+                    time:
+                    Date.now()
+
+                });
+
+            }
+
+        });
+
+        renderSongs();
+
+        updateProgress();
+
+        saveProgress();
+
+    }
+
+    catch(error){
+
+        console.log(
+
+            "LASTFM ERROR",
+
+            error
+
+        );
+
+    }
+
+}
+
+/* =========================
+   START LASTFM
+========================= */
+
+setTimeout(
+
+    ()=>{
+
+        checkLastfm();
+
+    },
+
+    3000
+
+);
+
+setInterval(
+
+    ()=>{
+
+        checkLastfm();
+
+    },
+
+    10000
+
+);
+
+/* =========================
+   USER CHECKIN TODAY
+========================= */
+
+onValue(
+
+    ref(
+        db,
+        "primeCheckin/" +
+        UID
+    ),
+
+    snapshot=>{
+
+        const data =
+        snapshot.val();
+
+        todayCheckin = 0;
+
+        if(data){
+
+            Object.values(data)
+            .forEach(item=>{
+
+                if(
+                    item.date === TODAY
+                ){
+
+                    todayCheckin++;
+
+                }
+
+            });
+
+        }
+
+        updateProgress();
+
+    }
+
+);
+
+/* =========================
+   CHECKIN
+========================= */
+
+checkBtn.onclick =
+async ()=>{
+
+    if(totalProgress < 100){
+
+        alert(
+            "COMPLETE ALL SONGS FIRST"
+        );
+
+        return;
+
+    }
+
+    if(todayCheckin >= 2){
+
+        alert(
+            "MAX 2 CHECKIN"
+        );
+
+        return;
+
+    }
+
+    const now =
+    Date.now();
+
+    const fmName =
+    currentLastfm || "-";
+
+    await set(
+
+        ref(
+
+            db,
+
+            "primeCheckin/" +
+
+            UID +
+
+            "/" +
+
+            now
+
+        ),
+
+        {
+
+            uid:
+            UID,
+
+            name:
+            user.name,
+
+            picture:
+            user.picture,
+
+            lastfm:
+            fmName,
+
+            date:
+            TODAY,
+
+            time:
+            now
+
+        }
+
+    );
+
+    /* HISTORY */
+
+    const saveDate =
+
+    new Date()
+
+    .toISOString()
+
+    .split("T")[0];
+
+    await set(
+
+        ref(
+
+            db,
+
+            "primeHistory/" +
+
+            UID +
+
+            "/" +
+
+            now
+
+        ),
+
+        {
+
+            name:
+            user.name,
+
+            lastfm:
+            fmName,
+
+            songs:
+            sessionSongs,
+
+            time:
+            now
+
+        }
+
+    );
+
+    /* MEMBER */
+
+    const memberSnap =
+
+    await get(
+
+        ref(
+            db,
+            "primeMembers/" +
+            UID
+        )
+
+    );
+
+    if(memberSnap.exists()){
+
+        const member =
+        memberSnap.val();
+
+        let weekly =
+
+        member.weekly || 0;
+
+        let saving =
+
+        member.saving || 0;
+
+        weekly++;
+
+        if(weekly > 5){
+
+            saving++;
+
+        }
+
+        await update(
+
+            ref(
+                db,
+                "primeMembers/" +
+                UID
+            ),
+
+            {
+
+                weekly:
+                weekly,
+
+                saving:
+                saving
+
+            }
+
+        );
+
+    }
+
+    /* RESET PROGRESS */
+
+    progressSongs = {};
+
+    sessionSongs = [];
+
+    await saveProgress();
+
+    renderSongs();
+
+    updateProgress();
+
+    alert(
+        "CHECKIN SUCCESS"
+    );
+
+};
+
+/* =========================
    ACTIVITY
 ========================= */
 
@@ -1572,105 +1504,66 @@ onValue(
 
         activityList.innerHTML = "";
 
-        if(!data){
-
-            activityList.innerHTML =
-
-            `
-
-            <div class="activityItem">
-
-                No activity.
-
-            </div>
-
-            `;
-
+        if(!data)
             return;
 
-        }
-
-        let rows = [];
+        let users = {};
 
         Object.keys(data)
         .forEach(uid=>{
 
+            const rows =
+
             Object.values(
                 data[uid]
-            )
-            .forEach(item=>{
+            );
 
-                rows.push(item);
+            const todayRows =
 
-            });
+            rows.filter(
 
-        });
+                x=>
 
-        rows.sort(
-
-            (a,b)=>
-
-            b.time - a.time
-
-        );
-
-        let currentDate = "";
-
-        rows.forEach(item=>{
-
-            let label = "";
-
-            const yesterday =
-
-            new Date();
-
-            yesterday.setDate(
-
-                yesterday.getDate()-1
+                x.date === TODAY
 
             );
 
-            if(item.date === TODAY){
+            if(todayRows.length){
 
-                label = "TODAY";
+                users[uid] = {
 
-            }
+                    count:
+                    todayRows.length,
 
-            else if(
+                    name:
+                    todayRows[0].name,
 
-                item.date ===
+                    lastfm:
+                    todayRows[0].lastfm,
 
-                yesterday.toDateString()
+                    uid:
+                    uid
 
-            ){
-
-                label = "YESTERDAY";
-
-            }
-
-            else{
-
-                label = item.date;
+                };
 
             }
 
-            if(currentDate !== label){
+        });
 
-                currentDate = label;
+        Object.values(users)
+        .forEach(user=>{
 
-                activityList.innerHTML +=
+            let text =
 
-                `
+            user.count >= 2
 
-                <div class="activityDate">
+            ?
 
-                    ${label}
+            "2x CHECKIN"
 
-                </div>
+            :
 
-                `;
-
-            }
+            "CHECKIN";
 
             let view = "";
 
@@ -1681,12 +1574,11 @@ onValue(
                 `
 
                 <button
-
                 class="memberButton"
 
                 onclick="openHistory(
 
-                    '${item.uid}'
+                    '${user.uid}'
 
                 )">
 
@@ -1704,15 +1596,29 @@ onValue(
 
             <div class="activityItem">
 
-                <span>
+                <div>
 
-                    ${item.name}
+                    <b>
 
-                    CHECKIN
+                        ${user.name}
 
-                </span>
+                    </b>
 
-                ${view}
+                    <br>
+
+                    FM:
+
+                    ${user.lastfm}
+
+                </div>
+
+                <div>
+
+                    ${text}
+
+                    ${view}
+
+                </div>
 
             </div>
 
@@ -1747,11 +1653,21 @@ async function(uid){
 
     );
 
+    historyContent.innerHTML = "";
+
+    historyName.innerHTML = "";
+
     if(!snap.exists()){
 
         historyContent.innerHTML =
 
-        "<div class='empty'>NO HISTORY</div>";
+        `
+        <div class="historyEmpty">
+
+            NO HISTORY
+
+        </div>
+        `;
 
         historyModal.style.display =
         "flex";
@@ -1763,47 +1679,71 @@ async function(uid){
     const data =
     snap.val();
 
-    historyContent.innerHTML = "";
+    const rows =
 
-    const dates =
+    Object.values(data)
 
-    Object.keys(data)
-    .reverse();
+    .sort(
 
-    dates.forEach(date=>{
+        (a,b)=>
 
-        let title = date;
+        b.time - a.time
 
-        const d =
+    );
 
-        new Date(date)
-        .toDateString();
+    if(rows.length){
 
-        const yesterday =
+        historyName.innerHTML =
 
-        new Date();
+        rows[0].name +
 
-        yesterday.setDate(
+        "<br>FM: " +
 
-            yesterday.getDate()-1
+        rows[0].lastfm;
 
+    }
+
+    rows.forEach(item=>{
+
+        let label = "";
+
+        const diff =
+
+        Date.now()
+
+        -
+
+        item.time;
+
+        const minute =
+
+        Math.floor(
+            diff / 60000
         );
 
-        if(d === TODAY){
+        const hour =
 
-            title = "TODAY";
+        Math.floor(
+            diff / 3600000
+        );
+
+        if(hour >= 1){
+
+            label =
+
+            hour +
+
+            " HOURS AGO";
 
         }
 
-        else if(
+        else{
 
-            d ===
+            label =
 
-            yesterday.toDateString()
+            minute +
 
-        ){
-
-            title = "YESTERDAY";
+            " MINUTES AGO";
 
         }
 
@@ -1811,37 +1751,45 @@ async function(uid){
 
         `
 
-        <div class="historyDay">
+        <div class="historyBlock">
 
-            ${title}
+            <div class="historyDate">
+
+                ${label}
+
+            </div>
+
+        `;
+
+        item.songs.forEach(
+
+            (song,index)=>{
+
+                historyContent.innerHTML +=
+
+                `
+
+                <div class="historySong">
+
+                    ${index + 1}.
+
+                    ${song.title}
+
+                </div>
+
+                `;
+
+            }
+
+        );
+
+        historyContent.innerHTML +=
+
+        `
 
         </div>
 
         `;
-
-        data[date]
-
-        .songs
-
-        .forEach(
-
-            (song,index)=>{
-
-            historyContent.innerHTML +=
-
-            `
-
-            <div class="historySong">
-
-                ${index + 1}.
-
-                ${song.title}
-
-            </div>
-
-            `;
-
-        });
 
     });
 
@@ -1881,6 +1829,91 @@ window.onclick = e=>{
 };
 
 /* =========================
+   CLEAN HISTORY
+========================= */
+
+async function cleanHistory(){
+
+    const snap =
+
+    await get(
+
+        ref(
+
+            db,
+
+            "primeHistory/" +
+
+            UID
+
+        )
+
+    );
+
+    if(!snap.exists())
+        return;
+
+    const data =
+    snap.val();
+
+    const limit =
+
+    Date.now()
+
+    -
+
+    (
+
+        7 *
+
+        24 *
+
+        60 *
+
+        60 *
+
+        1000
+
+    );
+
+    Object.keys(data)
+    .forEach(key=>{
+
+        if(
+
+            data[key].time <
+
+            limit
+
+        ){
+
+            remove(
+
+                ref(
+
+                    db,
+
+                    "primeHistory/" +
+
+                    UID +
+
+                    "/" +
+
+                    key
+
+                )
+
+            );
+
+        }
+
+    });
+
+}
+
+cleanHistory();
+
+/* =========================
    RESET BUTTON
 ========================= */
 
@@ -1899,7 +1932,7 @@ if(resetBtn){
 }
 
 /* =========================
-   CONFIRM NO
+   RESET NO
 ========================= */
 
 if(confirmNo){
@@ -1914,7 +1947,7 @@ if(confirmNo){
 }
 
 /* =========================
-   CONFIRM YES
+   RESET YES
 ========================= */
 
 if(confirmYes){
@@ -1968,7 +2001,7 @@ if(confirmYes){
         });
 
         alert(
-            "RESET SUCCESS"
+            "WEEKLY RESET SUCCESS"
         );
 
     };
@@ -1976,86 +2009,88 @@ if(confirmYes){
 }
 
 /* =========================
-   CLEAN HISTORY
+   AUTO RESET WEEKLY
 ========================= */
 
-async function cleanHistory(){
+async function weeklyReset(){
 
-    const snap =
+    const now =
+    new Date();
 
-    await get(
+    const day =
+    now.getDay();
 
-        ref(
+    const hour =
+    now.getHours();
 
-            db,
+    if(
 
-            "primeHistory/" +
+        day === 1 &&
 
-            UID
+        hour === 0
 
-        )
+    ){
 
-    );
+        const snap =
 
-    if(!snap.exists())
-        return;
+        await get(
 
-    const data =
-    snap.val();
+            ref(
+                db,
+                "primeMembers"
+            )
 
-    const limit =
+        );
 
-    Date.now()
+        if(!snap.exists())
+            return;
 
-    -
+        const data =
+        snap.val();
 
-    (
-        7 *
-        24 *
-        60 *
-        60 *
-        1000
-    );
+        Object.keys(data)
+        .forEach(uid=>{
 
-    Object.keys(data)
-    .forEach(date=>{
-
-        if(
-
-            data[date].time <
-
-            limit
-
-        ){
-
-            remove(
+            update(
 
                 ref(
 
                     db,
 
-                    "primeHistory/" +
+                    "primeMembers/" +
 
-                    UID +
+                    uid
 
-                    "/" +
+                ),
 
-                    date
+                {
 
-                )
+                    weekly:0
+
+                }
 
             );
 
-        }
+        });
 
-    });
+    }
 
 }
 
-cleanHistory();
+setInterval(
+
+    ()=>{
+
+        weeklyReset();
+
+    },
+
+    3600000
+
+);
 
 /* =========================
-   START
+   START SYSTEM
 ========================= */
 
 if(checkBtn){
@@ -2070,3 +2105,9 @@ renderSongs();
 updateProgress();
 
 checkLastfm();
+
+console.log(
+
+    "PRIME SYSTEM READY"
+
+);

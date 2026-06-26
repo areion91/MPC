@@ -10,7 +10,9 @@ import {
     onValue
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
+/* ===================== */
 /* FIREBASE */
+/* ===================== */
 
 const firebaseConfig = {
 
@@ -43,7 +45,9 @@ const app =
 const db =
     getDatabase(app);
 
+/* ===================== */
 /* USER */
+/* ===================== */
 
 const user =
 JSON.parse(
@@ -52,14 +56,16 @@ JSON.parse(
     )
 );
 
-if(!user){
+if (!user) {
 
     location.href =
         "./index.html";
 
 }
 
+/* ===================== */
 /* ADMIN */
+/* ===================== */
 
 const ADMINS = [
 
@@ -71,20 +77,31 @@ const ADMINS = [
 
 ];
 
-if(
+if (
 
     !ADMINS.includes(
         user.email.toLowerCase()
     )
 
-){
+) {
 
     location.href =
         "./dashboard.html";
 
 }
 
+/* ===================== */
+/* STATUS */
+/* ===================== */
+
+const status =
+document.getElementById(
+    "status"
+);
+
+/* ===================== */
 /* BACK */
+/* ===================== */
 
 document
 .getElementById(
@@ -101,13 +118,6 @@ document
 
     }
 
-);
-
-/* STATUS */
-
-const status =
-document.getElementById(
-    "status"
 );
 
 /* ===================== */
@@ -177,6 +187,31 @@ document
 };
 
 /* ===================== */
+/* PLAYLIST OPEN */
+/* ===================== */
+
+document
+.querySelectorAll(
+    ".playlistCard"
+)
+.forEach(card=>{
+
+    card.onclick = ()=>{
+
+        const playlist =
+
+            card.dataset.playlist;
+
+        location.href =
+
+            "./playlist.html?id=" +
+            playlist;
+
+    };
+
+});
+
+/* ===================== */
 /* ANNOUNCEMENT */
 /* ===================== */
 
@@ -232,7 +267,8 @@ document
 
         {
 
-            text:text,
+            text:
+                text,
 
             timestamp:
                 Date.now()
@@ -320,7 +356,7 @@ onValue(
 
         let count = 0;
 
-        if(data){
+        if (data) {
 
             Object.keys(data)
             .forEach(key=>{
@@ -328,7 +364,7 @@ onValue(
                 count++;
 
                 const item =
-                data[key];
+                    data[key];
 
                 list.innerHTML += `
 
@@ -388,3 +424,10 @@ function(id){
     );
 
 };
+
+/* ===================== */
+/* READY */
+/* ===================== */
+
+status.textContent =
+    "READY";

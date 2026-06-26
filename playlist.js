@@ -380,17 +380,18 @@ async ()=>{
 /* ADD */
 /* ===================== */
 
+const addPopup =
+document.getElementById(
+    "addPopup"
+);
+
 document
 .getElementById(
     "addSongBtn"
 )
 .onclick = ()=>{
 
-    document
-    .getElementById(
-        "addPopup"
-    )
-    .classList.add(
+    addPopup.classList.add(
         "show"
     );
 
@@ -402,11 +403,7 @@ document
 )
 .onclick = ()=>{
 
-    document
-    .getElementById(
-        "addPopup"
-    )
-    .classList.remove(
+    addPopup.classList.remove(
         "show"
     );
 
@@ -419,93 +416,157 @@ document
 .onclick =
 async ()=>{
 
-    const link =
+    try{
+
+        const link =
+
+            document
+            .getElementById(
+                "newSpotifyLink"
+            )
+            .value
+            .trim();
+
+        if(!link){
+
+            alert(
+                "MASUKKAN LINK SPOTIFY"
+            );
+
+            return;
+
+        }
+
+        const snap =
+            await get(
+
+                ref(
+                    db,
+                    "playlists/" +
+                    playlistId
+                )
+
+            );
+
+        const songs =
+            Object.values(
+                snap.val() || {}
+            );
+
+        if(
+            songs.length >= 100
+        ){
+
+            alert(
+                "MAXIMUM 100 SONGS"
+            );
+
+            return;
+
+        }
+
+        let song;
+
+        try{
+
+            const response =
+                await fetch(
+
+                    "https://stream4stream-api.areionproject.workers.dev/?url=" +
+                    encodeURIComponent(
+                        link
+                    )
+
+                );
+
+            song =
+                await response.json();
+
+        }
+
+        catch(err){
+
+            song = {
+
+                title:
+                    "UNKNOWN SONG",
+
+                artist:
+                    "UNKNOWN ARTIST",
+
+                link:
+                    link
+
+            };
+
+        }
+
+        if(!song.title){
+
+            song.title =
+                "UNKNOWN SONG";
+
+        }
+
+        if(!song.artist){
+
+            song.artist =
+                "UNKNOWN ARTIST";
+
+        }
+
+        song.link = link;
+
+        songs.push(song);
+
+        const newData = {};
+
+        songs.forEach((s,i)=>{
+
+            newData[
+                "song" + (i+1)
+            ] = s;
+
+        });
+
+        await set(
+
+            ref(
+                db,
+                "playlists/" +
+                playlistId
+            ),
+
+            newData
+
+        );
 
         document
         .getElementById(
             "newSpotifyLink"
         )
-        .value;
+        .value = "";
 
-    const snap =
-        await get(
-
-            ref(
-                db,
-                "playlists/" + playlistId
-            )
-
+        addPopup.classList.remove(
+            "show"
         );
 
-    const songs =
-        Object.values(
-            snap.val() || {}
-        );
-
-    if(
-        songs.length >= 100
-    ){
-
-        alert(
-            "MAXIMUM 100 SONGS"
-        );
-
-        return;
+        loadSongs();
 
     }
 
-    const response =
-        await fetch(
+    catch(err){
 
-            "https://stream4stream-api.areionproject.workers.dev/?url=" +
-            encodeURIComponent(link)
-
+        alert(
+            "ERROR : " +
+            err.message
         );
 
-    const song =
-        await response.json();
+        console.log(err);
 
-    songs.push(song);
-
-    const newData = {};
-
-    songs.forEach((s,i)=>{
-
-        newData[
-            "song" + (i+1)
-        ] = s;
-
-    });
-
-    await set(
-
-        ref(
-            db,
-            "playlists/" + playlistId
-        ),
-
-        newData
-
-    );
-
-    document
-    .getElementById(
-        "addPopup"
-    )
-    .classList.remove(
-        "show"
-    );
-
-    document
-    .getElementById(
-        "newSpotifyLink"
-    )
-    .value = "";
-
-    loadSongs();
+    }
 
 };
-
 /* ===================== */
 /* BACK */
 /* ===================== */

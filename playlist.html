@@ -1,0 +1,172 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width,initial-scale=1.0">
+
+<title>
+    PLAYLIST EDITOR
+</title>
+
+<link rel="stylesheet"
+      href="playlist.css">
+
+</head><body><!-- BACK -->
+
+<div id="backBtn">
+
+    ← BACK
+
+</div>
+
+<!-- HEADER -->
+
+<div class="header">
+
+    <h1 id="playlistName">
+
+        PRIME ZONE
+
+    </h1>
+
+    <div id="songCount">
+
+        0 / 100 SONGS
+
+    </div>
+
+</div>
+
+<!-- SONG AREA -->
+
+<div id="playlistContainer">
+
+    <!-- SONG ITEM -->
+
+    <div class="songItem">
+
+        <div class="songInfo">
+
+            <div class="songTitle">
+
+                505
+
+            </div>
+
+            <div class="songArtist">
+
+                Arctic Monkeys
+
+            </div>
+
+        </div>
+
+        <div class="songButtons">
+
+            <button class="editBtn">
+
+                EDIT
+
+            </button>
+
+            <button class="deleteBtn">
+
+                DELETE
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ADD -->
+
+<div class="bottomArea">
+
+    <button id="addSongBtn">
+
+        + ADD SONG
+
+    </button>
+
+</div>
+
+<!-- EDIT POPUP -->
+
+<div id="editPopup"
+     class="popup">
+
+    <div class="popupBox">
+
+        <h2>
+
+            EDIT SONG
+
+        </h2>
+
+        <input id="spotifyLink"
+               placeholder="Spotify Track URL">
+
+        <div class="popupButtons">
+
+            <button id="saveSong">
+
+                SAVE
+
+            </button>
+
+            <button id="closePopup">
+
+                CANCEL
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ADD POPUP -->
+
+<div id="addPopup"
+     class="popup">
+
+    <div class="popupBox">
+
+        <h2>
+
+            ADD SONG
+
+        </h2>
+
+        <input id="newSpotifyLink"
+               placeholder="Spotify Track URL">
+
+        <div class="popupButtons">
+
+            <button id="addSong">
+
+                ADD
+
+            </button>
+
+            <button id="closeAdd">
+
+                CANCEL
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script type="module"
+        src="playlist.js">
+</script>
+
+</body>
+</html>

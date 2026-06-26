@@ -439,3 +439,54 @@ textarea{
         font-size:14px;
     }
 }
+
+/* ===================== */
+/* SYNC POPUP */
+/* ===================== */
+
+#syncList{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+}
+
+.syncItem{
+
+    border:1px solid gold;
+
+    background:#111;
+
+    padding:18px;
+
+    text-align:center;
+
+    letter-spacing:2px;
+
+    color:gold;
+
+    transition:.3s;
+}
+
+.syncItem:hover{
+
+    background:#1a1400;
+
+    transform:scale(1.02);
+}
+
+.syncSuccess{
+
+    border-color:#00ff88;
+
+    color:#00ff88;
+}
+
+.syncLoading{
+
+    border-color:#888;
+
+    color:#aaa;
+}

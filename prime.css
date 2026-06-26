@@ -1,26 +1,36 @@
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body{
+
+    width:100%;
+    height:100%;
+
 }
 
 body{
 
-background:
-linear-gradient(
-    135deg,
-    #050505 0%,
-    #191026 40%,
-    #6f5200 100%
-);
+    background:
+    linear-gradient(
+        135deg,
+        #050505 0%,
+        #13091f 40%,
+        #6b5000 100%
+    );
 
-color:#fff;
+    color:#fff;
 
-font-family:monospace;
+    font-family:monospace;
 
-min-height:100vh;
+    display:flex;
 
-overflow:hidden;
+    flex-direction:column;
+
+    overflow:hidden;
 
 }
 
@@ -30,34 +40,32 @@ BACK
 
 #backBtn{
 
-position:fixed;
+    position:fixed;
 
-top:20px;
-left:20px;
+    top:15px;
+    left:15px;
 
-border:1px solid gold;
+    padding:8px 14px;
 
-padding:8px 15px;
+    border:1px solid gold;
 
-color:gold;
+    color:gold;
 
-cursor:pointer;
+    font-size:11px;
 
-z-index:999;
+    letter-spacing:2px;
 
-font-size:12px;
+    cursor:pointer;
 
-letter-spacing:2px;
-
-transition:.2s;
+    z-index:999;
 
 }
 
 #backBtn:hover{
 
-background:gold;
+    background:gold;
 
-color:#000;
+    color:#000;
 
 }
 
@@ -67,33 +75,33 @@ PROFILE
 
 #profileBtn{
 
-position:fixed;
+    position:fixed;
 
-top:18px;
-right:20px;
+    top:12px;
+    right:15px;
 
-width:46px;
-height:46px;
+    width:42px;
+    height:42px;
 
-z-index:999;
+    z-index:999;
 
-cursor:pointer;
+    cursor:pointer;
 
 }
 
 #avatar{
 
-width:100%;
-height:100%;
+    width:100%;
+    height:100%;
 
-border-radius:50%;
+    object-fit:cover;
 
-border:2px solid gold;
+    border-radius:50%;
 
-object-fit:cover;
+    border:2px solid gold;
 
-box-shadow:
-0 0 15px rgba(255,215,0,.4);
+    box-shadow:
+    0 0 15px rgba(255,215,0,.3);
 
 }
 
@@ -103,80 +111,82 @@ HEADER
 
 .playlistHeader{
 
-margin-top:85px;
+    margin-top:70px;
 
-padding:20px;
+    padding:20px;
 
-display:flex;
+    display:flex;
 
-gap:20px;
+    gap:15px;
+
+    flex-shrink:0;
 
 }
 
 .playlistCover{
 
-width:100px;
-height:100px;
+    width:90px;
+    height:90px;
 
-overflow:hidden;
+    border:2px solid gold;
 
-border:2px solid gold;
+    overflow:hidden;
 
-box-shadow:
-0 0 20px rgba(255,215,0,.25);
+    flex-shrink:0;
 
-flex-shrink:0;
+    box-shadow:
+    0 0 20px rgba(255,215,0,.2);
 
 }
 
 #playlistCover{
 
-width:100%;
-height:100%;
+    width:100%;
+    height:100%;
 
-object-fit:cover;
+    object-fit:cover;
 
 }
 
 .playlistInfo{
 
-flex:1;
+    flex:1;
 
 }
 
 #playlistTitle{
 
-color:gold;
+    color:gold;
 
-font-size:28px;
+    font-size:24px;
 
-letter-spacing:3px;
+    letter-spacing:4px;
 
-margin-bottom:8px;
+    margin-bottom:8px;
 
 }
 
 #playlistDesc{
 
-font-size:12px;
+    font-size:11px;
 
-opacity:.7;
+    color:#bbb;
 
-margin-bottom:10px;
+    margin-bottom:10px;
 
 }
 
 .playlistStats{
 
-display:flex;
+    display:flex;
 
-gap:15px;
+    gap:15px;
 
-font-size:11px;
+    font-size:11px;
 
-color:#bbb;
+    color:#888;
 
-margin-bottom:15px;
+    margin-bottom:10px;
 
 }
 
@@ -186,187 +196,164 @@ PROGRESS
 
 .progressRow{
 
-display:flex;
+    display:flex;
 
-align-items:center;
+    align-items:center;
 
-gap:12px;
+    gap:10px;
 
 }
 
 .progressBar{
 
-flex:1;
+    flex:1;
 
-height:4px;
+    height:4px;
 
-position:relative;
+    background:
+    rgba(255,255,255,.1);
 
---progress:0%;
+    position:relative;
 
-}
-
-.progressBar::before{
-
-content:"";
-
-position:absolute;
-
-left:0;
-right:0;
-
-top:0;
-
-height:4px;
-
-background:
-rgba(255,255,255,.1);
-
-}
-
-.progressBar::after{
-
-content:"◉";
-
-position:absolute;
-
-left:calc(var(--progress) - 8px);
-
-top:-8px;
-
-color:gold;
-
-text-shadow:
-0 0 15px gold;
+    overflow:visible;
 
 }
 
 #progressFill{
 
-width:0%;
+    width:0%;
 
-height:4px;
+    height:100%;
 
-background:
-linear-gradient(
-    90deg,
-    gold,
-    orange
-);
+    background:
+    linear-gradient(
+        90deg,
+        gold,
+        orange
+    );
 
-box-shadow:
-0 0 12px gold;
+    box-shadow:
+    0 0 15px gold;
 
-transition:.4s;
+    transition:.4s;
 
 }
 
 #progressValue{
 
-color:gold;
+    color:gold;
 
-min-width:40px;
+    font-size:12px;
+
+    min-width:45px;
 
 }
 
 /************************
-CHECK
+CHECKIN
 ************************/
 
 .checkArea{
 
-text-align:center;
+    text-align:center;
 
-margin-bottom:15px;
+    padding-bottom:15px;
+
+    flex-shrink:0;
 
 }
 
 #checkinBtn{
 
-width:180px;
+    width:180px;
 
-height:42px;
+    height:42px;
 
-border:1px solid gold;
+    background:none;
 
-background:
-rgba(255,215,0,.05);
+    border:1px solid gold;
 
-color:gold;
+    color:gold;
 
-letter-spacing:3px;
+    letter-spacing:4px;
 
-cursor:pointer;
+    cursor:pointer;
 
 }
 
 #checkinBtn:hover{
 
-background:gold;
+    background:gold;
 
-color:#000;
+    color:#000;
 
 }
 
 #checkinBtn:disabled{
 
-opacity:.3;
+    opacity:.3;
 
-cursor:not-allowed;
+    cursor:not-allowed;
 
 }
 
 #checkinInfo{
 
-margin-top:10px;
+    margin-top:10px;
 
-font-size:11px;
+    font-size:11px;
 
-opacity:.6;
+    color:#777;
 
 }
 
 /************************
-TABS
+TAB
 ************************/
 
 .tabs{
 
-display:flex;
+    display:flex;
 
-background:#111;
+    flex-shrink:0;
 
-border-top:
-1px solid rgba(255,255,255,.1);
+    background:#080808;
 
-border-bottom:
-1px solid rgba(255,255,255,.1);
+    border-top:
+    1px solid rgba(255,255,255,.1);
+
+    border-bottom:
+    1px solid rgba(255,255,255,.1);
 
 }
 
 .tab{
 
-flex:1;
+    flex:1;
 
-height:48px;
+    height:48px;
 
-border:none;
+    border:none;
 
-background:#111;
+    background:#080808;
 
-color:#777;
+    color:#666;
 
-cursor:pointer;
+    font-family:monospace;
 
-letter-spacing:2px;
+    letter-spacing:3px;
+
+    cursor:pointer;
 
 }
 
 .tab.active{
 
-background:gold;
+    background:gold;
 
-color:#000;
+    color:#000;
+
+    font-weight:bold;
 
 }
 
@@ -376,23 +363,27 @@ CONTENT
 
 .content{
 
-height:calc(100vh - 290px);
+    flex:1;
 
-overflow-y:auto;
-
-padding:15px;
+    overflow:hidden;
 
 }
 
 .tabContent{
 
-display:none;
+    display:none;
+
+    height:100%;
+
+    overflow-y:auto;
+
+    padding:15px;
 
 }
 
 .tabContent.active{
 
-display:block;
+    display:block;
 
 }
 
@@ -402,63 +393,52 @@ SONG
 
 .songItem{
 
-display:flex;
+    display:flex;
 
-gap:15px;
+    gap:15px;
 
-padding:14px;
+    padding:12px 0;
 
-border-bottom:
-1px solid rgba(255,255,255,.08);
+    border-bottom:
+    1px solid rgba(255,255,255,.08);
 
 }
 
 .songCover{
 
-width:55px;
+    width:55px;
 
-height:55px;
+    height:55px;
 
-overflow:hidden;
+    object-fit:cover;
 
-flex-shrink:0;
+    border:1px solid #333;
 
-border:1px solid #333;
-
-}
-
-.songCover img,
-.songItem img{
-
-width:100%;
-
-height:100%;
-
-object-fit:cover;
+    flex-shrink:0;
 
 }
 
 .songText{
 
-flex:1;
+    flex:1;
 
 }
 
 .songTitle{
 
-color:#fff;
+    color:#fff;
 
-font-size:14px;
+    font-size:14px;
 
 }
 
 .songArtist{
 
-color:#aaa;
+    color:#888;
 
-font-size:11px;
+    font-size:11px;
 
-margin-top:4px;
+    margin-top:4px;
 
 }
 
@@ -468,62 +448,58 @@ PLAYED
 
 .playedSong{
 
-background:
-rgba(0,255,100,.05);
+    background:
+    rgba(0,255,100,.04);
 
 }
 
 .playedSong .songTitle{
 
-color:#00ff88;
+    color:#00ff88;
 
 }
 
 .playedSong .songArtist{
 
-color:#a0ffd0;
+    color:#7dffc2;
 
 }
 
 /************************
-PLAYING NOW
+PLAYING
 ************************/
 
 .playingNow{
 
-color:gold;
+    margin-top:7px;
 
-font-size:10px;
+    color:gold;
 
-letter-spacing:2px;
+    font-size:10px;
 
-margin-top:8px;
+    letter-spacing:2px;
 
-animation:blink 1s infinite;
+    animation:blink 1s infinite;
 
 }
 
 @keyframes blink{
 
-50%{
+    50%{
 
-    opacity:.4;
+        opacity:.3;
+
+    }
 
 }
-
-}
-
-/************************
-HISTORY
-************************/
 
 .songHistory{
 
-color:#00ff88;
+    margin-top:7px;
 
-font-size:10px;
+    color:#00ff88;
 
-margin-top:8px;
+    font-size:10px;
 
 }
 
@@ -531,106 +507,67 @@ margin-top:8px;
 MEMBER
 ************************/
 
-#joinArea{
-
-padding:30px;
-
-text-align:center;
-
-}
-
-#joinBtn{
-
-width:220px;
-
-height:45px;
-
-border:1px solid gold;
-
-background:none;
-
-color:gold;
-
-cursor:pointer;
-
-}
-
-#waitingArea{
-
-padding:30px;
-
-text-align:center;
-
-opacity:.6;
-
-}
-
 .memberItem{
 
-display:flex;
+    display:flex;
 
-justify-content:space-between;
+    justify-content:space-between;
 
-align-items:center;
+    align-items:center;
 
-padding:15px;
+    padding:15px 0;
 
-border-bottom:
-1px solid rgba(255,255,255,.08);
+    border-bottom:
+    1px solid rgba(255,255,255,.08);
 
 }
 
 .memberName{
 
-color:#fff;
+    color:#fff;
 
 }
 
 .memberPlay{
 
-color:gold;
+    color:gold;
 
-letter-spacing:2px;
+    letter-spacing:2px;
 
 }
 
 .memberButton{
 
-border:1px solid gold;
+    padding:5px 10px;
 
-background:none;
+    border:1px solid gold;
 
-color:gold;
+    background:none;
 
-padding:5px 10px;
-
-cursor:pointer;
+    color:gold;
 
 }
 
-/************************
-ADMIN
-************************/
+#joinArea,
+#waitingArea{
 
-#adminControl{
+    text-align:center;
 
-text-align:center;
-
-margin-top:20px;
+    padding:40px;
 
 }
 
-#resetMemberBtn{
+#joinBtn{
 
-width:150px;
+    width:220px;
 
-height:40px;
+    height:45px;
 
-border:1px solid red;
+    border:1px solid gold;
 
-background:none;
+    background:none;
 
-color:red;
+    color:gold;
 
 }
 
@@ -640,81 +577,18 @@ ACTIVITY
 
 .activityItem{
 
-display:flex;
+    display:flex;
 
-justify-content:space-between;
+    justify-content:space-between;
 
-align-items:center;
+    align-items:center;
 
-padding:15px;
+    padding:15px 0;
 
-border-bottom:
-1px solid rgba(255,255,255,.08);
+    border-bottom:
+    1px solid rgba(255,255,255,.08);
 
-font-size:12px;
-
-}
-
-/************************
-MODAL
-************************/
-
-#historyModal{
-
-position:fixed;
-
-inset:0;
-
-background:
-rgba(0,0,0,.8);
-
-display:none;
-
-justify-content:center;
-
-align-items:center;
-
-z-index:9999;
-
-}
-
-.historyBox{
-
-width:90%;
-
-max-width:500px;
-
-max-height:80vh;
-
-overflow-y:auto;
-
-background:#111;
-
-border:1px solid gold;
-
-padding:20px;
-
-}
-
-.historyHeader{
-
-display:flex;
-
-justify-content:space-between;
-
-margin-bottom:20px;
-
-}
-
-#closeHistory{
-
-background:none;
-
-border:none;
-
-color:red;
-
-cursor:pointer;
+    font-size:12px;
 
 }
 
@@ -724,11 +598,72 @@ EMPTY
 
 .empty{
 
-padding:40px;
+    text-align:center;
 
-text-align:center;
+    padding:50px;
 
-opacity:.5;
+    color:#666;
+
+}
+
+/************************
+MODAL
+************************/
+
+#historyModal{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+    rgba(0,0,0,.85);
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:9999;
+
+}
+
+.historyBox{
+
+    width:90%;
+
+    max-width:500px;
+
+    max-height:80vh;
+
+    overflow-y:auto;
+
+    background:#111;
+
+    border:1px solid gold;
+
+    padding:20px;
+
+}
+
+.historyHeader{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-bottom:20px;
+
+}
+
+#closeHistory{
+
+    border:none;
+
+    background:none;
+
+    color:red;
 
 }
 
@@ -738,13 +673,13 @@ SCROLL
 
 ::-webkit-scrollbar{
 
-width:6px;
+    width:4px;
 
 }
 
 ::-webkit-scrollbar-thumb{
 
-background:gold;
+    background:gold;
 
 }
 
@@ -754,45 +689,126 @@ MOBILE
 
 @media(max-width:600px){
 
-.playlistHeader{
+    .playlistHeader{
 
-    gap:15px;
+        padding:15px;
 
-    padding:15px;
+    }
 
-}
+    .playlistCover{
 
-.playlistCover{
+        width:75px;
+        height:75px;
 
-    width:80px;
+    }
 
-    height:80px;
+    #playlistTitle{
 
-}
+        font-size:20px;
 
-#playlistTitle{
+    }
 
-    font-size:22px;
+    .songTitle{
 
-}
+        font-size:13px;
 
-.content{
+    }
 
-    height:
-    calc(100vh - 270px);
+    .tab{
 
-}
+        font-size:11px;
 
-.tab{
-
-    font-size:11px;
+    }
 
 }
 
-.songTitle{
+/************************
+EQ PLAYING
+************************/
 
-    font-size:13px;
+.playingWrap{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    margin-top:7px;
 
 }
+
+.eq{
+
+    display:flex;
+
+    align-items:flex-end;
+
+    gap:2px;
+
+    height:14px;
+
+}
+
+.eq span{
+
+    width:3px;
+
+    background:gold;
+
+    border-radius:2px;
+
+    animation:eqMove .8s infinite ease-in-out;
+
+}
+
+.eq span:nth-child(1){
+    height:5px;
+    animation-delay:0s;
+}
+
+.eq span:nth-child(2){
+    height:12px;
+    animation-delay:.2s;
+}
+
+.eq span:nth-child(3){
+    height:8px;
+    animation-delay:.4s;
+}
+
+.eq span:nth-child(4){
+    height:14px;
+    animation-delay:.1s;
+}
+
+.eq span:nth-child(5){
+    height:6px;
+    animation-delay:.3s;
+}
+
+@keyframes eqMove{
+
+    0%{
+        transform:scaleY(.3);
+    }
+
+    50%{
+        transform:scaleY(1);
+    }
+
+    100%{
+        transform:scaleY(.3);
+    }
+
+}
+
+.playingNow{
+
+    color:gold;
+
+    font-size:10px;
+
+    letter-spacing:2px;
 
 }

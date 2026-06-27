@@ -838,6 +838,104 @@ onValue(
 );
 
 /* =========================
+   RENDER SONG
+========================= */
+
+function renderSongs(){
+
+    if(!songList)
+        return;
+
+    songList.innerHTML = "";
+
+    songs.forEach(song=>{
+
+        const key =
+
+        matchSong(
+            song.title,
+            song.artist
+        );
+
+        const played =
+
+        progressSongs[key];
+
+        let status = "";
+
+        if(played){
+
+            if(played.now){
+
+                status = `
+
+                <div class="playingNow">
+
+                    PLAYING NOW
+
+                </div>
+
+                `;
+
+            }
+
+            else{
+
+                status = `
+
+                <div class="songHistory">
+
+                    ${timeAgo(
+                        played.time
+                    )}
+
+                </div>
+
+                `;
+
+            }
+
+        }
+
+        songList.innerHTML += `
+
+        <div class="songItem
+        ${played ? "playedSong" : ""}">
+
+            <img
+            class="songCover"
+
+            src="${
+                song.cover || ""
+            }">
+
+            <div class="songText">
+
+                <div class="songTitle">
+
+                    ${song.title}
+
+                </div>
+
+                <div class="songArtist">
+
+                    ${song.artist}
+
+                </div>
+
+                ${status}
+
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+/* =========================
    UPDATE PROGRESS
 ========================= */
 

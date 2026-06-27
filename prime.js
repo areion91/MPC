@@ -1238,67 +1238,64 @@ async function checkLastfm(){
 
         });
 
-        /* RESET JIKA SUDAH HILANG */
-
-        Object.keys(
-            progressSongs
-        ).forEach(key=>{
-
-            if(
-
-                !activeSongs[key]
-
-            ){
-
-                delete progressSongs[key];
-
-            }
-
-        });
-
         /* SET YANG MASIH ADA */
 
-        Object.keys(
-            activeSongs
-        ).forEach(key=>{
+Object.keys(
+    activeSongs
+).forEach(key=>{
 
-            progressSongs[key] =
+    if(!progressSongs[key]){
 
-            activeSongs[key];
+        progressSongs[key] = {
 
-            const exist =
+            title:
+            activeSongs[key]
+            .title,
 
-            sessionSongs.find(
+            artist:
+            activeSongs[key]
+            .artist,
 
-                s=>
+            time:
+            Date.now()
 
-                s.key === key
+        };
 
-            );
+    }
 
-            if(!exist){
+    const exist =
 
-                sessionSongs.push({
+    sessionSongs.find(
 
-                    key:
-                    key,
+        s=>
 
-                    title:
-                    activeSongs[key]
-                    .title,
+        s.key === key
 
-                    artist:
-                    activeSongs[key]
-                    .artist,
+    );
 
-                    time:
-                    Date.now()
+    if(!exist){
 
-                });
+        sessionSongs.push({
 
-            }
+            key:
+            key,
+
+            title:
+            activeSongs[key]
+            .title,
+
+            artist:
+            activeSongs[key]
+            .artist,
+
+            time:
+            Date.now()
 
         });
+
+    }
+
+});
 
         renderSongs();
 

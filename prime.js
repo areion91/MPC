@@ -1262,22 +1262,23 @@ Object.keys(
 
     if(!progressSongs[key]){
 
-        progressSongs[key] = {
+    progressSongs[key] = {
 
-            title:
-            activeSongs[key]
-            .title,
+        title:
+        activeSongs[key].title,
 
-            artist:
-            activeSongs[key]
-            .artist,
+        artist:
+        activeSongs[key].artist,
 
-            time:
-            Date.now()
+        now:
+        activeSongs[key].now,
 
-        };
+        time:
+        Date.now()
 
-    }
+    };
+
+}
 
     const exist =
 

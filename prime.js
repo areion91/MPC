@@ -865,11 +865,23 @@ function renderSongs(){
 
         if(played){
 
+            /* LAGI DIPUTAR */
+
             if(played.now){
 
                 status = `
 
                 <div class="playingNow">
+
+                    <div class="eq">
+
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                    </div>
 
                     PLAYING NOW
 
@@ -878,6 +890,8 @@ function renderSongs(){
                 `;
 
             }
+
+            /* SUDAH PERNAH DIPUTAR */
 
             else{
 
@@ -902,12 +916,14 @@ function renderSongs(){
         <div class="songItem
         ${played ? "playedSong" : ""}">
 
-            <img
-            class="songCover"
+            <div class="songCover">
 
-            src="${
-                song.cover || ""
-            }">
+                <img
+                src="${
+                    song.cover || ""
+                }">
+
+            </div>
 
             <div class="songText">
 
